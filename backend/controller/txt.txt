@@ -1,0 +1,14 @@
+http://localhost:4500/updateproduct/672f2e957fe87d3a65b9d40f
+
+
+{
+  "name": "Earbuds",
+  "image": "http://example.com/wireless-earbuds.jpg",
+  "quantity": 55,
+  "price": 100,
+  "description": "High-quality wireless earbuds ."
+}
+
+
+"email":"dwayzode@gmail.com", 
+  "password":"Pass@123", 
