@@ -11,8 +11,8 @@ function App() {
   return (
     <div>
 
-      <Button colorScheme='red'>Click me</Button>
-      <Button colorScheme='blue'>Click me</Button>
+      <Button  colorScheme='blue'>Click me</Button>
+      <Button  colorScheme='blue'>Click me</Button>
 
     </div>
   )

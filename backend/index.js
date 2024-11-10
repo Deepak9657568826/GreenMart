@@ -3,6 +3,7 @@ const { connection } = require("./config/db.cofig");
 const { userRouter } = require("./routes/user.route");
 const { productRouter } = require("./routes/product.route");
 const { orderRouter } = require("./routes/order.route");
+
 require('dotenv').config()
 
 const app = express();
@@ -29,3 +30,4 @@ app.listen(PORT, async () => {
         console.log(error.message);
     }
 })
+

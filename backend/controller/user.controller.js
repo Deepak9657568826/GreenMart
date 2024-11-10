@@ -5,7 +5,7 @@ require('dotenv').config()
 
 
 const register = async (req, res) => {
-    const { name, email, password, mobileNumber } = req.body
+    const { name, email, password, mobileNumber , role } = req.body
     try {
         const user = await UserModel.findOne({ email })
         // console.log(user);
@@ -23,7 +23,8 @@ const register = async (req, res) => {
                         name,
                         email,
                         password : hash,
-                        mobileNumber
+                        mobileNumber , 
+                        role
                     })
                     await newUser.save();
                     res.status(200).json({ mes: `user register successfully` })

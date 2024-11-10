@@ -9,9 +9,9 @@ const productRouter = express.Router();
 productRouter.post("/addproduct" , authmiddleware ,  addProduct)
 productRouter.get("/allproduct" , authmiddleware ,  getAllProduct)
 productRouter.get("/productIndi" , authmiddleware ,  individualProduct)
-productRouter.put("/updateproduct/:id" , updateProduct)
-productRouter.patch("/updateproduct/:id" , updateProduct)
-productRouter.delete("/deleteproduct/:id" , deleteProduct)
+productRouter.put("/updateproduct/:id" , authmiddleware,  updateProduct)
+productRouter.patch("/updateproduct/:id" , authmiddleware , updateProduct)
+productRouter.delete("/deleteproduct/:id" , authmiddleware ,  deleteProduct)
 
 module.exports = {
     productRouter
