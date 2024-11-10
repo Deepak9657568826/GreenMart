@@ -9,12 +9,12 @@ function App() {
 
 
   return (
-    <>
-      <HStack>
-        <Button>Click me</Button>
-        <Button>Click me</Button>
-      </HStack>
-    </>
+    <div>
+
+      <Button colorScheme='red'>Click me</Button>
+      <Button colorScheme='blue'>Click me</Button>
+
+    </div>
   )
 }
 
