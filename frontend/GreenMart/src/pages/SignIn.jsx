@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "../Styles/SignIn.css"
 
 function SignUp() {
     const [name, setName] = useState('');
@@ -18,7 +19,9 @@ function SignUp() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-md">
+      <div className='signin-background'>
+        <form  onSubmit={handleSubmit} className="signinform bg-violet-100 mx-auto   p-6 bg-white shadow-lg rounded-md">
+            <h3 className='text-xl font-extrabold p-4 text-center  text-amber-950'>Sign up</h3>
             <div className="space-y-4">
                 <div className="flex flex-col items-start">
                     <label htmlFor="firstName" className="text-sm font-medium text-gray-900 mb-1">Name</label>
@@ -99,7 +102,7 @@ function SignUp() {
 
                 <button
                     type="submit"
-                    className={`w-full px-5 py-2.5 text-white text-sm font-medium rounded-lg focus:ring-4 focus:outline-none ${isSubmitting ? 'bg-gray-500' : 'bg-blue-700 hover:bg-blue-800'} focus:ring-blue-300`}
+                    className={`w-1/3  px-5 py-2.5 text-white text-sm font-medium rounded-lg focus:ring-4 focus:outline-none ${isSubmitting ? 'bg-gray-500' : 'bg-blue-700 hover:bg-blue-800'} focus:ring-blue-300`}
                     disabled={isSubmitting}
                 >
                     {isSubmitting ? (
@@ -113,6 +116,7 @@ function SignUp() {
                 </button>
             </div>
         </form>
+        </div>
     );
 }
 
