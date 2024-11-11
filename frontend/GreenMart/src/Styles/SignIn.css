@@ -1,0 +1,31 @@
+.signin-background{
+  background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20241018/pngtree-women-shoping-in-the-supermarkets-image_16420240.jpg);  
+height: 100vh;
+background-repeat: no-repeat;
+background-size: cover;
+display: grid;
+place-items: center;
+}
+.signinform{
+    width: 30%;
+    min-width: 350px;
+}
+.logininform{
+
+    width: 25%;
+    min-width: 350px;
+    height: 50%;
+    
+}
+
+.login-background{
+    background-image: url(https://img.freepik.com/premium-photo/online-grocery-shopping-home-delivery-concept-with-empty-space-incorporating-grocery-app-f_398492-15947.jpg);
+    height: 90vh;
+ 
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+image-rendering:optimizeQuality;
+display: grid;
+place-items: center;
+}
