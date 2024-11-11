@@ -5,6 +5,7 @@ import './App.css'
 import { Button, HStack } from '@chakra-ui/react'
 import Navbar from './components/Navbar'
 import Allroutes from './Allroutes'
+import SignIn from './pages/SignIn'
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
     <div>
       
       <Navbar /> 
-      <Allroutes/>
+      {/* <Allroutes/> */}
+      <SignIn/>
     </div>
   )
 }
