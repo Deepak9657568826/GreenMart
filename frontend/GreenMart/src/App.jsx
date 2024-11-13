@@ -7,6 +7,8 @@ import Navbar from './components/Navbar'
 import Allroutes from './Allroutes'
 import SignIn from './pages/SignIn'
 import Login from './pages/Login'
+import Footer from './components/Footer'
+
 
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
       {/* <Allroutes/> */}
       <SignIn/>
       <Login/>
+      <Footer/>
     </div>
   )
 }
