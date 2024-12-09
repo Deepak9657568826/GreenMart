@@ -8,6 +8,9 @@ import Allroutes from './Allroutes'
 import SignIn from './pages/SignIn'
 import Login from './pages/Login'
 import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import Product from './pages/Product'
+
 
 
 
@@ -16,12 +19,14 @@ function App() {
 
   return (
     <div>
-      
-      <Navbar /> 
+
+      <Navbar />
       {/* <Allroutes/> */}
       {/* <SignIn/> */}
-      <Login/>
-      <Footer/>
+      {/* <Login/> */}
+      {/* <Footer/> */}
+      {/* <HomePage/> */}
+      <Product />
     </div>
   )
 }
