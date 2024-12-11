@@ -20,7 +20,7 @@ function App() {
       
       <Navbar /> 
       {/* <Allroutes/> */}
-      <SignIn/>
+      {/* <SignIn/> */}
       <Login/>
       <Footer/>
     </div>

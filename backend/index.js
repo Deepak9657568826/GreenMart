@@ -3,10 +3,12 @@ const { connection } = require("./config/db.cofig");
 const { userRouter } = require("./routes/user.route");
 const { productRouter } = require("./routes/product.route");
 const { orderRouter } = require("./routes/order.route");
+const cors = require("cors")
 
 require('dotenv').config()
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
