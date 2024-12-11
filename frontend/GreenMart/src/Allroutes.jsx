@@ -9,6 +9,7 @@ import Logout from './pages/Logout'
 import Payment from './pages/Payment'
 import Cart from './pages/Cart'
 import Order from './pages/Order'
+import AddProduct from './pages/AddProduct'
 
 function Allroutes() {
   return (
@@ -23,6 +24,7 @@ function Allroutes() {
             <Route path="/payment" element={<Payment/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/order" element={<Order/>}/>
+            <Route path="/addproduct" element={<AddProduct/>}/>
 
         </Routes>
       
