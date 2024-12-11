@@ -1,9 +1,12 @@
 import React from 'react'
+import Couresel from '../components/Couresel'
+import Product from './Product'
 
 function HomePage() {
   return (
     <div>
-      <h2>THis is homepage </h2>
+      <Couresel/>
+      <Product/>
     </div>
   )
 }

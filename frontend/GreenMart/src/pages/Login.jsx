@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'; // Make sure to use this i
 import "../Styles/SignIn.css";
 import { useToast } from '@chakra-ui/react'
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux'
+import { loginFunction } from '../redux/actionCreator';
+
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -10,8 +13,11 @@ function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate()
   const toast = useToast()
+  const dispatch = useDispatch()
+  const state = useSelector(state=>state)
+  console.log(state);
+  
 
-  const loginUrl = `http://localhost:4500/login`
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,64 +26,10 @@ function Login() {
       email,
       password
     }
-    console.log(fromData);
+     
+    dispatch(loginFunction(fromData , toast , navigate , setIsSubmitting , setEmail , setPassword))
+  }
 
-
-    const response = await axios.post(loginUrl, fromData)
-    console.log(response.data);
-
-    if (response.data.msg == 'please register first or please check email') {
-      setIsSubmitting(false);
-      toast({
-        title: 'please register first ',
-        description: `${response.data.mes}`,
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-        position: 'top-right',
-      })
-
-    }
-    else if (response.data.msg == 'user login successfully') {
-      localStorage.setItem("token" , response.data.token)
-      setIsSubmitting(false);
-      toast({
-        title: 'Login successfull.',
-        description: "User login successfull.",
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-        position: 'top-right',
-      })
-      setEmail("")
-      setPassword("")
-      navigate("/")
-    }
-    else if (response.data.msg == 'please check password') {
-      setIsSubmitting(false);
-      toast({
-        title: 'Check password.',
-        description: "please check password.",
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-        position: 'top-right',
-      })
-    }
-    else {
-      setIsSubmitting(false);
-      toast({
-        title: `${response.data.mes}`,
-        description: `${response.data.mes}`,
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-        position: 'top-right',
-      })
-    }
-
-
-  };
 
   return (
     <div className="login-background">
@@ -137,3 +89,16 @@ function Login() {
 }
 
 export default Login;
+
+
+// const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   const fromData = {
+  //     email,
+  //     password
+  //   }
+  //   console.log(fromData);
+
+
+

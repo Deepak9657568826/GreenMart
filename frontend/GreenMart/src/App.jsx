@@ -8,6 +8,11 @@ import Allroutes from './Allroutes'
 import SignIn from './pages/SignIn'
 import Login from './pages/Login'
 import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import Product from './pages/Product'
+import AddProduct from './pages/AddProduct'
+import TermsModal from './pages/Model'
+
 
 
 
@@ -16,12 +21,17 @@ function App() {
 
   return (
     <div>
-      
-      <Navbar /> 
-      {/* <Allroutes/> */}
+
+      <Navbar />
+      <Allroutes/>
       {/* <SignIn/> */}
-      <Login/>
-      <Footer/>
+      {/* <Login/> */}
+      {/* <Footer/> */}
+      {/* <HomePage/> */}
+      {/* <Product />
+      <AddProduct/> */}
+    {/* <TermsModal/> */}
+
     </div>
   )
 }

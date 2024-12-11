@@ -5,7 +5,8 @@ require('dotenv').config()
 
 
 const register = async (req, res) => {
-    const { name, email, password, mobileNumber , role } = req.body
+    const {name , email , password , mobileNumber , role} = req.body
+
     try {
         const user = await UserModel.findOne({ email })
         // console.log(user);
@@ -16,7 +17,7 @@ const register = async (req, res) => {
         else {
             bcrypt.hash(password, 5, async function (err, hash) {
                 if (err) {
-                    res.status(400).json({ Error: err })
+                    res.status(400).json({ Error: "Error while hashing password" })
                 }
                 else{
                     const newUser = new UserModel({
@@ -38,13 +39,15 @@ const register = async (req, res) => {
 
 
 const login = async (req, res) => {
-    const { email, password } = req.body;
+    const { email , password } = req.body;
+    console.log(email);
+    
     try {
         const user = await UserModel.findOne({ email })
         console.log(user);
 
         if (!user) {
-            res.status(200).json({ mes: `please register first or please check email` })
+            res.status(200).json({ msg: `please register first or please check email` })
         }
         else {
             bcrypt.compare(password, user.password, function(err, result) {
@@ -53,7 +56,7 @@ const login = async (req, res) => {
                 }
                 else if(result){
                     var token = jwt.sign({ tokenUser : user }, process.env.secret_key);
-                    res.status(200).json({ msg:"user login successfully" , token })
+                    res.status(200).json({ msg:"user login successfully" ,user ,  token })
                 }
                 else{
                     res.status(200).json({ msg:"please check password"  })

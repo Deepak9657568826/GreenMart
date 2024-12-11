@@ -3,7 +3,8 @@ const { connection } = require("./config/db.cofig");
 const { userRouter } = require("./routes/user.route");
 const { productRouter } = require("./routes/product.route");
 const { orderRouter } = require("./routes/order.route");
-const cors = require("cors")
+const cors = require("cors");
+const { cartRouter } = require("./routes/cart.route");
 
 require('dotenv').config()
 
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 app.use("/", userRouter)
 app.use("/", productRouter)
 app.use("/", orderRouter)
+app.use("/", cartRouter)
 
 const PORT = process.env.PORT || 4500
 

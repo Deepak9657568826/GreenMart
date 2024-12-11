@@ -46,7 +46,7 @@ const updateProduct= async (req, res) => {
     
     try {
         const updateProduct = await ProductModel.findByIdAndUpdate({_id : id} , paylaod)
-        res.status(200).json({ msg: "product update successfully" })
+        res.status(200).json({ msg: "product update successfully"  , updateProduct})
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
