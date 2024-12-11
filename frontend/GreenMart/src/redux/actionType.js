@@ -1,0 +1,13 @@
+// for login
+export const LOGINLOADING = "LOGINLOADING"
+export const LOGINSUCCESS = "LOGINSUCCESS"
+export const LOGINFAILURE = "LOGINFAILURE"
+
+
+
+// for  add product to cart
+export const ADDTOCARTLOADING = "ADDTOCARTLOADING"
+export const ADDTOCARTSUCCESS = "ADDTOCARTSUCCESS"
+export const ADDTOCARTFAILURE = "ADDTOCARTFAILURE"
+
+
