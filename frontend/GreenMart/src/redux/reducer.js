@@ -5,8 +5,7 @@ const initialLoginState = {
     error: false,
     login: false,
     data: "",
-    role: "",
-    cart: []
+    role: ""
 }
 
 export const loginReducer = (state = initialLoginState, action) => {
@@ -23,21 +22,39 @@ export const loginReducer = (state = initialLoginState, action) => {
             return {
                 ...state, loading: false, login: false, error: action.payload
             }
-        case ADDTOCARTLOADING:
-            return {
-                ...state
-            }
-        case ADDTOCARTSUCCESS:
-            return {
-                ...state, cart: [...state.cart , action.payload]
-            }
-        case ADDTOCARTFAILURE:
-            return {
-                ...state,
-            }
         default:
             return state
     }
 
+}
+
+
+const addtoCartInital = {
+    loading: false,
+    error: "",
+    message: "",
+    cart: []
+}
+
+export const addtoCartReducer = (state = addtoCartInital, action) => {
+    switch (action.type) {
+        case ADDTOCARTLOADING:
+            return {
+                ...state, loading: true
+            }
+
+        case ADDTOCARTSUCCESS:
+            return {
+                ...state, loading: false, message: action.payload.msg, cart: action.payload.allProduct,
+            }
+
+        case ADDTOCARTFAILURE:
+            return {
+                ...state, loading: false, error: action.payload
+            }
+
+        default:
+            return state
+    }
 }
 

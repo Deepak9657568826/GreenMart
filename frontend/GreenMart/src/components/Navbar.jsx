@@ -6,9 +6,10 @@ import {useSelector} from "react-redux"
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-    const state = useSelector(state=>state)
-    console.log(state.role);
-    console.log(state.cart.length)
+    const state = useSelector(state=>state.auth)
+    // console.log(state.role);
+    const cart = useSelector(state=>state.cart.cart)
+    // console.log(cart.length);
     
 
     const toggleMenu = () => {
@@ -24,7 +25,7 @@ function Navbar() {
     };
 
     return (
-        <nav style={{ backgroundColor: "rgb(221, 223, 246)" }} className=" border-gray-200 dark:bg-gray-900">
+        <nav style={{ backgroundColor: "rgb(221, 223, 246)" , position :"fixed", top : "0px" , right : "0px" , left : "0px" }} className=" z-10 border-gray-200 dark:bg-gray-900">
             <div className="flex flex-wrap items-center justify-between px-3">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className="h-20 w-20 rounded-md" alt="Greenmart Logo" />
@@ -112,7 +113,7 @@ function Navbar() {
                             <Link to="/cart" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Cart  </Link>
                             <Link to="/cart">
                             <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1" alt="" />
-                            <p>{state.cart.length}</p>
+                            <strong>{cart.length}</strong>
                             </Link>
                         </li>
                         <li>

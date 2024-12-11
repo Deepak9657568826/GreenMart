@@ -1,16 +1,16 @@
 
 import axios from "axios"
-import { ADDTOCARTFAILURE, ADDTOCARTLOADING, ADDTOCARTSUCCESS, LOGINFAILURE, LOGINLOADING, LOGINSUCCESS } from "./actionType"
+import { ADDTOCARTFAILURE, ADDTOCARTLOADING, ADDTOCARTSUCCESS, LOGINFAILURE, LOGINLOADING, LOGINSUCCESS  } from "./actionType"
 
 //login creator
 const loginUrl = `http://localhost:4500/login`
-export const loginFunction = (fromData , toast , navigate , setIsSubmitting , setEmail , setPassword) => {
+export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEmail, setPassword) => {
     return async (dispatch) => {
         dispatch({ type: LOGINLOADING })
         try {
             const response = await axios.post(loginUrl, fromData)
-           console.log(response.data.user.role);
-           
+            console.log(response.data.user.role);
+
 
             if (response.data.msg == 'please register first or please check email') {
                 setIsSubmitting(false);
@@ -26,7 +26,7 @@ export const loginFunction = (fromData , toast , navigate , setIsSubmitting , se
             }
 
             else if (response.data.msg == 'user login successfully') {
-            
+
                 localStorage.setItem("token", response.data.token)
                 setIsSubmitting(false);
                 toast({
@@ -80,16 +80,50 @@ export const loginFunction = (fromData , toast , navigate , setIsSubmitting , se
 
 // add to cart creator
 
-export const addToCartProduct = (product)=>{
-    return async(dispatch)=>{
-        dispatch({type:ADDTOCARTLOADING})
+const cartProductUrl = `http://localhost:4500/allcartproduct`
+const token = localStorage.getItem("token")
+
+export const addToCartProduct = (toast) => {
+    return async (dispatch) => {
+        dispatch({ type: ADDTOCARTLOADING})
         try {
-            dispatch({type:ADDTOCARTSUCCESS , payload : product})
+            const response = await axios.get(cartProductUrl, {
+                headers: {
+                    Authorization: token
+                }
+            })
+            // console.log(response.data);
             
-         
+            if(response.data.msg == "All Cart Poduct"){
+                // console.log("enter in ok response")
+                dispatch({ type: ADDTOCARTSUCCESS, payload: response.data }) 
+            }
+            else{
+                // console.log("enter in no response")
+                toast({
+                    title: `${response.data.msg}`,
+                    description: `${response.data.msg}`,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                    position: 'top-right',
+                })
+                dispatch({ type: ADDTOCARTFAILURE, payload:  response.data.msg })
+            }
+
+
         } catch (error) {
-            dispatch({type:ADDTOCARTFAILURE , payload:error.message})
-            
+            // console.log("enter in error response")
+            toast({
+                title: `${error.message}`,
+                description: `Somethings went wrong`,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'top-right',
+            })
+            dispatch({ type: ADDTOCARTFAILURE, payload: error.message })
+
         }
     }
 }
