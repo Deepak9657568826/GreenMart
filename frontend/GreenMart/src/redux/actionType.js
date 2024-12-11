@@ -5,9 +5,14 @@ export const LOGINFAILURE = "LOGINFAILURE"
 
 
 
-// for  add product to cart
+// // for  add product to cart
 export const ADDTOCARTLOADING = "ADDTOCARTLOADING"
+
 export const ADDTOCARTSUCCESS = "ADDTOCARTSUCCESS"
+
 export const ADDTOCARTFAILURE = "ADDTOCARTFAILURE"
+
+export const REMOVECARTPRODUCT = "REMOVECARTPRODUCT"
+
 
 
