@@ -2,11 +2,12 @@ const { CartModel } = require("../model/cart.model");
 const { ProductModel } = require("../model/product.model");
 
 const addProductToCart = async (req, res) => {
+    console.log("Enter in product add to cart")
       const paylaod = req.body;
     try {
         const addProduct = new CartModel(paylaod)
         await addProduct.save();
-        res.status(200).json({ msg: "product  added to cart successfully" })
+        res.status(200).json({ msg: "product added to cart successfully"  , addProduct})
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -14,8 +15,8 @@ const addProductToCart = async (req, res) => {
 
 
 const individual_Cart_Product = async (req, res) => {
-      const id = req.body.userId;
-    //   console.log("id", id); 
+      const id = req.body.userId
+      console.log("id", id); 
     try {
         const allProduct = await CartModel.find({userId : id })
         res.status(200).json({ msg: "All Cart Poduct" ,  allProduct })
@@ -43,7 +44,7 @@ const deleteCartProduct= async (req, res) => {
     const {id} = req.params;
     try {
         const deleteProduct = await CartModel.findByIdAndDelete({_id : id})
-        res.status(200).json({ msg: "Cart product delete successfully" })
+        res.status(200).json({ msg: "Product remove from cart" })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }

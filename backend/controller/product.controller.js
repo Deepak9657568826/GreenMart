@@ -14,7 +14,7 @@ const addProduct = async (req, res) => {
 
 const getAllProduct = async (req, res) => {
     const id = req.body;
-    console.log("get form body", id);
+    // console.log(id);
     
     try {
         const allProduct = await ProductModel.find()
