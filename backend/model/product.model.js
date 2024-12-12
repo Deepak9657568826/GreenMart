@@ -13,6 +13,10 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    availableQuantity: {
+        type: Number,
+    },
+   
     price: {
         type: Number,
         required: true
@@ -20,6 +24,17 @@ const productSchema = mongoose.Schema({
     discription: {
         type: String
     },
+    state : {
+        type : String , 
+        enum : ["solid" , "liquid"],
+        required: true
+    }, 
+    category : {
+        type : String , 
+        enum : ["vegetable" , "fruit" , "grocery"],
+        required: true
+    },
+
     username: {
         type: String
     },

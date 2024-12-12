@@ -17,12 +17,14 @@ const orderSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    description: {
-        type: String
+    mobileNumber : {
+        type : Number
     },
-    orderID: {
-        type: String
-    }, 
+    state : {
+        type : String , 
+        enum : ["solid" , "liquid"],
+        required: true
+    },
     status : {
         type : String,
         enum:["pending" , "confirmed", "shipped" , "out for delivery" , "delivered"] , 
