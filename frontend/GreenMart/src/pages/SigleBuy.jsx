@@ -1,7 +1,8 @@
-import { Button } from '@chakra-ui/react'
+import { Button, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+
 
 function SingleBuy() {
     const [singleProducts, setSingleProducts] = useState("")
@@ -9,6 +10,7 @@ function SingleBuy() {
     const [quantity, setQuantity] = useState(1)
     const [initalPrice, setInitialPrice] = useState()
     console.log(singleProducts);
+    const toast = useToast();
 
     const { id } = useParams()
 
@@ -76,6 +78,16 @@ function SingleBuy() {
             }
         } )
         console.log(response.data);
+        if(response.data.msg == "new order placed successfully"){
+            toast({
+                title: 'new order placed successfully',
+                description: `${response.data.msg}`,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+                position: 'top-right',
+            })
+        }
     
         } catch (error) {
             console.log(error.message);
