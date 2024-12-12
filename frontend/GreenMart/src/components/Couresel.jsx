@@ -28,19 +28,19 @@ function Couresel() {
   return (
     <div className="relative w-full mx-auto mt-3" style={{ width: "80%"  }}>
       {/* Carousel wrapper */}
-      <div className="relative h-56 md:h-96 overflow-hidden rounded-lg">
+      <div className="relative h-64 md:h-96 overflow-hidden rounded-lg">
         {/* Slides */}
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`absolute w-full h-full transition-opacity duration-700 ease-in-out ${
+            className={`absolute w-full mt-2 h-full transition-opacity duration-700 ease-in-out ${
               index === activeIndex ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <img
               src={slide}
               alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded"
             />
           </div>
         ))}

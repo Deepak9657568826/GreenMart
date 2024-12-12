@@ -10,6 +10,7 @@ import Payment from './pages/Payment'
 import Cart from './pages/Cart'
 import Order from './pages/Order'
 import AddProduct from './pages/AddProduct'
+import SigleBuy from './pages/SigleBuy'
 
 function Allroutes() {
   return (
@@ -25,6 +26,7 @@ function Allroutes() {
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/order" element={<Order/>}/>
             <Route path="/addproduct" element={<AddProduct/>}/>
+            <Route path="/singleProduct/:id" element={<SigleBuy/>}/>
 
         </Routes>
       
