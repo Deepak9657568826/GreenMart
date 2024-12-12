@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCartProduct } from '../redux/actionCreator';
 import { useToast } from '@chakra-ui/react';
 import { Card, Image, Stack, CardBody, Heading, Text, CardFooter, Button } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 
 
@@ -90,9 +91,10 @@ function Cart() {
                 </CardBody>
 
                 <CardFooter className='flex justify-between '>
-                  <Button variant='solid' colorScheme='blue'>
+                <Link to={`/singleProduct/${product._id}`}>  <Button  variant='solid' colorScheme='blue'>
                     Buy
                   </Button>
+                  </Link>
                   <Button onClick={() => { handleRemove(product._id) }} variant='solid' colorScheme='red'>
                     Remove
                   </Button>
@@ -103,41 +105,41 @@ function Cart() {
         }
       </div>
 
-      <div style={{position:"sticky" , top : "80px"}} className=" mt-10 sm:max-w-md lg:w-full  h-min mx-auto bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl">
-      <div className="space-y-6 bg-white p-8 rounded-3xl shadow-lg">
-        <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
-          Cart Summary
-        </h2>
+      <div style={{ position: "sticky", top: "80px" }} className=" mt-10 sm:max-w-md lg:w-full  h-min mx-auto bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl">
+        <div className="space-y-6 bg-white p-8 rounded-3xl shadow-lg">
+          <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
+            Cart Summary
+          </h2>
 
-        <div className="flex justify-between items-center py-4 border-b border-gray-300">
-          <span className="font-medium text-gray-600 text-lg">Total Items:</span>
-          <span className="text-xl font-semibold text-gray-800">{cart.length}</span>
-        </div>
+          <div className="flex justify-between items-center py-4 border-b border-gray-300">
+            <span className="font-medium text-gray-600 text-lg">Total Items:</span>
+            <span className="text-xl font-semibold text-gray-800">{cart.length}</span>
+          </div>
 
-        <div className="flex justify-between items-center py-4 border-b border-gray-300">
-          <span className="font-medium text-gray-600 text-lg">Total Price:</span>
-          <span className="text-xl font-semibold text-gray-800">Rs. {totalPrice.toFixed(2)}</span>
-        </div>
+          <div className="flex justify-between items-center py-4 border-b border-gray-300">
+            <span className="font-medium text-gray-600 text-lg">Total Price:</span>
+            <span className="text-xl font-semibold text-gray-800">Rs. {totalPrice.toFixed(2)}</span>
+          </div>
 
-        <div className="flex justify-between items-center py-4 border-b border-gray-300">
-          <span className="font-medium text-gray-600 text-lg">Discount:</span>
-          <span className="text-xl font-semibold text-green-500">Rs. 0.00</span>
-        </div>
+          <div className="flex justify-between items-center py-4 border-b border-gray-300">
+            <span className="font-medium text-gray-600 text-lg">Discount:</span>
+            <span className="text-xl font-semibold text-green-500">Rs. 0.00</span>
+          </div>
 
-        <div className="flex justify-between items-center py-4">
-          <span className="font-medium text-gray-600 text-lg">Grand Total:</span>
-          <span className="text-2xl font-bold text-indigo-600">Rs. {totalPrice.toFixed(2)}</span>
-        </div>
+          <div className="flex justify-between items-center py-4">
+            <span className="font-medium text-gray-600 text-lg">Grand Total:</span>
+            <span className="text-2xl font-bold text-indigo-600">Rs. {totalPrice.toFixed(2)}</span>
+          </div>
 
-        <div className="flex justify-center mt-6">
-          <button
-            className="w-full py-3 px-6 bg-blue-600 text-white font-bold rounded-2xl transform transition-transform hover:scale-105 hover:bg-blue-700 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
-          >
-            Confirm Order
-          </button>
+          <div className="flex justify-center mt-6">
+            <button
+              className="w-full py-3 px-6 bg-blue-600 text-white font-bold rounded-2xl transform transition-transform hover:scale-105 hover:bg-blue-700 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
+            >
+              Confirm Order
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
     </div>
 
