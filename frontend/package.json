@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "react-redux": "^9.1.2",
+    "redux": "^5.0.1",
+    "redux-thunk": "^3.1.0",
+    "thunk": "^0.0.1"
+  }
+}
