@@ -25,6 +25,9 @@ const orderSchema = mongoose.Schema({
         enum : ["solid" , "liquid"],
         required: true
     },
+    username: {
+        type: String
+    },
     status : {
         type : String,
         enum:["pending" , "confirmed", "shipped" , "out for delivery" , "delivered"] , 
