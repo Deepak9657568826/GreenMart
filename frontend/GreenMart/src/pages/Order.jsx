@@ -4,28 +4,15 @@ import React, { useEffect, useState } from 'react'
 
 
 function Order() {
-
-
   const [order, setOrder] = useState();
+  const [status , setStatus] = useState("pending");
+  // console.log(status);
+  
+  const token = localStorage.getItem("token")
 
-  const statusColors = {
-    pending: 'bg-yellow-200 text-yellow-800',
-    confirmed: 'bg-blue-200 text-blue-800',
-    shipped: 'bg-purple-200 text-purple-800',
-    'out for delivery': 'bg-orange-200 text-orange-800',
-    delivered: 'bg-green-200 text-green-800',
-  };
-
-  const handleStatusChange = (index, newStatus) => {
-    // Logic to update status in backend or state
-    console.log(`Status for order ${index + 1} changed to ${newStatus}`);
-  };
-
-
+  const url = "http://localhost:4500/allorder";
   const fetchAllOrders = async () => {
-    const url = "http://localhost:4500/allorder";
     try {
-      const token = localStorage.getItem("token")
       const response = await axios.get(url, {
         headers: {
           Authorization: token
@@ -38,12 +25,74 @@ function Order() {
       console.log(error.msg);
 
     }
-
   }
 
   useEffect(() => {
     fetchAllOrders();
   }, [])
+
+  const updateUrl = `http://localhost:4500/updateorder`
+ const handleChange = async( order, payload)=>{
+  console.log(order);
+    try {
+      const response = await axios.patch(`${updateUrl}/${order._id}` , payload , {
+        headers: {
+          Authorization: token
+        }
+      })
+      console.log(response.data);
+      
+      fetchAllOrders();
+    } catch (error) {
+      console.log(error.message);
+      
+    }
+
+ }
+
+
+ 
+const deleteUrl = `http://localhost:4500/deleteorder`
+ const handleDelete  = async(id)=>{
+  try {
+    const response = await axios.delete(`${deleteUrl}/${id}`, {
+      headers: {
+        Authorization: token
+      }
+    })
+    console.log(response.data);
+    
+    fetchAllOrders();
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+
+ }
+
+
+//  enum:["pending" , "confirmed", "shipped" , "out for delivery" , "delivered"] , 
+  function setBackgroundcolco(status) {
+    console.log(status);
+    
+    switch (status) {
+      case 'pending':
+        return 'yellow'; // Orange
+      case 'Confirmed':
+        return '#5bc0de'; // Blue
+      case 'shipped':
+        return '#5cb85c'; // Green
+      case 'out for delivery':
+        return '#d9534f'; // Red
+        case 'delivered':
+          return 'blue'; // Red
+      default:
+        return '#000'; // Default black
+    }
+  }
+
+
+
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -69,23 +118,27 @@ function Order() {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.quantity}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.price}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.username}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.mobileNumber}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
+                 
                   <select
-                    className={`p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 ${statusColors[temp.status]}`}
-                    value={temp.status}
-                    onChange={(e) => handleStatusChange(index, e.target.value)}
+                    className={`p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 `}
+                    onChange={(e)=>handleChange(temp , {status : e.target.value})}
+                    value = {temp.status}
+                    style={{ background: setBackgroundcolco(temp.status), color: "white", fontWeight: "bold" }}
                   >
-                    <option value="pending">Pending</option>
-                    <option value="confirmed">Confirmed</option>
+                    <option  value="pending">Pending</option>
+                    <option  value="confirmed">Confirmed</option>
                     <option value="shipped">Shipped</option>
                     <option value="out for delivery">Out for Delivery</option>
                     <option value="delivered">Delivered</option>
                   </select>
+
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <button
+                  onClick={()=>{handleDelete(temp._id)}}
                     className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
                   >
                     Delete

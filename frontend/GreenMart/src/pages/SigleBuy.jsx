@@ -2,14 +2,16 @@ import { Button, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import check from "../assets/check.png"
+import  "../Styles/singleBuy.css"
 
 function SingleBuy() {
     const [singleProducts, setSingleProducts] = useState("")
     const [price, setPrice] = useState()
     const [quantity, setQuantity] = useState(1)
     const [initalPrice, setInitialPrice] = useState()
-    console.log(singleProducts);
+    const [orderComfirmModel, setConfirmModel] = useState(false)
+    // console.log(singleProducts);
     const toast = useToast();
 
     const { id } = useParams()
@@ -17,7 +19,7 @@ function SingleBuy() {
     const url = `http://localhost:4500/singleProduct/${id}`
 
 
-    console.log(price);
+    // console.log(price);
 
 
 
@@ -59,40 +61,39 @@ function SingleBuy() {
         }
     }
 
-  const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token")
     // place order
     const orderUrl = `http://localhost:4500/placeorder`
-    const handleBuy = async() => {
+    const handleBuy = async () => {
 
         const orderdata = {
             name: singleProducts.name,
             image: singleProducts.image,
             quantity: quantity,
             price: price,
-            state : singleProducts.state
+            state: singleProducts.state
         }
         try {
-         const response = await axios.post(orderUrl , orderdata , {
-            headers: {
-                Authorization: token
-            }
-        } )
-        console.log(response.data);
-        if(response.data.msg == "new order placed successfully"){
-            toast({
-                title: 'new order placed successfully',
-                description: `${response.data.msg}`,
-                status: 'success',
-                duration: 2000,
-                isClosable: true,
-                position: 'top-right',
+            const response = await axios.post(orderUrl, orderdata, {
+                headers: {
+                    Authorization: token
+                }
             })
-        }
-    
+            console.log(response.data);
+            if (response.data.msg == "new order placed successfully") {
+                setTimeout(()=>{
+                    setConfirmModel(true)
+
+                },2000)
+            }
+
         } catch (error) {
             console.log(error.message);
-
         }
+    }
+
+    const isModelClose = () => {
+        setConfirmModel(false)
     }
 
 
@@ -143,11 +144,6 @@ function SingleBuy() {
                         <span className="text-xl font-semibold text-gray-800">Rs. {price}</span>
                     </div>
 
-                    {/* <div className="flex justify-between items-center py-4 border-b border-gray-300">
-                        <span className="font-medium text-gray-600 text-lg">Discount:</span>
-                        <span className="text-xl font-semibold text-green-500">Rs. 0.00</span>
-                    </div> */}
-
                     <div className="flex justify-between items-center py-4 border-b border-gray-300">
                         <span className="font-medium text-gray-600 text-lg">Quantity:</span>
                         <span className="text-xl font-semibold text-green-500">  {quantity} {singleProducts.state == "solid" ? "kg" : "ml"}</span>
@@ -168,10 +164,47 @@ function SingleBuy() {
                 </div>
             </div>
 
+
+            {/* modal for  */}
+            {orderComfirmModel &&
+               <div id="popup-modal" tabIndex="-1" aria-hidden="true" 
+               className="flex justify-center items-center h-screen md:inset-0 fixed top-0 right-0 left-0 z-50 bg-black bg-opacity-50"
+           >
+               <div className="relative p-4 w-full max-w-md h-auto">
+                   <div className="relative bg-white rounded-lg shadow-lg dark:bg-gray-700">
+                       <button
+                           onClick={isModelClose}
+                           type="button"
+                           className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                       >
+                           <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6" />
+                           </svg>
+                           <span className="sr-only">Close modal</span>
+                       </button>
+                       <div className="p-6 text-center">
+                           <img className='comfirmLogo h-16 w-16 content-center m-auto' src={check} alt="" />
+                           <h3 className="mb-5 text-lg font-semibold text-gray-700 dark:text-white">
+                               Your order has been placed successfully!
+                           </h3>
+                           <p className="mb-5 text-sm text-gray-500 dark:text-gray-400">
+                               Thank you for shopping with us. We will process your order shortly.
+                           </p>
+                           <button
+                               onClick={isModelClose}
+                               type="button"
+                               className="w-full bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                           >
+                               OK, Got it!
+                           </button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           
+            }
+
         </div>
-
-
-
 
     )
 }

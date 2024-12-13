@@ -29,6 +29,9 @@ const productSchema = mongoose.Schema({
         enum : ["solid" , "liquid"],
         required: true
     }, 
+    mobileNumber : {
+        type : Number
+    },
     category : {
         type : String , 
         enum : ["vegetable" , "fruit" , "grocery"],

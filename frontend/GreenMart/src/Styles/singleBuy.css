@@ -1,0 +1,19 @@
+.comfirmLogo{
+ animation-name: checkBox;
+ animation-duration: 2s;
+ animation-timing-function: linear;
+ animation-iteration-count: infinite;
+
+}
+
+@keyframes checkBox {
+      0% {
+         transform: scale(1);
+      }
+      50%{
+        transform: scale(1.2);
+      }
+      100%{
+        transform: scale(1);
+      }
+}

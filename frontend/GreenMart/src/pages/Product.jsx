@@ -213,6 +213,8 @@ function Product() {
             Authorization: token
           }
         })
+        console.log(response);
+        
         if (response.data.msg == "product added to cart successfully") {
           toast({
             title: 'Product added to cart',
@@ -255,7 +257,7 @@ function Product() {
                   <div>
                     <div className="flex items-center mt-2.5 mb-5  justify-between ">
                       <span className="text-xl  text-gray-900 dark:text-white">Rs: {temp.price}</span>
-                      <span className="text-xl  text-gray-900 dark:text-white">Quantity: {temp.quantity >= 1000 ? temp.quantity.toString()[0] : temp.quantity } {temp.state == "solid" ? `kg` : `ml`}</span>
+                      <span className="text-xl  text-gray-900 dark:text-white">Quantity: {temp.quantity >= 1000 ? temp.quantity.toString()[0] : temp.quantity } {temp.state == "solid" ? `kg` : `ltr`}</span>
                     </div>
 
                   </div>
@@ -421,8 +423,10 @@ function Product() {
 
 
       {productDeleteModel &&
-        <div id="popup-modal" tabIndex="-1" aria-hidden="true" className="flex justify-center  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 items-center w-full md:inset-0 max-h-full bg-black bg-opacity-50">
-          <div className="relative p-4 w-full max-w-md max-h-full">
+         <div id="popup-modal" tabIndex="-1" aria-hidden="true" 
+         className="flex justify-center items-center h-screen md:inset-0 fixed top-0 right-0 left-0 z-50 bg-black bg-opacity-50"
+     >
+         <div className="relative p-4 w-full max-w-md h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <button onClick={closeDeleteModel} type="button" className="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
                 <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
