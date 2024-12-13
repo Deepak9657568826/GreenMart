@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import logo from "../components/greenmartlogo.jpg"
 import logo from "../assets/logo2.png"
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux"
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-    const state = useSelector(state=>state.auth)
-    // console.log(state.role);
-    const cart = useSelector(state=>state.cart.cart)
+    const state = useSelector(state => state.auth)
+    const role = state.role
+    console.log("role hai kya yaha", state.role);
+    const cart = useSelector(state => state.cart.cart)
     // console.log(cart.length);
-    
+
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -25,14 +26,14 @@ function Navbar() {
     };
 
     return (
-        <nav style={{ backgroundColor: "rgb(221, 223, 246)" , position :"fixed", top : "0px" , right : "0px" , left : "0px" }} className=" z-10 border-gray-200 dark:bg-gray-900">
+        <nav style={{ backgroundColor: "rgb(221, 223, 246)", position: "fixed", top: "0px", right: "0px", left: "0px" }} className=" z-10 border-gray-200 dark:bg-gray-900">
             <div className="flex flex-wrap items-center justify-between px-3">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className="h-20 w-20 rounded-md" alt="Greenmart Logo" />
                     {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> */}
                 </Link>
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    
+
                     <div>
                         <button
                             type="button"
@@ -89,12 +90,12 @@ function Navbar() {
 
                 {/* Navbar Links (Responsive) */}
                 <div
-                // style={{ backgroundColor: "rgb(221, 223, 246)" }}
+                    // style={{ backgroundColor: "rgb(221, 223, 246)" }}
                     className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? 'block' : 'hidden'}`}
                     id="navbar-user"
                 >
 
-                    
+
                     <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
                             <Link to="/" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</Link>
@@ -102,23 +103,28 @@ function Navbar() {
                         <li>
                             <Link to="/about" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</Link>
                         </li>
-                        <li>
-                            <Link to="/addproduct" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Add Product</Link>
-                        </li>
-                        <li>
-                            <Link to="/order" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Received Order</Link>
-                        </li>
+                        {role == "admin" &&
+                            <>
+                                <li>
+                                    <Link to="/addproduct" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Add Product</Link>
+                                </li>
+                                <li>
+                                    <Link to="/order" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Received Order</Link>
+                                </li>
+                            </>
+                        }
+
                         <li>
                             <Link to="/product" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Product</Link>
                         </li>
 
 
-                        
+
                         <li className='flex'>
                             <Link to="/cart" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Cart  </Link>
                             <Link to="/cart">
-                            <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1" alt="" />
-                            <strong>{cart.length}</strong>
+                                <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1" alt="" />
+                                <strong>{cart.length}</strong>
                             </Link>
                         </li>
                         <li>
