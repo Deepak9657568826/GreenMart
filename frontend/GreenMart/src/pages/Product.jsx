@@ -237,9 +237,9 @@ function Product() {
   return (
     <>
       <h1
-        className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-orange-500 to-red-600 text-center py-6 drop-shadow-md"
+        className="text-xl md:text-2xl pt-14 font-bold text-stone-700 bg-clip-text bg-gradient-to-r from-green-400 via-orange-500 to-red-600 text-center py-6 drop-shadow-md"
       >
-        Explore Our All Products
+        Explore All Products
       </h1>
       <div className="flex justify-start gap-10 ">
         <div>
@@ -247,7 +247,7 @@ function Product() {
             htmlFor="countries"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Search base on product name
+            Search Products
           </label>
           <input
             type="text"
@@ -259,25 +259,61 @@ function Product() {
           />
         </div>
         <div className="flex flex-wrap gap-4 justify-center mt-4">
-          <button
-            className={`px-6 py-3 rounded-lg text-white font-semibold text-sm md:text-base bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 transition-all duration-300 shadow-md transform hover:scale-105 active:scale-95`}
+          <button 
+         
+            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
             onClick={(e) => seButton(e.target.innerText)}
           >
             Vegetable
           </button>
 
           <button
-            className={`px-6 py-3 rounded-lg text-white font-semibold text-sm md:text-base bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 transition-all duration-300 shadow-md transform hover:scale-105 active:scale-95`}
+            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base   transition-all duration-300  transform hover:scale-105 active:scale-95`}
             onClick={(e) => seButton(e.target.innerText)}
           >
             Fruit
           </button>
 
           <button
-            className={`px-6 py-3 rounded-lg text-white font-semibold text-sm md:text-base bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 transition-all duration-300 shadow-md transform hover:scale-105 active:scale-95`}
+            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
             onClick={(e) => seButton(e.target.innerText)}
           >
             Grocery
+          </button>
+
+          <button
+            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
+            onClick={(e) => seButton(e.target.innerText)}
+          >
+            Body Care
+          </button>
+
+          <button
+            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
+            onClick={(e) => seButton(e.target.innerText)}
+          >
+            Baby Care
+          </button>
+
+          <button
+            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
+            onClick={(e) => seButton(e.target.innerText)}
+          >
+            Kitchen experts
+          </button>
+
+          <button
+            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
+            onClick={(e) => seButton(e.target.innerText)}
+          >
+            Cleaning experts
+          </button>
+
+          <button
+            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
+            onClick={(e) => seButton(e.target.innerText)}
+          >
+           Energy Drinks
           </button>
         </div>
 
@@ -288,37 +324,38 @@ function Product() {
         {filterData.map((temp, index) => {
           return (
             <div key={index}>
-              <div className=" bg-slate-200 w-72 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
+              <div className=" bg-slate-200 w-64 max-w-sm bg-zinc-50 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <a href="#" className="flex justify-center">
                   <img
-                    className="p-8 h-52 w-full rounded-lg "
+                    className="pt-4 h-44 w-44 rounded-lg "
                     src={temp.image}
                     alt="product image"
                   />
                 </a>
                 <div className="px-5 pb-5">
                   <a href="#">
-                    <h5 className="text-xl text-center font-semibold tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="text-lg pt-4 text-center font-semibold tracking-tight text-gray-900 dark:text-white">
                       {temp.name}
                     </h5>
                   </a>
                   <div>
                     <div className="flex items-center mt-2.5 mb-5  justify-between ">
-                      <span className="text-xl  text-gray-900 dark:text-white">
+                      <span className="text-lg  text-gray-900 dark:text-white">
                         Rs: {temp.price}
                       </span>
-                      <span className="text-xl  text-gray-900 dark:text-white">
-                        Quantity:{" "}
+                      <span className="text-lg  text-gray-900 dark:text-white">
+                       {" "}
                         {temp.quantity >= 1000
                           ? temp.quantity.toString()[0]
                           : temp.quantity}{" "}
                         {temp.state == "solid" ? `kg` : `ltr`}
                       </span>
                     </div>
+                    
                   </div>
                   <div className="flex  items-center justify-between">
                     <Link to={`/singleProduct/${temp._id}`}>
-                      <button style={{ width: role == "user" ? ("250px") : ("") }} className="text-white min-w-full  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      <button style={{ width: role == "user" ? ("250px") : ("") }} className="text-white min-w-full  bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Buy now
                       </button>
                     </Link>
@@ -328,7 +365,7 @@ function Product() {
                         onClick={() => {
                           handleAddToCart(temp);
                         }}
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="text-white bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
                         Add to cart
                       </button>
@@ -340,7 +377,7 @@ function Product() {
                         onClick={() => {
                           openModel(temp);
                         }}
-                        className="text-white w-full mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="text-lime-900 border border-gray-500 w-full mt-4 bg-gradient-to-r from-lime-50 via-lime-100 to-lime-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
                         Update
                       </button>
@@ -348,7 +385,7 @@ function Product() {
                         onClick={() => {
                           openDeleteModel(temp._id);
                         }}
-                        className="text-white w-full  mt-4 bg-red-500 hover:bg-red-7pratin00 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="text-red-700 w-full border border-gray-500  mt-4 bg-gradient-to-r from-rose-50 via-rose-100 to-rose-200 hover:bg-red-7pratin00 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
                         Delete Product
                       </button>
