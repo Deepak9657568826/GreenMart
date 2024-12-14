@@ -66,8 +66,8 @@ function Navbar() {
     }
 
     return (
-        <nav style={{ backgroundColor: "rgb(221, 223, 246)", position: "fixed", top: "0px", right: "0px", left: "0px", }} className=" z-10  border-gray-200 m-auto dark:bg-gray-900">
-            <div className="flex flex-wrap items-center justify-between px-3">
+         <nav style={{backgroundColor : "lightblue"}} className="fixed top-0 left-0 right-0 w-11/12 z-10 border-gray-200 m-auto dark:bg-gray-900">
+        <div className="flex flex-wrap items-center justify-between px-3">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className="h-20 w-20 rounded-md" alt="Greenmart Logo" />
                     {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> */}
