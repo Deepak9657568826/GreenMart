@@ -1,25 +1,18 @@
 import { Button } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { authorizationToken } from '../utils/Token';
+import { deleteProductUrl, fetchAllProductUrl, updateProductUrl } from '../utils/Url';
 
 
 function Order() {
   const [order, setOrder] = useState();
   const [status , setStatus] = useState("pending");
-  // console.log(status);
-  
-  const token = localStorage.getItem("token")
 
-  const url = "http://localhost:4500/allorder";
   const fetchAllOrders = async () => {
     try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: token
-        }
-      })
+      const response = await axios.get(fetchAllProductUrl, authorizationToken)
       setOrder(response.data.allorder);
-      console.log(response.data);
 
     } catch (error) {
       console.log(error.msg);
@@ -31,17 +24,12 @@ function Order() {
     fetchAllOrders();
   }, [])
 
-  const updateUrl = `http://localhost:4500/updateorder`
+
  const handleChange = async( order, payload)=>{
-  console.log(order);
+
     try {
-      const response = await axios.patch(`${updateUrl}/${order._id}` , payload , {
-        headers: {
-          Authorization: token
-        }
-      })
-      console.log(response.data);
-      
+      const response = await axios.patch(`${updateProductUrl}/${order._id}` , payload , authorizationToken)
+
       fetchAllOrders();
     } catch (error) {
       console.log(error.message);
@@ -52,16 +40,11 @@ function Order() {
 
 
  
-const deleteUrl = `http://localhost:4500/deleteorder`
+
  const handleDelete  = async(id)=>{
   try {
-    const response = await axios.delete(`${deleteUrl}/${id}`, {
-      headers: {
-        Authorization: token
-      }
-    })
-    console.log(response.data);
-    
+    const response = await axios.delete(`${deleteProductUrl}/${id}`, authorizationToken)
+
     fetchAllOrders();
   } catch (error) {
     console.log(error.message);
@@ -73,8 +56,7 @@ const deleteUrl = `http://localhost:4500/deleteorder`
 
 //  enum:["pending" , "confirmed", "shipped" , "out for delivery" , "delivered"] , 
   function setBackgroundcolco(status) {
-    console.log(status);
-    
+  
     switch (status) {
       case 'pending':
         return 'yellow'; // Orange

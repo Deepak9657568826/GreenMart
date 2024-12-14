@@ -28,15 +28,12 @@ function Navbar() {
     const state = useSelector(state => state.auth)
     const role = state.role
     const isLogin = state.login
-   
-    console.log(state.login);
+
     const dispatch = useDispatch()
       const email = state.email
-      console.log(email);
-      
-    console.log("role hai kya yaha", state.role);
+
     const cart = useSelector(state => state.cart.cart)
-    // console.log(cart.length);
+
     const toast = useToast()
     const navigate = useNavigate()
 
@@ -57,7 +54,7 @@ function Navbar() {
     }
 
     const handleLogOut = () => {
-        console.log("logout");
+
         const token = localStorage.getItem("token")
         if (token) {
             dispatch(logoutfunction(navigate, toast , setIsOpenDrawer));
@@ -117,9 +114,7 @@ function Navbar() {
                         >
                             <div className="flex h-full flex-col justify-between py-2">
                                 <div>
-                                    <form className="pb-3 md:hidden">
-                                        <TextInput icon={HiSearch} type="search" placeholder="Search" required size={32} />
-                                    </form>
+        
                                     <Sidebar.Items>
                                         <Sidebar.ItemGroup>
                                             {email  && 
@@ -127,20 +122,12 @@ function Navbar() {
                                                 login as  : {email}
                                             </Sidebar.Item>
                                               } 
-                                            {/* <Sidebar.Item href="/e-commerce/products" icon={HiShoppingBag}>
-                                                Products
-                                            </Sidebar.Item> */}
-                                            {/* <Sidebar.Item href="/users/list" icon={HiUsers}>
-                                                Users list
-                                            </Sidebar.Item> */}
+        
                                             {isLogin && 
                                             <Sidebar.Item onClick={handleLogOut} icon={HiLogin}>
                                                 Log out
                                             </Sidebar.Item>
                                             }
-                                            {/* <Sidebar.Item href="/authentication/sign-up" icon={HiPencil}>
-                                                Sign up
-                                            </Sidebar.Item> */}
                                         </Sidebar.ItemGroup>
                                     </Sidebar.Items>
                                 </div>
@@ -162,9 +149,6 @@ function Navbar() {
                         <li>
                             <Link to="/" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</Link>
                         </li>
-                        <li>
-                            <Link to="/about" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</Link>
-                        </li>
                         {role == "admin" &&
                             <>
                                 <li>
@@ -182,18 +166,20 @@ function Navbar() {
                        
                        {isLogin && 
                         <li>
-                            <Link to="/particularOrder" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Previous Order</Link>
+                            <Link to="/particularOrder" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">My Order</Link>
                         </li>
                         }
 
 
                         {role == "admin" &&
                         <li className='flex'>
+                            <Link to="/adminProduct" style={{ fontSize: "18px" }} className="block py-2 px-3 mr-10 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Admin Product  </Link>
                             <Link to="/cart" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Cart  </Link>
                             <Link to="/cart">
                                 <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1" alt="" />
                                 <strong>{cart.length}</strong>
                             </Link>
+
                         </li>
                        }
                        {!isLogin  && 

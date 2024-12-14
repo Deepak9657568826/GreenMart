@@ -34,10 +34,9 @@ function App() {
     const token  =  localStorage.getItem("token")  
      const user = localStorage.getItem("user")
      const parseUser = JSON.parse(user)
-     console.log(token);
+
      try {
        const tokenVerify = await axios.post(verifyTokenUrl , {token})
-         console.log(tokenVerify.data);
          if(tokenVerify.data.isValid){
            dispatch({ type: LOGINSUCCESS, payload: parseUser })
          }

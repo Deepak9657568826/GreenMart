@@ -1,22 +1,16 @@
 import { Button } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { authorizationToken } from '../utils/Token';
+import { particularOrderUrl } from '../utils/Url';
 
 function ParticultOrder() {
   const [order, setAllOrder] = useState([]);
-  const url = 'http://localhost:4500/particularOrder';
-  const token = localStorage.getItem('token');
-
-  async function fetchAllProduct() {
+    async function fetchAllProduct() {
     try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const response = await axios.get(particularOrderUrl, authorizationToken);
       const order = response.data.orderByUser;
       setAllOrder(order);
-      console.log(order);
     } catch (error) {
       console.log(error.message);
     }
@@ -27,7 +21,6 @@ function ParticultOrder() {
   }, []);
 
   function setBackgroundcolco(status) {
-    console.log(status);
 
     switch (status) {
       case 'pending':

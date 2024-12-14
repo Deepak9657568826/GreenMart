@@ -12,6 +12,7 @@ import Order from './pages/Order'
 import AddProduct from './pages/AddProduct'
 import SigleBuy from './pages/SigleBuy'
 import ParticultOrder from './pages/ParticultOrder'
+import AdminAddedProduct from './pages/AdminAddedProduct'
 
 function Allroutes() {
   return (
@@ -29,6 +30,7 @@ function Allroutes() {
             <Route path="/addproduct" element={<AddProduct/>}/>
             <Route path="/singleProduct/:id" element={<SigleBuy/>}/>
             <Route path="/particularOrder" element={<ParticultOrder/>}/>
+            <Route path="/adminProduct" element={<AdminAddedProduct/>}/>
 
         </Routes>
       

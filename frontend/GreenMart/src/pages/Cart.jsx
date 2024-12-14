@@ -16,13 +16,13 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import EmptyCard from "../components/EmptyCard";
+import { deleteCartProductUrl } from "../utils/Url";
 
 function Cart() {
   const toast = useToast();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
 
-  console.log(cart);
   const totalPrice = cart.reduce((acc, temp) => {
     return acc + temp.price;
   }, 0);
@@ -31,11 +31,9 @@ function Cart() {
     dispatch(addToCartProduct(toast));
   }, []);
 
-  const deleteurl = `http://localhost:4500/deletecartproduct`;
   const handleRemove = async (id) => {
     try {
-      const response = await axios.delete(`${deleteurl}/${id}`);
-      console.log(response);
+      const response = await axios.delete(`${deleteCartProductUrl}/${id}`);
       if (response.data.msg == "Product remove from cart") {
         toast({
           title: `${response.data.msg}`,
