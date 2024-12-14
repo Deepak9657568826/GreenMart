@@ -60,21 +60,14 @@ function App() {
 
 
   return (
-    <div>
+    <div className='w-11/12 m-auto'>
 
       <Navbar />
       <div className='mt-20'>
       <Allroutes />
-
       </div>
-      
-      {/* <SignIn/> */}
-      {/* <Login/> */}
       <Footer/>
-      {/* <HomePage/> */}
-      {/* <Product />
-      <AddProduct/> */}
-    {/* <TermsModal/> */}
+
 
     </div>
   )

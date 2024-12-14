@@ -241,7 +241,7 @@ function Product() {
       >
         Explore Our All Products
       </h1>
-      <div className="flex justify-start gap-10  m-auto w-4/5">
+      <div className="flex justify-start gap-10 ">
         <div>
           <label
             htmlFor="countries"
@@ -284,7 +284,7 @@ function Product() {
       </div>
 
 
-      <div className="flex flex-wrap gap-5 m-auto w-4/5 mt-5">
+      <div className="flex flex-wrap gap-20 justify-between mt-5">
         {filterData.map((temp, index) => {
           return (
             <div key={index}>
