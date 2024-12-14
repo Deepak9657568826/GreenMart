@@ -1,12 +1,15 @@
 const express  = require("express");
-const { placeOrder, getAllOrder, updateOrder, deleteOrder } = require("../controller/order.controller");
+const { placeOrder, getAllOrder, updateOrder, deleteOrder, orderByParticultUser } = require("../controller/order.controller");
 const { authmiddleware } = require("../middleware/auth.middleware");
 
 const orderRouter = express.Router();
 
 
 orderRouter.post("/placeorder", authmiddleware ,  placeOrder)
-orderRouter.get("/allorder" , authmiddleware ,  getAllOrder)
+orderRouter.get("/allorder" ,   getAllOrder)
+
+orderRouter.get("/particularOrder" ,   orderByParticultUser)
+
 orderRouter.put("/updateorder/:id" , updateOrder)
 orderRouter.patch("/updateorder/:id" , updateOrder)
 orderRouter.delete("/deleteorder/:id" , deleteOrder)

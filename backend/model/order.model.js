@@ -28,12 +28,20 @@ const orderSchema = mongoose.Schema({
     username: {
         type: String
     },
+    userId :{
+        type: String
+    },
+
     status : {
         type : String,
         enum:["pending" , "confirmed", "shipped" , "out for delivery" , "delivered"] , 
         default : "pending"
     }
-});
+}, 
+ {
+    timestamps: true 
+ }
+);
 
 const OrderModel = mongoose.model("orderDetails", orderSchema);
 
