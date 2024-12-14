@@ -1,6 +1,6 @@
 
 import axios from "axios"
-import { ADDTOCARTFAILURE, ADDTOCARTLOADING, ADDTOCARTSUCCESS, LOGINFAILURE, LOGINLOADING, LOGINSUCCESS  } from "./actionType"
+import { ADDTOCARTFAILURE, ADDTOCARTLOADING, ADDTOCARTSUCCESS, LOGINFAILURE, LOGINLOADING, LOGINSUCCESS, LOGOUTFAILURE, LOGOUTLOADING, LOGOUTSUCCESS  } from "./actionType"
 
 //login creator
 const loginUrl = `http://localhost:4500/login`
@@ -9,8 +9,8 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
         dispatch({ type: LOGINLOADING })
         try {
             const response = await axios.post(loginUrl, fromData)
-            console.log(response.data.user.role);
-
+            console.log("from login action creator", response.data.user);
+             
 
             if (response.data.msg == 'please register first or please check email') {
                 setIsSubmitting(false);
@@ -28,6 +28,7 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
             else if (response.data.msg == 'user login successfully') {
 
                 localStorage.setItem("token", response.data.token)
+                localStorage.setItem("user", JSON.stringify(response.data.user))
                 setIsSubmitting(false);
                 toast({
                     title: 'Login successfull.',
@@ -40,7 +41,7 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
                 setEmail("")
                 setPassword("")
                 navigate("/")
-                dispatch({ type: LOGINSUCCESS, payload: response.data })
+                dispatch({ type: LOGINSUCCESS, payload: response.data.user })
             }
 
             else if (response.data.msg == 'please check password') {
@@ -123,6 +124,43 @@ export const addToCartProduct = (toast) => {
                 position: 'top-right',
             })
             dispatch({ type: ADDTOCARTFAILURE, payload: error.message })
+
+        }
+    }
+}
+
+
+export function logoutfunction(navigate , toast , setIsOpenDrawer) {
+
+    return async (dispatch) => {
+        dispatch({ type: LOGOUTLOADING })
+        try {
+                dispatch({ type: LOGOUTSUCCESS,  })
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                // localStorage.removeItem('user');
+                toast({
+                    title: `Logout successfully`,
+                    description: `तुमचे लॉगआउट यशस्वीपणे झाले आहे!`,
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top-right',
+                });
+                // alert("user logout successfully")
+                setIsOpenDrawer(false)
+                navigate("/login")
+        
+        } catch (error) {
+            dispatch({ type: LOGOUTFAILURE, payload: error.message })
+            toast({
+                title: `${error.message}`,
+                description: `तुमचे लॉगिन अयशस्वी झाले आहे. कृपया पुन्हा प्रयत्न करा.`,
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top-right',
+            });
 
         }
     }

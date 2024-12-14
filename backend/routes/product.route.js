@@ -7,8 +7,8 @@ const productRouter = express.Router();
 
 
 productRouter.post("/addproduct" , authmiddleware ,  addProduct)
-productRouter.get("/allproduct" ,authmiddleware ,    getAllProduct)
-productRouter.get("/singleProduct/:id" ,authmiddleware ,    getSingleProduct)
+productRouter.get("/allproduct"  ,    getAllProduct)
+productRouter.get("/singleProduct/:id",   getSingleProduct)
 productRouter.get("/productIndi" , authmiddleware ,  individualProduct)
 productRouter.put("/updateproduct/:id" ,authmiddleware,   updateProduct)
 productRouter.patch("/updateproduct/:id"  , authmiddleware,  updateProduct)

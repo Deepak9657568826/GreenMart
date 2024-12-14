@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useToast } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import SuccessToast from "../utils/SuccessToast";
 import { addToCartProduct } from "../redux/actionCreator";
 import { Link } from "react-router-dom";
 
 function Product() {
-// for filter
-const [filter , setFilter]  = useState("")
-const [filterData , setFilterData] = useState([])
+  // for filter
+  const [filterData, setFilterData] = useState([]);
 
-const [query , setQuery] = useState("")
-
-console.log(filter);
+  const [query, setQuery] = useState("");
 
   const [allProduct, setAllProduct] = useState([]);
   const [isModelOpne, setModelOpen] = useState(false);
@@ -25,6 +22,9 @@ console.log(filter);
   const [availableQuantity, setAvailableQuantity] = useState("");
   const [discription, setDiscription] = useState("");
   const [category, setCategory] = useState("vegetable");
+
+  const [buttonone, seButton] = useState("");
+  console.log(buttonone);
 
   const [updateUrl, setUpdateUrl] = useState(
     "http://localhost:4500/updateproduct"
@@ -38,7 +38,10 @@ console.log(filter);
 
   const toast = useToast();
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
+  const state = useSelector((state) => state.auth);
+  const role = state.role
+  console.log(role);
+
 
   const cart = useSelector((state) => state.cart.cart);
 
@@ -65,21 +68,18 @@ console.log(filter);
 
   async function fetchAllProduct() {
     try {
-      const response = await axios.get(allDataUrl, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const response = await axios.get(allDataUrl);
       const product = response.data.allProduct;
       setAllProduct(product);
-      let filterAndSearchData = filter ? product.filter((temp)=>temp.category == filter) : product
-      if(query){
-        filterAndSearchData = filterAndSearchData.filter((temp)=>temp.name.toLowerCase().includes(query.toLowerCase()))
+      let filterAndSearchData = buttonone.toLowerCase()
+        ? product.filter((temp) => temp.category == buttonone.toLowerCase())
+        : product;
+      if (query) {
+        filterAndSearchData = filterAndSearchData.filter((temp) =>
+          temp.name.toLowerCase().includes(query.toLowerCase())
+        );
       }
-      setFilterData(filterAndSearchData)
-
-
-
+      setFilterData(filterAndSearchData);
     } catch (error) {
       console.log(error.message);
     }
@@ -87,7 +87,7 @@ console.log(filter);
 
   useEffect(() => {
     fetchAllProduct();
-  }, [filter , query]);
+  }, [query, buttonone]);
 
   const handleProductUPdate = async (e) => {
     e.preventDefault();
@@ -236,7 +236,11 @@ console.log(filter);
 
   return (
     <>
-      <h1 className="text-center">All product</h1>
+      <h1
+        className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-orange-500 to-red-600 text-center py-6 drop-shadow-md"
+      >
+        Explore Our All Products
+      </h1>
       <div className="flex justify-start gap-10  m-auto w-4/5">
         <div>
           <label
@@ -248,32 +252,37 @@ console.log(filter);
           <input
             type="text"
             placeholder="Enter product name..."
-            onChange={(e)=>{setQuery(e.target.value)}}
+            onChange={(e) => {
+              setQuery(e.target.value);
+            }}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
+        <div className="flex flex-wrap gap-4 justify-center mt-4">
+          <button
+            className={`px-6 py-3 rounded-lg text-white font-semibold text-sm md:text-base bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 transition-all duration-300 shadow-md transform hover:scale-105 active:scale-95`}
+            onClick={(e) => seButton(e.target.innerText)}
+          >
+            Vegetable
+          </button>
 
-        <div>
-          <label
-            htmlFor="countries"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          <button
+            className={`px-6 py-3 rounded-lg text-white font-semibold text-sm md:text-base bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 transition-all duration-300 shadow-md transform hover:scale-105 active:scale-95`}
+            onClick={(e) => seButton(e.target.innerText)}
           >
-            Filter base on category
-          </label>
-          <select
-            id="countries"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            onChange={(e) => {
-              setFilter(e.target.value);
-            }}
+            Fruit
+          </button>
+
+          <button
+            className={`px-6 py-3 rounded-lg text-white font-semibold text-sm md:text-base bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 transition-all duration-300 shadow-md transform hover:scale-105 active:scale-95`}
+            onClick={(e) => seButton(e.target.innerText)}
           >
-            <option value="">Choose a Category</option>
-            <option value="vegetable">Vegetable</option>
-            <option value="fruit">Fruits</option>
-            <option value="grocery">Grocery</option>
-          </select>
+            Grocery
+          </button>
         </div>
+
       </div>
+
 
       <div className="flex flex-wrap gap-5 m-auto w-4/5 mt-5">
         {filterData.map((temp, index) => {
@@ -307,41 +316,45 @@ console.log(filter);
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex  items-center justify-between">
                     <Link to={`/singleProduct/${temp._id}`}>
-                      <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      <button style={{ width: role == "user" ? ("250px") : ("") }} className="text-white min-w-full  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Buy now
                       </button>
                     </Link>
 
-                    <button
-                      onClick={() => {
-                        handleAddToCart(temp);
-                      }}
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Add to cart
-                    </button>
+                    {role == "admin" &&
+                      <button
+                        onClick={() => {
+                          handleAddToCart(temp);
+                        }}
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        Add to cart
+                      </button>
+                    }
                   </div>
+                  {role == "admin" &&
+                    <div>
+                      <button
+                        onClick={() => {
+                          openModel(temp);
+                        }}
+                        className="text-white w-full mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={() => {
+                          openDeleteModel(temp._id);
+                        }}
+                        className="text-white w-full  mt-4 bg-red-500 hover:bg-red-7pratin00 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        Delete Product
+                      </button>
+                    </div>
+                  }
 
-                  <div>
-                    <button
-                      onClick={() => {
-                        openModel(temp);
-                      }}
-                      className="text-white w-full mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Update
-                    </button>
-                    <button
-                      onClick={() => {
-                        openDeleteModel(temp._id);
-                      }}
-                      className="text-white w-full  mt-4 bg-red-500 hover:bg-red-7pratin00 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Delete Product
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>

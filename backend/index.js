@@ -5,6 +5,7 @@ const { productRouter } = require("./routes/product.route");
 const { orderRouter } = require("./routes/order.route");
 const cors = require("cors");
 const { cartRouter } = require("./routes/cart.route");
+const { verifyToken } = require("./middleware/tokenVerify.middleware");
 
 require('dotenv').config()
 
@@ -23,6 +24,9 @@ app.use("/", userRouter)
 app.use("/", productRouter)
 app.use("/", orderRouter)
 app.use("/", cartRouter)
+
+app.use("/verifyToken", verifyToken)
+
 
 const PORT = process.env.PORT || 4500
 

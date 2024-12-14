@@ -80,7 +80,7 @@ function Login() {
           {/* Link to Sign-Up Page */}
           <p className="mt-4 text-sm text-gray-600 ">
             Don’t have an account?{' '}
-            <Link to="/signup" className="text-blue-600 hover:underline">Sign up first</Link>
+            <Link to="/signin" className="text-blue-600 hover:underline">Sign up first</Link>
           </p>
         </div>
       </form>
