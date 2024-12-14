@@ -25,7 +25,6 @@ const getAllOrder = async (req, res) => {
 
 const orderByParticultUser = async (req, res) => {
     const id = req.body.userId;
-    console.log("id", id);
     try {
         const allorder = await OrderModel.find({userId : id}).sort({ createdAt : -1 })
         res.status(200).json({ msg: "All order list" ,  orderByUser : allorder })

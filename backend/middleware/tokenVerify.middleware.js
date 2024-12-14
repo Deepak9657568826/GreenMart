@@ -3,8 +3,6 @@ const jwt = require("jsonwebtoken")
 
 const verifyToken = (req, res, next) => {
     const {token} = req.body
-    console.log("token come form ui " , token);
-    
     try {
         if (!token) {
             res.status(200).json({ msg: "Please login first" })
