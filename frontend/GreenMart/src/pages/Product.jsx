@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import SuccessToast from "../utils/SuccessToast";
 import { addToCartProduct } from "../redux/actionCreator";
 import { Link } from "react-router-dom";
+import { authorizationToken } from "../utils/Token";
+import { addProductToCartUrl, allOverProductUrl } from "../utils/Url";
 
 function Product() {
   // for filter
@@ -24,7 +26,6 @@ function Product() {
   const [category, setCategory] = useState("vegetable");
 
   const [buttonone, seButton] = useState("");
-  console.log(buttonone);
 
   const [updateUrl, setUpdateUrl] = useState(
     "http://localhost:4500/updateproduct"
@@ -40,8 +41,6 @@ function Product() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.auth);
   const role = state.role
-  console.log(role);
-
 
   const cart = useSelector((state) => state.cart.cart);
 
@@ -62,13 +61,9 @@ function Product() {
     setModelOpen(false);
   };
 
-  const token = localStorage.getItem("token");
-
-  const allDataUrl = "http://localhost:4500/allproduct";
-
-  async function fetchAllProduct() {
+    async function fetchAllProduct() {
     try {
-      const response = await axios.get(allDataUrl);
+      const response = await axios.get(allOverProductUrl);
       const product = response.data.allProduct;
       setAllProduct(product);
       let filterAndSearchData = buttonone.toLowerCase()
@@ -104,11 +99,7 @@ function Product() {
     };
 
     try {
-      const response = await axios.patch(updateUrl, fromData, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const response = await axios.patch(updateUrl, fromData,authorizationToken);
 
       if (response.data.msg == "product update successfully") {
         fetchAllProduct();
@@ -137,16 +128,12 @@ function Product() {
     }
   };
 
-  const delete_Product_Url = "http://localhost:4500/deleteproduct";
+
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(deleteUrl, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      // console.log(response.data.msg);
+      const response = await axios.delete(deleteUrl, authorizationToken);
+
       if (response.data.msg == "product delete successfully") {
         toast({
           title: "product delete successfully",
@@ -160,7 +147,7 @@ function Product() {
         setProductDeleteModel(false);
       }
     } catch (error) {
-      // console.log(error.message);
+
       toast({
         title: `${error.message}`,
         description: "Something went wrong",
@@ -181,7 +168,7 @@ function Product() {
     setProductDeleteModel(false);
   };
 
-  const addtoCartUrl = `http://localhost:4500/addtocart`;
+ 
 
   const handleAddToCart = async (product) => {
     const existProduct = cart.filter((temp) => {
@@ -197,7 +184,7 @@ function Product() {
         isClosable: true,
         position: "top-right",
       });
-      console.log("existProduct", existProduct);
+
     } else {
       const cartData = {
         _id: product._id,
@@ -210,12 +197,8 @@ function Product() {
         category: product.category,
       };
       try {
-        const response = await axios.post(addtoCartUrl, cartData, {
-          headers: {
-            Authorization: token,
-          },
-        });
-        console.log(response);
+        const response = await axios.post(addProductToCartUrl, cartData, authorizationToken);
+
 
         if (response.data.msg == "product added to cart successfully") {
           toast({
@@ -320,7 +303,7 @@ function Product() {
       </div>
 
 
-      <div className="flex flex-wrap gap-20 justify-between mt-5">
+      <div className="flex flex-wrap gap-5  mt-6 justify-center bg-slate-200">
         {filterData.map((temp, index) => {
           return (
             <div key={index}>

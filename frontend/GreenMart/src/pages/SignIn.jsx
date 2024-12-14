@@ -3,6 +3,7 @@ import "../Styles/SignIn.css"
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react'
+import { regitserUrl } from '../utils/Url';
 
 function SignUp() {
     const [name, setName] = useState('');
@@ -14,7 +15,7 @@ function SignUp() {
 
     const toast = useToast()
 
-    const regitserUrl = `http://localhost:4500/register`
+
 
     const navigate = useNavigate();
 
@@ -29,8 +30,6 @@ function SignUp() {
         }
 
         const response = await axios.post(regitserUrl, fromData)
-        console.log(response.data);
-
         if (response.data.mes == 'user already register with email dwayzode@gmail.com') {
             setIsSubmitting(false);
             toast({

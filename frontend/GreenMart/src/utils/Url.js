@@ -1,0 +1,14 @@
+export  const addProductUrl = `http://localhost:4500/addproduct`
+export  const adminProductUrl = 'http://localhost:4500/productIndi/';
+export  const deleteCartProductUrl = `http://localhost:4500/deletecartproduct`;
+export  const fetchAllProductUrl = "http://localhost:4500/allorder";
+export   const updateProductUrl = `http://localhost:4500/updateorder`
+export const deleteProductUrl = `http://localhost:4500/deleteorder`
+export   const particularOrderUrl = 'http://localhost:4500/particularOrder';
+export   const allOverProductUrl = "http://localhost:4500/allproduct";
+export  const addProductToCartUrl = `http://localhost:4500/addtocart`;
+export   const singleProductUrl = `http://localhost:4500/singleProduct`
+export   const orderPlaceUrl = `http://localhost:4500/placeorder`
+export   const regitserUrl = `http://localhost:4500/register`
+export  const loginUrl = `http://localhost:4500/login`
+export const cartProductUrl = `http://localhost:4500/allcartproduct`

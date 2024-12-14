@@ -15,9 +15,6 @@ function Login() {
   const toast = useToast()
   const dispatch = useDispatch()
   const state = useSelector(state=>state)
-  console.log(state);
-  
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -89,16 +86,5 @@ function Login() {
 }
 
 export default Login;
-
-
-// const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-  //   const fromData = {
-  //     email,
-  //     password
-  //   }
-  //   console.log(fromData);
-
 
 

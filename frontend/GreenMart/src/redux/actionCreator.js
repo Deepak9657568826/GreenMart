@@ -1,18 +1,17 @@
 
 import axios from "axios"
 import { ADDTOCARTFAILURE, ADDTOCARTLOADING, ADDTOCARTSUCCESS, LOGINFAILURE, LOGINLOADING, LOGINSUCCESS, LOGOUTFAILURE, LOGOUTLOADING, LOGOUTSUCCESS  } from "./actionType"
+import { authorizationToken } from "../utils/Token"
+import { cartProductUrl, loginUrl } from "../utils/Url"
 
 //login creator
-const loginUrl = `http://localhost:4500/login`
+
 export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEmail, setPassword) => {
     return async (dispatch) => {
         dispatch({ type: LOGINLOADING })
         try {
             const response = await axios.post(loginUrl, fromData)
-            console.log("from login action creator", response.data.user);
-             
-
-            if (response.data.msg == 'please register first or please check email') {
+              if (response.data.msg == 'please register first or please check email') {
                 setIsSubmitting(false);
                 toast({
                     title: 'please register first ',
@@ -81,26 +80,20 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
 
 // add to cart creator
 
-const cartProductUrl = `http://localhost:4500/allcartproduct`
-const token = localStorage.getItem("token")
+
 
 export const addToCartProduct = (toast) => {
     return async (dispatch) => {
         dispatch({ type: ADDTOCARTLOADING})
         try {
-            const response = await axios.get(cartProductUrl, {
-                headers: {
-                    Authorization: token
-                }
-            })
-            // console.log(response.data);
-            
+            const response = await axios.get(cartProductUrl, authorizationToken)
+
             if(response.data.msg == "All Cart Poduct"){
-                // console.log("enter in ok response")
+
                 dispatch({ type: ADDTOCARTSUCCESS, payload: response.data }) 
             }
             else{
-                // console.log("enter in no response")
+
                 toast({
                     title: `${response.data.msg}`,
                     description: `${response.data.msg}`,
@@ -114,7 +107,7 @@ export const addToCartProduct = (toast) => {
 
 
         } catch (error) {
-            // console.log("enter in error response")
+
             toast({
                 title: `${error.message}`,
                 description: `Somethings went wrong`,

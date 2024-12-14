@@ -14,8 +14,7 @@ const addProduct = async (req, res) => {
 
 const getAllProduct = async (req, res) => {
     const id = req.body;
-    // console.log(id);
-    
+ 
     try {
         const allProduct = await ProductModel.find()
         res.status(200).json({ msg: "All product list" ,  allProduct })
@@ -38,9 +37,7 @@ const getSingleProduct = async (req, res) => {
 
 
 const individualProduct = async (req, res) => {
-      const id = req.body.userId;
-      console.log("id", id);
-      
+    const id = req.body.userId;  
     try {
         const allProduct = await ProductModel.find({userId : id })
         res.status(200).json({ msg: "All product list" ,  allProduct })
@@ -53,8 +50,6 @@ const individualProduct = async (req, res) => {
 const updateProduct= async (req, res) => {
     const paylaod = req.body;
     const {id} = req.params;
-    console.log(id);
-    
     try {
         const updateProduct = await ProductModel.findByIdAndUpdate({_id : id} , paylaod)
         res.status(200).json({ msg: "product update successfully"  , updateProduct})

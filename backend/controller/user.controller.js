@@ -9,7 +9,6 @@ const register = async (req, res) => {
 
     try {
         const user = await UserModel.findOne({ email })
-        // console.log(user);
 
         if (user) {
             res.status(200).json({ mes: `user already register with email ${email}` })
@@ -40,11 +39,9 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     const { email , password } = req.body;
-    console.log(email);
     
     try {
         const user = await UserModel.findOne({ email })
-        console.log(user);
 
         if (!user) {
             res.status(200).json({ msg: `please register first or please check email` })
