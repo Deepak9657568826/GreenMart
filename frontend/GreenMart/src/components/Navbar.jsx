@@ -66,7 +66,7 @@ function Navbar() {
     }
 
     return (
-        <nav style={{ backgroundColor: "rgb(221, 223, 246)", position: "fixed", top: "0px", right: "0px", left: "0px" }} className=" z-10 border-gray-200 dark:bg-gray-900">
+        <nav style={{ backgroundColor: "rgb(221, 223, 246)", position: "fixed", top: "0px", right: "0px", left: "0px", }} className=" z-10  border-gray-200 m-auto dark:bg-gray-900">
             <div className="flex flex-wrap items-center justify-between px-3">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className="h-20 w-20 rounded-md" alt="Greenmart Logo" />

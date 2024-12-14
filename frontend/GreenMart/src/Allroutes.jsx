@@ -18,7 +18,7 @@ function Allroutes() {
     <div>
         <Routes>
             <Route path="/" element={<HomePage/>}/>
-            <Route path="/about" element={<About/>}/>
+            {/* <Route path="/about" element={<About/>}/> */}
             <Route path="/product" element={<Product/>}/>
             <Route path="/signin" element={<SignIn/>}/>
             <Route path="/login" element={<Login/>}/>

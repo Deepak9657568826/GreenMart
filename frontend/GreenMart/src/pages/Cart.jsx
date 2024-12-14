@@ -76,10 +76,10 @@ function Cart() {
 
 
   return (
-    <div className="flex flex-col  lg:flex-row ">
+    <div className="flex justify-between flex-col  lg:flex-row ">
       <div
         div
-        className="flex flex-col lg:w-1/2 sm:w-auto gap-2 mt-10 ml-5 mr-5"
+        className="flex justify-between  flex-col lg:w-1/2 sm:w-auto gap-2 mt-10 ml-5 mr-5"
       >
         {cart &&
           cart.map((product) => (

@@ -8,7 +8,7 @@ const orderRouter = express.Router();
 orderRouter.post("/placeorder", authmiddleware ,  placeOrder)
 orderRouter.get("/allorder" ,   getAllOrder)
 
-orderRouter.get("/particularOrder" ,   orderByParticultUser)
+orderRouter.get("/particularOrder",  authmiddleware ,   orderByParticultUser)
 
 orderRouter.put("/updateorder/:id" , updateOrder)
 orderRouter.patch("/updateorder/:id" , updateOrder)
