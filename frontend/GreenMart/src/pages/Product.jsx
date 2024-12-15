@@ -61,7 +61,7 @@ function Product() {
     setModelOpen(false);
   };
 
-  async function fetchAllProduct() {
+    async function fetchAllProduct() {
     try {
       const response = await axios.get(allOverProductUrl);
       const product = response.data.allProduct;
@@ -99,7 +99,7 @@ function Product() {
     };
 
     try {
-      const response = await axios.patch(updateUrl, fromData, authorizationToken);
+      const response = await axios.patch(updateUrl, fromData,authorizationToken);
 
       if (response.data.msg == "product update successfully") {
         fetchAllProduct();
@@ -168,7 +168,7 @@ function Product() {
     setProductDeleteModel(false);
   };
 
-
+ 
 
   const handleAddToCart = async (product) => {
     const existProduct = cart.filter((temp) => {
@@ -224,7 +224,9 @@ function Product() {
       >
         Explore All Products
       </h1>
-      <div className="flex flex-col sm:flex-row justify-start gap-4 w-full">
+      <div className="flex justify-start gap-10 ">
+        
+        <div className="flex flex-col sm:flex-row justify-start gap-4 w-full">
         {/* Search Box */}
         <div className="w-full sm:w-1/2 md:w-1/3">
           <label
@@ -242,7 +244,7 @@ function Product() {
         </div>
 
         {/* Button Group */}
-        <div className="flex flex-wrap sm:flex-row gap-4 justify-center lg:items-end mt-4 sm:mt-0">
+        <div className="flex flex-wrap sm:flex-row gap-4 justify-center md:items-end lg:items-end mt-4 sm:mt-0">
           <button
             className="w-full lg:w-32 h-12 sm:w-auto px-1 py-1 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
             onClick={(e) => seButton(e.target.innerText)}
@@ -266,15 +268,14 @@ function Product() {
         </div>
       </div>
 
+      </div>
 
 
-
-
-      <div className="flex flex-wrap gap-5  mt-6 justify-center bg-slate-200">
+      <div  className="flex flex-wrap gap-5  my-6 justify-center bg-slate-200">
         {filterData.map((temp, index) => {
           return (
             <div key={index}>
-              <div className=" bg-slate-200 w-64 max-w-sm bg-zinc-50 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div className=" bg-slate-200 lg:w-72 sm:w-96 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#" className="flex justify-center">
                   <img
                     className="pt-4 h-44 w-44 rounded-lg "
@@ -294,18 +295,18 @@ function Product() {
                         Rs: {temp.price}
                       </span>
                       <span className="text-lg  text-gray-900 dark:text-white">
-                        {" "}
+                       {" "}
                         {temp.quantity >= 1000
                           ? temp.quantity.toString()[0]
                           : temp.quantity}{" "}
                         {temp.state == "solid" ? `kg` : `ltr`}
                       </span>
                     </div>
-
+                    
                   </div>
                   <div className="flex  items-center justify-between">
                     <Link to={`/singleProduct/${temp._id}`}>
-                      <button style={{ width: role == "user" ? ("250px") : ("") }} className="text-white min-w-full  bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      <button style={{ width: role == "user" ? ("120px") : ("") }} className="text-white min-w-full  bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Buy now
                       </button>
                     </Link>
