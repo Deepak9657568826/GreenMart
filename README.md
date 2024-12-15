@@ -1,20 +1,3 @@
-# GreenMart
+### backendUrl = 'https://greenmart-wyyp.onrender.com'
 
-
-{
-  "name" : "Poonam Mohabe", 
-  "email":"poonam@gmail.com", 
-  "password":"Pass@123", 
-  "mobileNumber":"9657568826"
-}
-
-
-
-toast({
-            title: 'product update successfully',
-            description: "product update successfully",
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-            position: 'top-right',
-        })
+### frontend url = https://green-mart-cwt1.vercel.app/
