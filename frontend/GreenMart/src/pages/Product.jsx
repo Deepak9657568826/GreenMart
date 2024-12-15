@@ -61,7 +61,7 @@ function Product() {
     setModelOpen(false);
   };
 
-    async function fetchAllProduct() {
+  async function fetchAllProduct() {
     try {
       const response = await axios.get(allOverProductUrl);
       const product = response.data.allProduct;
@@ -99,7 +99,7 @@ function Product() {
     };
 
     try {
-      const response = await axios.patch(updateUrl, fromData,authorizationToken);
+      const response = await axios.patch(updateUrl, fromData, authorizationToken);
 
       if (response.data.msg == "product update successfully") {
         fetchAllProduct();
@@ -168,7 +168,7 @@ function Product() {
     setProductDeleteModel(false);
   };
 
- 
+
 
   const handleAddToCart = async (product) => {
     const existProduct = cart.filter((temp) => {
@@ -224,8 +224,9 @@ function Product() {
       >
         Explore All Products
       </h1>
-      <div className="flex justify-start gap-10 ">
-        <div>
+      <div className="flex flex-col sm:flex-row justify-start gap-4 w-full">
+        {/* Search Box */}
+        <div className="w-full sm:w-1/2 md:w-1/3">
           <label
             htmlFor="countries"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -235,72 +236,38 @@ function Product() {
           <input
             type="text"
             placeholder="Enter product name..."
-            onChange={(e) => {
-              setQuery(e.target.value);
-            }}
+            onChange={(e) => setQuery(e.target.value)}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
-        <div className="flex flex-wrap gap-4 justify-center mt-4">
-          <button 
-         
-            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
+
+        {/* Button Group */}
+        <div className="flex flex-wrap sm:flex-row gap-4 justify-center lg:items-end mt-4 sm:mt-0">
+          <button
+            className="w-full lg:w-32 h-12 sm:w-auto px-1 py-1 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
             onClick={(e) => seButton(e.target.innerText)}
           >
             Vegetable
           </button>
 
           <button
-            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base   transition-all duration-300  transform hover:scale-105 active:scale-95`}
+            className="w-full lg:w-32 h-12 sm:w-auto px-3 py-3 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
             onClick={(e) => seButton(e.target.innerText)}
           >
             Fruit
           </button>
 
           <button
-            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
+            className="w-full lg:w-32 h-12  sm:w-auto px-3 py-3 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
             onClick={(e) => seButton(e.target.innerText)}
           >
             Grocery
           </button>
-
-          <button
-            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
-            onClick={(e) => seButton(e.target.innerText)}
-          >
-            Body Care
-          </button>
-
-          <button
-            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
-            onClick={(e) => seButton(e.target.innerText)}
-          >
-            Baby Care
-          </button>
-
-          <button
-            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
-            onClick={(e) => seButton(e.target.innerText)}
-          >
-            Kitchen experts
-          </button>
-
-          <button
-            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
-            onClick={(e) => seButton(e.target.innerText)}
-          >
-            Cleaning experts
-          </button>
-
-          <button
-            className={`px-3 py-3  text-lime-600 font-semibold text-sm md:text-base  transition-all duration-300  transform hover:scale-105 active:scale-95`}
-            onClick={(e) => seButton(e.target.innerText)}
-          >
-           Energy Drinks
-          </button>
         </div>
-
       </div>
+
+
+
 
 
       <div className="flex flex-wrap gap-5  mt-6 justify-center bg-slate-200">
@@ -327,14 +294,14 @@ function Product() {
                         Rs: {temp.price}
                       </span>
                       <span className="text-lg  text-gray-900 dark:text-white">
-                       {" "}
+                        {" "}
                         {temp.quantity >= 1000
                           ? temp.quantity.toString()[0]
                           : temp.quantity}{" "}
                         {temp.state == "solid" ? `kg` : `ltr`}
                       </span>
                     </div>
-                    
+
                   </div>
                   <div className="flex  items-center justify-between">
                     <Link to={`/singleProduct/${temp._id}`}>
