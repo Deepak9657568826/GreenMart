@@ -271,11 +271,11 @@ function Product() {
       </div>
 
 
-      <div  className="flex flex-wrap gap-5  my-6 justify-center bg-slate-200">
+      <div  className="flex flex-wrap gap-5  mt-10 justify-center bg-slate-200 ">
         {filterData.map((temp, index) => {
           return (
-            <div key={index}>
-              <div className=" bg-slate-200 lg:w-72 sm:w-96 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div key={index} className="my-5">
+              <div className=" bg-slate-200 w-72 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#" className="flex justify-center">
                   <img
                     className="pt-4 h-44 w-44 rounded-lg "

@@ -23,6 +23,7 @@ import { LOGINFAILURE, LOGINSUCCESS } from './redux/actionType'
 
 function App() {
   const verifyTokenUrl = `http://localhost:4500/verifyToken`
+  const token  =  localStorage.getItem("token")  
 
   const dispatch = useDispatch()
   const toast = useToast()
@@ -31,7 +32,6 @@ function App() {
   },[])
    
   const verifyToken = async()=>{
-    const token  =  localStorage.getItem("token")  
      const user = localStorage.getItem("user")
      const parseUser = JSON.parse(user)
 
@@ -52,10 +52,16 @@ function App() {
      }
 
   }
-
+if(token){
   useEffect(()=>{
     verifyToken()
   },[])
+  
+}
+else{
+  dispatch({ type: LOGINFAILURE, payload: "Login failed" });
+}
+  
 
 
   return (
