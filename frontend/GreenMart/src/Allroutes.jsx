@@ -1,5 +1,5 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import About from './pages/About'
 import Product from './pages/Product'
@@ -15,8 +15,19 @@ import ParticultOrder from './pages/ParticultOrder'
 import AdminAddedProduct from './pages/AdminAddedProduct'
 
 function Allroutes() {
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();  
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);  
+    }, [pathname]);
+  
+    return null;  
+  };
+
   return (
     <div>
+      <ScrollToTop/>
         <Routes>
             <Route path="/" element={<HomePage/>}/>
             {/* <Route path="/about" element={<About/>}/> */}
