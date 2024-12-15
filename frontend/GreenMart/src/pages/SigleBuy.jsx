@@ -114,12 +114,13 @@ function SingleBuy() {
 
     return (
 
-        <div className=" flex sm:flex-wrap justify-around m-auto flex-col lg:flex-row bg-slate-400">
+        <div className=" flex sm:flex-wrap md:flex-row  lg:flex-row justify-around m-auto flex-col lg:flex-row bg-slate-400">
 
             {singleProducts &&
-                <div className="min-w-fit  m-10">
+                <div className=" my-10">
                     <div
-                        className="max-w-sm  m-auto  bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"
+                     
+                        className=" lg:max-w-96 md:max-w-96 m-auto sm:min-w-full  bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"
                     >
                         <img
                             src={singleProducts.image}
@@ -140,8 +141,8 @@ function SingleBuy() {
             }
 
 
-            <div className=" sticky top-16 sm:w-96 lg:w-96  m-10  h-min  bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl">
-                <div className=" space-y-6 bg-white sm:max-w-96  p-8 rounded-3xl shadow-lg">
+            <div className=" sticky top-16 sm:w-full lg:w-96    h-min  bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl">
+                <div  className=" space-y-6 bg-white sm:max-w-96  p-8 rounded-3xl shadow-lg">
                     <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
                         Cart Summary
                     </h2>
