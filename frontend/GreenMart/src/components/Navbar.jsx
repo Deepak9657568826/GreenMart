@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Drawer, Sidebar, TextInput } from "flowbite-react";
 // import logo from "../components/greenmartlogo.jpg"
-import logo from "../assets/logo2.png"
+import logo from "../assets/logo3.png"
 import { useDispatch, useSelector } from "react-redux"
 import {
     HiChartPie,
@@ -71,7 +71,7 @@ function Navbar() {
          <nav  className="fixed top-0 left-0 right-0 w-11/12 z-10 border-gray-200 bg-lime-50 m-auto dark:bg-gray-900">
         <div className="flex flex-wrap items-center justify-between px-0">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src={logo} className="h-20 w-20 rounded-md" alt="Greenmart Logo" />
+                    <img style={{height:"45px", width:"65px"}} src={logo} className="h-40 w-20 rounded-md" alt="Greenmart Logo" />
                     {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> */}
                 </Link>
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

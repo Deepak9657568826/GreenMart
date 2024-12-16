@@ -66,15 +66,23 @@ function Cart() {
     }
   };
 
-   if(cart.length == 0 ){
+  if (cart.length == 0) {
     return (
-        <EmptyCard/>
+      <EmptyCard />
     )
-   }
+  }
 
 
   return (
+
+    // // style={{
+    //   backgroundImage: `url('https://static.vecteezy.com/system/resources/previews/016/026/442/non_2x/empty-shopping-cart-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg')`,
+    //   backgroundSize: 'cover',
+    //   backgroundPosition: 'center',
+    //   backgroundRepeat: 'no-repeat',
+    // // }}
     <div className="flex justify-between flex-col  lg:flex-row ">
+
       <div
         div
         className="flex justify-between  flex-col lg:w-1/2 sm:w-auto gap-2 mt-10 ml-5 mr-5"
@@ -129,7 +137,8 @@ function Cart() {
         style={{ position: "sticky", top: "80px" }}
         className=" mt-10 sm:max-w-md lg:w-full  h-min mx-auto bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl"
       >
-        <div className="space-y-6 bg-white p-8 rounded-3xl shadow-lg">
+        <div 
+         className="space-y-6 bg-white p-8 rounded-3xl shadow-lg">
           <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
             Cart Summary
           </h2>
