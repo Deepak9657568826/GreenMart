@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import SuccessToast from "../utils/SuccessToast";
 import { addToCartProduct } from "../redux/actionCreator";
 import { Link } from "react-router-dom";
+import three from "../assets/rich proties sorces greenmart.gif";
+import four from "../assets/flavour jar greenmart.gif";
 import { authorizationToken } from "../utils/Token";
 import { addProductToCartUrl, allOverProductUrl } from "../utils/Url";
 
@@ -37,6 +39,34 @@ function Product() {
 
   const [checkCart, setCheckCart] = useState("");
 
+  // carousel 
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Array of image sources for the slides
+  const slides = [three, four];
+
+  // Function to handle next button click
+
+  const nextSlide = () => {
+    setActiveIndex((prevIndex) => (prevIndex + 1) % slides.length);
+  };
+
+  // Function to handle previous button click
+  const prevSlide = () => {
+    setActiveIndex(
+      (prevIndex) => (prevIndex - 1 + slides.length) % slides.length
+    );
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [activeIndex]);
+  // end carousel
   const toast = useToast();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.auth);
@@ -61,7 +91,7 @@ function Product() {
     setModelOpen(false);
   };
 
-    async function fetchAllProduct() {
+  async function fetchAllProduct() {
     try {
       const response = await axios.get(allOverProductUrl);
       const product = response.data.allProduct;
@@ -99,7 +129,7 @@ function Product() {
     };
 
     try {
-      const response = await axios.patch(updateUrl, fromData,authorizationToken);
+      const response = await axios.patch(updateUrl, fromData, authorizationToken);
 
       if (response.data.msg == "product update successfully") {
         fetchAllProduct();
@@ -168,7 +198,7 @@ function Product() {
     setProductDeleteModel(false);
   };
 
- 
+
 
   const handleAddToCart = async (product) => {
     const existProduct = cart.filter((temp) => {
@@ -219,59 +249,132 @@ function Product() {
 
   return (
     <>
+      {/*carousel  */}
+      <div className="relative w-full mx-auto mt-3" style={{ width: "100%" }}>
+        {/* Carousel wrapper */}
+        <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-lg">
+          {/* Slides */}
+          {slides.map((slide, index) => (
+            <div
+              key={index}
+              className={`absolute mt-8 inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${index === activeIndex ? "opacity-100" : "opacity-0"
+                }`}
+            >
+              <img
+                src={slide}
+                alt={`Slide ${index + 1}`}
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Navigation buttons */}
+        <button
+          onClick={prevSlide}
+          className="absolute top-1/2 left-4 z-30 transform -translate-y-1/2 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white/30 hover:bg-white/50 dark:bg-gray-800/30 dark:hover:bg-gray-800/60 rounded-full focus:outline-none"
+        >
+          <svg
+            className="w-4 h-4 sm:w-5 sm:h-5 text-white dark:text-gray-800"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          <span className="sr-only">Previous</span>
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute top-1/2 right-4 z-30 transform -translate-y-1/2 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white/30 hover:bg-white/50 dark:bg-gray-800/30 dark:hover:bg-gray-800/60 rounded-full focus:outline-none"
+        >
+          <svg
+            className="w-4 h-4 sm:w-5 sm:h-5 text-white dark:text-gray-800"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+          <span className="sr-only">Next</span>
+        </button>
+
+        {/* Indicators */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${index === activeIndex ? "bg-white" : "bg-white/30"
+                }`}
+            />
+          ))}
+        </div>
+      </div>
+      {/* carousel */}
       <h1
         className="text-xl md:text-2xl pt-14 font-bold text-stone-700 bg-clip-text bg-gradient-to-r from-green-400 via-orange-500 to-red-600 text-center py-6 drop-shadow-md"
       >
         Explore All Products
       </h1>
       <div className="flex justify-start gap-10 ">
-        
+
         <div className="flex flex-col sm:flex-row justify-start gap-4 w-full">
-        {/* Search Box */}
-        <div className="w-full sm:w-1/2 md:w-1/3">
-          <label
-            htmlFor="countries"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Search Products
-          </label>
-          <input
-            type="text"
-            placeholder="Enter product name..."
-            onChange={(e) => setQuery(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
+          {/* Search Box */}
+          <div className="w-full sm:w-1/2 md:w-1/3">
+            <label
+              htmlFor="countries"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Search Products
+            </label>
+            <input
+              type="text"
+              placeholder="Enter product name..."
+              onChange={(e) => setQuery(e.target.value)}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+
+          {/* Button Group */}
+          <div className="flex flex-wrap sm:flex-row gap-4 justify-center md:items-end lg:items-end mt-4 sm:mt-0">
+            <button
+              className="w-full lg:w-32 h-12 sm:w-auto px-1 py-1 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+              onClick={(e) => seButton(e.target.innerText)}
+            >
+              Vegetable
+            </button>
+
+            <button
+              className="w-full lg:w-32 h-12 sm:w-auto px-3 py-3 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+              onClick={(e) => seButton(e.target.innerText)}
+            >
+              Fruit
+            </button>
+
+            <button
+              className="w-full lg:w-32 h-12  sm:w-auto px-3 py-3 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+              onClick={(e) => seButton(e.target.innerText)}
+            >
+              Grocery
+            </button>
+          </div>
         </div>
 
-        {/* Button Group */}
-        <div className="flex flex-wrap sm:flex-row gap-4 justify-center md:items-end lg:items-end mt-4 sm:mt-0">
-          <button
-            className="w-full lg:w-32 h-12 sm:w-auto px-1 py-1 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
-            onClick={(e) => seButton(e.target.innerText)}
-          >
-            Vegetable
-          </button>
-
-          <button
-            className="w-full lg:w-32 h-12 sm:w-auto px-3 py-3 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
-            onClick={(e) => seButton(e.target.innerText)}
-          >
-            Fruit
-          </button>
-
-          <button
-            className="w-full lg:w-32 h-12  sm:w-auto px-3 py-3 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
-            onClick={(e) => seButton(e.target.innerText)}
-          >
-            Grocery
-          </button>
-        </div>
-      </div>
-
       </div>
 
 
-      <div  className="flex flex-wrap gap-5  mt-10 justify-center bg-slate-200 ">
+      <div className="flex flex-wrap gap-5  mt-10 justify-center bg-slate-200 ">
         {filterData.map((temp, index) => {
           return (
             <div key={index} className="my-5">
@@ -295,14 +398,14 @@ function Product() {
                         Rs: {temp.price}
                       </span>
                       <span className="text-lg  text-gray-900 dark:text-white">
-                       {" "}
+                        {" "}
                         {temp.quantity >= 1000
                           ? temp.quantity.toString()[0]
                           : temp.quantity}{" "}
                         {temp.state == "solid" ? `kg` : `ltr`}
                       </span>
                     </div>
-                    
+
                   </div>
                   <div className="flex  items-center justify-between">
                     <Link to={`/singleProduct/${temp._id}`}>
