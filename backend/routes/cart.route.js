@@ -6,11 +6,11 @@ const { authmiddleware } = require("../middleware/auth.middleware");
 
 const cartRouter = express.Router();
 
-cartRouter.use(authmiddleware)
 
-cartRouter.post("/addtocart" ,  addProductToCart)
-cartRouter.get("/allcartproduct" ,  individual_Cart_Product)
-cartRouter.delete("/deletecartproduct/:id" , deleteCartProduct)
+
+cartRouter.post("/addtocart" , authmiddleware ,    addProductToCart)
+cartRouter.get("/allcartproduct", authmiddleware ,   individual_Cart_Product)
+cartRouter.delete("/deletecartproduct/:id" , authmiddleware,  deleteCartProduct)
 
 module.exports = {
     cartRouter
