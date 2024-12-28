@@ -30,7 +30,7 @@ function Navbar() {
     const isLogin = state.login
 
     const dispatch = useDispatch()
-      const email = state.email
+    const email = state.email
 
     const cart = useSelector(state => state.cart.cart)
 
@@ -57,21 +57,21 @@ function Navbar() {
 
         const token = localStorage.getItem("token")
         if (token) {
-            dispatch(logoutfunction(navigate, toast , setIsOpenDrawer));
+            dispatch(logoutfunction(navigate, toast, setIsOpenDrawer));
         }
 
     }
 
-    const handleClick = ()=>{
+    const handleClick = () => {
         setIsOpen(false);
     }
- 
+
     // style={{backgroundColor : "#606470"}}
     return (
-         <nav  className="fixed top-0 left-0 right-0 w-11/12 z-10 border-gray-200 bg-lime-50 m-auto dark:bg-gray-900">
-        <div className="flex flex-wrap items-center justify-between px-0">
+        <nav className="fixed top-0 left-0  right-0 w-11/12 z-10 border-gray-200 bg-lime-50 m-auto dark:bg-gray-900">
+            <div className="flex flex-wrap h-20  items-center justify-between px-0">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img style={{height:"45px", width:"65px"}} src={logo} className="h-40 w-20 rounded-md" alt="Greenmart Logo" />
+                    <img style={{ height: "45px", width: "65px" }} src={logo} className="h-40 w-20 rounded-md" alt="Greenmart Logo" />
                     {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> */}
                 </Link>
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -119,20 +119,21 @@ function Navbar() {
                         >
                             <div className="flex h-full flex-col justify-between py-2">
                                 <div>
-        
+
                                     <Sidebar.Items>
                                         <Sidebar.ItemGroup>
-                                            {email  && 
-                                            <Sidebar.Item href="/" icon={HiChartPie}>
-                                                login as  : {email}
-                                            </Sidebar.Item>
-                                              } 
-        
-                                            {isLogin && 
-                                            <Sidebar.Item onClick={handleLogOut} icon={HiLogin}>
-                                                Log out
-                                            </Sidebar.Item>
+                                            {email &&
+                                                <Sidebar.Item href="/" icon={HiChartPie}>
+                                                    login as  : {email}
+                                                </Sidebar.Item>
                                             }
+
+                                            {isLogin &&
+                                                <Sidebar.Item onClick={handleLogOut} icon={HiLogin}>
+                                                    Log out
+                                                </Sidebar.Item>
+                                            }
+                                    
                                         </Sidebar.ItemGroup>
                                     </Sidebar.Items>
                                 </div>
@@ -168,34 +169,37 @@ function Navbar() {
                         <li onClick={handleClick}>
                             <Link to="/product" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Product</Link>
                         </li >
-                       
-                       {isLogin && 
-                        <li onClick={handleClick}>
-                            <Link to="/particularOrder" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">My Order</Link>
-                        </li>
+
+                        {isLogin &&
+                            <li onClick={handleClick}>
+                                <Link to="/particularOrder" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">My Order</Link>
+                            </li>
                         }
 
 
                         {role == "admin" &&
-                        <li className='flex' onClick={handleClick}>
-                            <Link to="/adminProduct" style={{ fontSize: "18px" }} className="block py-2 px-3 mr-10 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Admin Product  </Link>
-                            <Link to="/cart" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Cart  </Link>
-                            <Link to="/cart">
-                                <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1" alt="" />
-                                <strong>{cart.length}</strong>
-                            </Link>
+                            <li className='flex flex-col lg:flex-row' onClick={handleClick}>
+                                <Link to="/adminProduct" style={{ fontSize: "18px" }} className="block py-2 px-3 mr-10 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Admin Product  </Link>
+                                <div className='flex flex-row'>
 
-                        </li>
-                       }
-                       {!isLogin  && 
-                        <li onClick={handleClick}>
-                            <Link to="/login" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Login</Link>
-                        </li>
-                       }
-                       {!isLogin  && 
-                        <li onClick={handleClick}>
-                            <Link to="/signin" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Signup</Link>
-                        </li >
+                                    <Link to="/cart" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Cart  </Link>
+                                    <Link to="/cart" className='flex flex-row'>
+                                        <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1" alt="" />
+                                        <p>{cart.length}</p>
+                                    </Link>
+                                </div>
+
+                            </li>
+                        }
+                        {!isLogin &&
+                            <li onClick={handleClick}>
+                                <Link to="/login" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Login</Link>
+                            </li>
+                        }
+                        {!isLogin &&
+                            <li onClick={handleClick}>
+                                <Link to="/signin" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Signup</Link>
+                            </li >
                         }
                     </ul>
                 </div>

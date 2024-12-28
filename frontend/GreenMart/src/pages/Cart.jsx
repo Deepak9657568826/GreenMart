@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCartProduct } from "../redux/actionCreator";
-import { useToast } from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 import { FaShoppingCart } from 'react-icons/fa';
 import {
   Card,
@@ -106,10 +106,15 @@ function Cart() {
                   <Heading size="md">{product.name}</Heading>
 
                   <Text py="2">
-                    Caffè latte is a coffee beverage of Italian origin made with
-                    espresso and steamed milk.
+                    {product.discription}
                   </Text>
                 </CardBody>
+
+                <Flex px="4" justifyContent="space-between">
+                  <Text > <strong>Price: </strong>{product.price}</Text>
+                  <Text ><strong>Quantity: </strong> {product.quantity}</Text>
+                </Flex>
+
 
                 <CardFooter className="flex justify-between ">
                   <Link to={`/singleProduct/${product._id}`}>
@@ -118,6 +123,8 @@ function Cart() {
                       Buy
                     </Button>
                   </Link>
+
+              
                   <Button
                     onClick={() => {
                       handleRemove(product._id);
@@ -137,8 +144,8 @@ function Cart() {
         style={{ position: "sticky", top: "80px" }}
         className=" mt-10 sm:max-w-md lg:w-full  h-min mx-auto bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl"
       >
-        <div 
-         className="space-y-6 bg-white p-8 rounded-3xl shadow-lg">
+        <div
+          className="space-y-6 bg-white p-8 rounded-3xl shadow-lg">
           <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
             Cart Summary
           </h2>

@@ -6,6 +6,7 @@ const { authmiddleware } = require("../middleware/auth.middleware");
 
 const cartRouter = express.Router();
 
+cartRouter.use(authmiddleware)
 
 cartRouter.post("/addtocart" ,  addProductToCart)
 cartRouter.get("/allcartproduct" ,  individual_Cart_Product)

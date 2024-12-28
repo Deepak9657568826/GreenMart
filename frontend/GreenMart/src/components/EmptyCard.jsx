@@ -3,8 +3,18 @@ import { FaShoppingCart } from "react-icons/fa";
 
 function EmptyCard() {
   return (
-    <div className="flex items-center justify-center min-h-96 bg-gray-100 p-6">
-      <div className="bg-white rounded-lg shadow-xl p-10 max-w-md w-full text-center animate-fade-in">
+    <div
+
+      className="flex items-center justify-center min-h-96 bg-gray-100 p-6"
+    >
+      <div style={{
+        //  backgroundImage: `url("https://img.freepik.com/free-vector/supermarket-shopping-cart-concept-illustration_114360-22408.jpg")`,
+         backgroundSize: 'cover',
+         backgroundPosition: 'center',
+         opacity: 1, // Adjust opacity for background image
+
+        
+      }} className="bg-white rounded-lg shadow-xl p-10 max-w-md w-full text-center animate-fade-in">
         <FaShoppingCart className="text-indigo-600 text-6xl mx-auto mb-6" />
 
         <h2 className="text-2xl font-bold text-gray-800 mb-4">

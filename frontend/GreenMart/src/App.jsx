@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux'
 import { addToCartProduct } from './redux/actionCreator'
 import axios from 'axios'
 import { LOGINFAILURE, LOGINSUCCESS } from './redux/actionType'
+import Trial from './Trial'
 
 
 
@@ -72,6 +73,7 @@ else{
       <Allroutes />
       </div>
       <Footer/>
+      {/* <Trial/> */}
 
 
     </div>

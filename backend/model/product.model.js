@@ -7,6 +7,7 @@ const productSchema = mongoose.Schema({
     },
     image: {
         type: String,
+        enum : [], 
         required: true
     },
     quantity: {
