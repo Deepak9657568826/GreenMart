@@ -381,7 +381,7 @@ function Product() {
       </div>
 
 
-      <div className="flex flex-wrap gap-5  mt-10 justify-center bg-slate-200 ">
+      <div className="flex flex-wrap gap-5  mt-10 justify-center bg-slate-50 ">
         {filterData.map((temp, index) => {
           return (
             <div
