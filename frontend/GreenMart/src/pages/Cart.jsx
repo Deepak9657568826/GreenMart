@@ -17,11 +17,18 @@ import {
 import { Link } from "react-router-dom";
 import EmptyCard from "../components/EmptyCard";
 import { deleteCartProductUrl } from "../utils/Url";
+import { authorizationToken } from "../utils/Token";
+import ProductSkeleton from "../components/ProductSkeleton";
+import Toastnotification from "../utils/Toastnotification";
 
 function Cart() {
+  const [cartProduct  , setCartProduct]  = useState();
   const toast = useToast();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+  console.log("cartdata", cart);
+
+   const {showToast} = Toastnotification() 
 
   const totalPrice = cart.reduce((acc, temp) => {
     return acc + temp.price;
@@ -31,38 +38,34 @@ function Cart() {
     dispatch(addToCartProduct(toast));
   }, []);
 
+  const getAllcartProduct = async () => {
+    const url = `https://greenmart-wyyp.onrender.com/allcartproduct`
+    try {
+      const response = await axios.get(url, authorizationToken)
+      console.log(response.data.allProduct);
+      setCartProduct(response.data.allProduct)
+    } catch (error) {
+
+    }
+  }
+  useEffect(() => {
+    getAllcartProduct()
+  }, [])
+
   const handleRemove = async (id) => {
     try {
-      const response = await axios.delete(`${deleteCartProductUrl}/${id}`);
+      const response = await axios.delete(`${deleteCartProductUrl}/${id}`, authorizationToken);
       if (response.data.msg == "Product remove from cart") {
-        toast({
-          title: `${response.data.msg}`,
-          description: `${response.data.msg}`,
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-        });
+      
+        showToast(`${response.data.msg}`, `${response.data.msg}`)
+
+        getAllcartProduct()
         dispatch(addToCartProduct(toast));
       } else {
-        toast({
-          title: `${response.data.msg}`,
-          description: `${response.data.msg}`,
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-        });
+        showToast(`${response.data.msg}`, `${response.data.msg}`, "error")
       }
     } catch (error) {
-      toast({
-        title: `${error.message}`,
-        description: `${error.message}`,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
+     showToast(`${error.message}`,`${error.message}`, "error")
     }
   };
 
@@ -72,6 +75,11 @@ function Cart() {
     )
   }
 
+  if(!cartProduct){
+    return(
+      <ProductSkeleton/>
+    )
+  }
 
   return (
 
@@ -87,8 +95,8 @@ function Cart() {
         div
         className="flex justify-between  flex-col lg:w-1/2 sm:w-auto gap-2 mt-10 ml-5 mr-5"
       >
-        {cart &&
-          cart.map((product) => (
+        {cartProduct &&
+          cartProduct.map((product) => (
             <Card
               direction={{ base: "column", sm: "row" }}
               overflow="hidden"
@@ -112,7 +120,7 @@ function Cart() {
 
                 <Flex px="4" justifyContent="space-between">
                   <Text > <strong>Price: </strong>{product.price}</Text>
-                  <Text ><strong>Quantity: </strong> {product.quantity}</Text>
+                  <Text ><strong>Quantity: </strong> {product.quantity} {product.state == "solid" ? "kg" : "ml"}</Text>
                 </Flex>
 
 
@@ -124,7 +132,7 @@ function Cart() {
                     </Button>
                   </Link>
 
-              
+
                   <Button
                     onClick={() => {
                       handleRemove(product._id);

@@ -56,7 +56,7 @@ function App() {
 if(token){
   useEffect(()=>{
     verifyToken()
-  },[])
+  },[token, dispatch])
   
 }
 else{
@@ -73,9 +73,6 @@ else{
       <Allroutes />
       </div>
       <Footer/>
-      {/* <Trial/> */}
-
-
     </div>
   )
 }

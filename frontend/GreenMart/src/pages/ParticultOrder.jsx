@@ -3,10 +3,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { authorizationToken } from '../utils/Token';
 import { particularOrderUrl } from '../utils/Url';
+import ProductSkeleton from '../components/ProductSkeleton';
 
 function ParticultOrder() {
   const [order, setAllOrder] = useState([]);
-    async function fetchAllProduct() {
+  async function fetchAllProduct() {
     try {
       const response = await axios.get(particularOrderUrl, authorizationToken);
       const order = response.data.orderByUser;
@@ -93,9 +94,11 @@ function ParticultOrder() {
             </div>
           ))
         ) : (
-          <p className="text-center text-lg text-gray-700 col-span-full">
-            No orders available. Please place an order to see it here.
-          </p>
+          <div className="flex justify-between gap-5">
+            <ProductSkeleton />
+       
+  
+          </div>
         )}
       </div>
     </div>

@@ -6,21 +6,14 @@ import { cartProductUrl, loginUrl } from "../utils/Url"
 
 //login creator
 
-export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEmail, setPassword) => {
+export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEmail, setPassword , showToast) => {
     return async (dispatch) => {
         dispatch({ type: LOGINLOADING })
         try {
             const response = await axios.post(loginUrl, fromData)
               if (response.data.msg == 'please register first or please check email') {
                 setIsSubmitting(false);
-                toast({
-                    title: 'please register first ',
-                    description: `${response.data.msg}`,
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                    position: 'top-right',
-                })
+                showToast('please register first', `${response.data.msg}` , "error" )
                 dispatch({ type: LOGINFAILURE, payload: response.data })
             }
 
@@ -29,14 +22,7 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
                 localStorage.setItem("token", response.data.token)
                 localStorage.setItem("user", JSON.stringify(response.data.user))
                 setIsSubmitting(false);
-                toast({
-                    title: 'Login successfull.',
-                    description: "User login successfull.",
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                    position: 'top-right',
-                })
+                showToast('Login successfull.', "User login successfull.")
                 setEmail("")
                 setPassword("")
                 navigate("/")
@@ -45,14 +31,7 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
 
             else if (response.data.msg == 'please check password') {
                 setIsSubmitting(false);
-                toast({
-                    title: 'Check password.',
-                    description: "please check password.",
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                    position: 'top-right',
-                })
+                showToast('Check password.',  "please check password." , "error")
                 dispatch({ type: LOGINFAILURE, payload: response.data.msg })
             }
 
@@ -66,6 +45,7 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
                     isClosable: true,
                     position: 'top-right',
                 })
+                showToast(`${response.data.mes}`, `${response.data.mes}` , "error")
                 dispatch({ type: LOGINFAILURE, payload: response.data.msg })
             }
 

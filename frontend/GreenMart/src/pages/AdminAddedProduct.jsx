@@ -2,12 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { authorizationToken } from '../utils/Token';
 import { adminProductUrl } from '../utils/Url';
+import ProductSkeleton from '../components/ProductSkeleton';
 
 function AdminAddedProduct() {
   const [product, setProduct] = useState([]);
   async function fetchAllProduct() {
     try {
-      const response = await axios.get(adminProductUrl,authorizationToken);
+      const response = await axios.get(adminProductUrl, authorizationToken);
       const product = response.data.allProduct;
       setProduct(product);
     } catch (error) {
@@ -18,6 +19,8 @@ function AdminAddedProduct() {
   useEffect(() => {
     fetchAllProduct();
   }, []);
+ 
+
 
   return (
     <div className="bg-gradient-to-r from-green-50 to-blue-50 min-h-screen py-12">
@@ -28,14 +31,14 @@ function AdminAddedProduct() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-6 md:px-16">
         {product.length > 0 ? (
           product.map((item, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl relative"
             >
-              <img 
-                src={item.image} 
-                alt={item.name} 
-                className="w-full h-48 object-cover" 
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-48 object-cover"
               />
               <div className="p-6">
                 <h2 className="text-2xl font-extrabold text-gray-900 mb-4">
@@ -53,13 +56,15 @@ function AdminAddedProduct() {
                 </p>
               </div>
 
-            
+
             </div>
           ))
         ) : (
-          <p className="text-center text-lg text-gray-700 col-span-full">
-            No products available. Please add products to see them here.
-          </p>
+          <div className="grid  gap-5 m-auto">
+          <ProductSkeleton />
+       
+        </div>
+        
         )}
       </div>
     </div>

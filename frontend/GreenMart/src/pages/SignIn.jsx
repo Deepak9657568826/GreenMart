@@ -4,6 +4,7 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react'
 import { regitserUrl } from '../utils/Url';
+import Toastnotification from '../utils/Toastnotification';
 
 function SignUp() {
     const [name, setName] = useState('');
@@ -15,7 +16,7 @@ function SignUp() {
 
     const toast = useToast()
 
-
+   const {showToast} = Toastnotification()
 
     const navigate = useNavigate();
 
@@ -32,39 +33,20 @@ function SignUp() {
         const response = await axios.post(regitserUrl, fromData)
         if (response.data.mes == 'user already register with email dwayzode@gmail.com') {
             setIsSubmitting(false);
-            toast({
-                title: 'Use another email',
-                description: `${response.data.mes}`,
-                status: 'error',
-                duration: 2000,
-                isClosable: true,
-                position: 'top-right',
-            })
+            showToast('Use another email' , `${response.data.mes}` , "error" )
+
         }
 
         else if (response.data.mes == 'user register successfully') {
-            setIsSubmitting(false);
-            toast({
-                title: 'User register successfull.',
-                description: "User register successfull.",
-                status: 'success',
-                duration: 2000,
-                isClosable: true,
-                position: 'top-right',
-            })
+            setIsSubmitting(false)
+            showToast('User register successfull.' , 'User register successfull.' )
+
             setIsSubmitting(false);
             navigate("/login")
         }
         else {
             setIsSubmitting(false);
-            toast({
-                title: `${response.data.mes}`,
-                description: `${response.data.mes}`,
-                status: 'error',
-                duration: 2000,
-                isClosable: true,
-                position: 'top-right',
-            })
+            showToast(`${response.data.mes}` , `${response.data.mes}`  , "error" )
         }
 
 

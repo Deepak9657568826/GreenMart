@@ -5,6 +5,7 @@ import { useToast } from '@chakra-ui/react'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux'
 import { loginFunction } from '../redux/actionCreator';
+import Toastnotification from '../utils/Toastnotification';
 
 
 function Login() {
@@ -16,6 +17,8 @@ function Login() {
   const dispatch = useDispatch()
   const state = useSelector(state=>state)
 
+  const {showToast}= Toastnotification()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -24,7 +27,7 @@ function Login() {
       password
     }
      
-    dispatch(loginFunction(fromData , toast , navigate , setIsSubmitting , setEmail , setPassword))
+    dispatch(loginFunction(fromData , toast , navigate , setIsSubmitting , setEmail , setPassword , showToast))
   }
 
 

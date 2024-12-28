@@ -7,6 +7,8 @@ import "../Styles/singleBuy.css"
 import { useSelector } from 'react-redux'
 import { authorizationToken } from '../utils/Token'
 import { orderPlaceUrl, singleProductUrl } from '../utils/Url'
+import ProductSkeleton from '../components/ProductSkeleton'
+import Toastnotification from '../utils/Toastnotification'
 
 function SingleBuy() {
     const [isSpinnerActive , setSpinnerActive] = useState(false) 
@@ -20,6 +22,7 @@ function SingleBuy() {
     const isLogin = state.login
     const navigate = useNavigate()
 
+     const {showToast} = Toastnotification()
     const toast = useToast();
 
     const { id } = useParams()
@@ -62,14 +65,8 @@ function SingleBuy() {
     const handleBuy = async () => {
         setSpinnerActive(true)
          if(!isLogin){
-            toast({
-                title: `Login first`,
-                description: `You have to login first for place order`,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'top-right',
-            });
+            showToast(  `Login first`,   `You have to login first for place order` , "error")
+            
             setTimeout(()=>{
                 navigate('/login')
 
@@ -106,8 +103,8 @@ function SingleBuy() {
 
     if (!singleProducts || singleProducts.length === 0) {
         return (
-            <div className="flex justify-center items-center min-h-screen">
-                <h2 className="text-2xl font-bold text-gray-700">Loading product details...</h2>
+            <div className="flex justify-center">
+               <ProductSkeleton/>
             </div>
         )
     }

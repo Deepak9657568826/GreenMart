@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, useToast } from "@chakra-ui/react";
+import { Button, Skeleton, Stack, useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import SuccessToast from "../utils/SuccessToast";
 import { addToCartProduct } from "../redux/actionCreator";
@@ -9,10 +9,14 @@ import three from "../assets/rich proties sorces greenmart.gif";
 import four from "../assets/flavour jar greenmart.gif";
 import { authorizationToken } from "../utils/Token";
 import { addProductToCartUrl, allOverProductUrl } from "../utils/Url";
+import ProductSkeleton from "../components/ProductSkeleton";
+import Toastnotification from "../utils/Toastnotification";
+
+
 
 function Product() {
   // for filter
-  const [filterData, setFilterData] = useState([]);
+  const [filterData, setFilterData] = useState("");
 
   const [query, setQuery] = useState("");
 
@@ -32,6 +36,7 @@ function Product() {
   const location = useLocation();
   console.log("current router ", location.pathname);
 
+const {showToast} = Toastnotification()
 
   const [updateUrl, setUpdateUrl] = useState(
     "http://localhost:4500/updateproduct"
@@ -137,27 +142,11 @@ function Product() {
 
       if (response.data.msg == "product update successfully") {
         fetchAllProduct();
-
-        toast({
-          title: "product update successfully",
-          description: "product update successfully",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-        });
-
+        showToast("product update successfully" , "product update successfully")
         closeModel();
       }
     } catch (error) {
-      toast({
-        title: `${error.message}`,
-        description: "Something went wrong",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
+      showToast(`${error.message}` ,"Something went wrong" , "error")
       console.log(error.message);
     }
   };
@@ -169,27 +158,12 @@ function Product() {
       const response = await axios.delete(deleteUrl, authorizationToken);
 
       if (response.data.msg == "product delete successfully") {
-        toast({
-          title: "product delete successfully",
-          description: "product delete successfully",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-        });
+        showToast("product delete successfully" , "product delete successfully")
         fetchAllProduct();
         setProductDeleteModel(false);
       }
     } catch (error) {
-
-      toast({
-        title: `${error.message}`,
-        description: "Something went wrong",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
+      showToast(`${error.message}` ,"Something went wrong" , "error")
     }
   };
 
@@ -212,15 +186,8 @@ function Product() {
     });
     setCheckCart(existProduct.length);
     if (existProduct.length > 0) {
-      toast({
-        title: `Product already added in cart`,
-        description: "Product already added in cart",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
-
+      showToast(`Product already added in cart` , `Product already added in cart` , "error")
+      
     } else {
       const cartData = {
         _id: product._id,
@@ -235,21 +202,21 @@ function Product() {
 
 
         if (response.data.msg == "product added to cart successfully") {
-          toast({
-            title: "Product added to cart",
-            description: `${response.data.msg}`,
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-            position: "top-right",
-          });
+          showToast("Product added to cart" , `${response.data.msg}`)
           dispatch(addToCartProduct(toast));
         }
       } catch (error) {
+        showToast(`${error.message}` ,"Something went wrong" , "error")
         console.log(error.message);
       }
     }
   };
+
+  useEffect(() => {
+    document.body.style.overflow = productDeleteModel || isModelOpne ? "hidden" : "auto";
+  }, [productDeleteModel , isModelOpne]);
+  
+
 
   return (
     <>
@@ -380,9 +347,17 @@ function Product() {
 
       </div>
 
-
+       <div>
+        
+       </div>
       <div className="flex flex-wrap gap-5  mt-10 justify-center bg-slate-200 ">
-        {filterData.map((temp, index) => {
+        {!filterData?(
+          <div className="flex justify-between">
+                 <ProductSkeleton/>
+           </div>
+        ):(
+          
+         filterData.map((temp, index) => {
           return (
             <div
               key={index}
@@ -460,7 +435,7 @@ function Product() {
               </div>
             </div>
           );
-        })}
+        }))}
       </div>
 
       {/* modal htmlFor update the product */}

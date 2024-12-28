@@ -1,4 +1,5 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Stack } from '@chakra-ui/react';
+import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { authorizationToken } from '../utils/Token';
@@ -7,7 +8,7 @@ import { deleteProductUrl, fetchAllProductUrl, updateProductUrl } from '../utils
 
 function Order() {
   const [order, setOrder] = useState();
-  const [status , setStatus] = useState("pending");
+  const [status, setStatus] = useState("pending");
 
   const fetchAllOrders = async () => {
     try {
@@ -25,38 +26,37 @@ function Order() {
   }, [])
 
 
- const handleChange = async( order, payload)=>{
+  const handleChange = async (order, payload) => {
 
     try {
-      const response = await axios.patch(`${updateProductUrl}/${order._id}` , payload , authorizationToken)
+      const response = await axios.patch(`${updateProductUrl}/${order._id}`, payload, authorizationToken)
 
       fetchAllOrders();
     } catch (error) {
       console.log(error.message);
-      
+
     }
 
- }
-
-
- 
-
- const handleDelete  = async(id)=>{
-  try {
-    const response = await axios.delete(`${deleteProductUrl}/${id}`, authorizationToken)
-
-    fetchAllOrders();
-  } catch (error) {
-    console.log(error.message);
-    
   }
 
- }
 
 
-//  enum:["pending" , "confirmed", "shipped" , "out for delivery" , "delivered"] , 
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(`${deleteProductUrl}/${id}`, authorizationToken)
+
+      fetchAllOrders();
+    } catch (error) {
+      console.log(error.message);
+
+    }
+  }
+
+
+  //  enum:["pending" , "confirmed", "shipped" , "out for delivery" , "delivered"] , 
   function setBackgroundcolco(status) {
-  
+
     switch (status) {
       case 'pending':
         return 'yellow'; // Orange
@@ -66,8 +66,8 @@ function Order() {
         return '#5cb85c'; // Green
       case 'out for delivery':
         return '#d9534f'; // Red
-        case 'delivered':
-          return 'blue'; // Red
+      case 'delivered':
+        return 'blue'; // Red
       default:
         return '#000'; // Default black
     }
@@ -94,7 +94,22 @@ function Order() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {order && order.map((temp, index) => (
+            {!order ? (
+              <tr>
+                <td colSpan="8"className="px-6 py-4" >
+                  <div className="space-y-4">
+                    <Skeleton height="30px" />
+                    <Skeleton height="30px" />
+                    <Skeleton height="30px" />
+                    <Skeleton height="30px" />
+                    <Skeleton height="30px" />
+                    <Skeleton height="30px" />
+                    <Skeleton height="30px" />
+                    <Skeleton height="30px" />
+                  </div>
+                </td>
+              </tr>
+            ) : (order.map((temp, index) => (
               <tr key={index} className="hover:bg-gray-100">
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{index + 1}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.name}</td>
@@ -103,15 +118,15 @@ function Order() {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.username}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.mobileNumber}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
-                 
+
                   <select
                     className={`p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 `}
-                    onChange={(e)=>handleChange(temp , {status : e.target.value})}
-                    value = {temp.status}
+                    onChange={(e) => handleChange(temp, { status: e.target.value })}
+                    value={temp.status}
                     style={{ background: setBackgroundcolco(temp.status), color: "white", fontWeight: "bold" }}
                   >
-                    <option  value="pending">Pending</option>
-                    <option  value="confirmed">Confirmed</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
                     <option value="shipped">Shipped</option>
                     <option value="out for delivery">Out for Delivery</option>
                     <option value="delivered">Delivered</option>
@@ -120,14 +135,14 @@ function Order() {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <button
-                  onClick={()=>{handleDelete(temp._id)}}
+                    onClick={() => { handleDelete(temp._id) }}
                     className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
                   >
                     Delete
                   </button>
                 </td>
               </tr>
-            ))}
+            )))}
           </tbody>
         </table>
       </div>

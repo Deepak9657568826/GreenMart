@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authorizationToken } from '../utils/Token'
 import { addProductUrl } from '../utils/Url'
+import Toastnotification from '../utils/Toastnotification'
 
 function AddProduct() {
      const [isSpinnerActive , setSpinnerActive] = useState(false) 
@@ -18,6 +19,8 @@ function AddProduct() {
 
     const toast = useToast()
     const navigate = useNavigate()
+
+    const {showToast} = Toastnotification
 
     const addProduct = async (e) => {
         setSpinnerActive(true)
@@ -36,14 +39,8 @@ function AddProduct() {
         const productAdd = await axios.post(addProductUrl, productData, authorizationToken)
         if (productAdd.data.msg == "new product added successfully") {
             setSpinnerActive(false)
-            toast({
-                title: 'New product added successfully',
-                description: "New product added successfully",
-                status: 'success',
-                duration: 3000,
-                isClosable: true,
-                position: 'top-right',
-            })
+            showToast('New product added successfully' , 'New product added successfully')
+
             setProductName("/")
             setImage("")
             setPrice("")
@@ -57,14 +54,7 @@ function AddProduct() {
             }, 2000)
         }
         else {
-            toast({
-                title: `${productAdd.data.msg}`,
-                description: `${productAdd.data.msg}`,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'top-right',
-            })
+            showToast(`${productAdd.data.msg}` , `${productAdd.data.msg}` , "error")
             setSpinnerActive(false)
         }
     }
