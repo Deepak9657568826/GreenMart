@@ -73,7 +73,6 @@ export const addToCartProduct = (toast) => {
                 dispatch({ type: ADDTOCARTSUCCESS, payload: response.data }) 
             }
             else{
-
                 toast({
                     title: `${response.data.msg}`,
                     description: `${response.data.msg}`,
@@ -103,7 +102,7 @@ export const addToCartProduct = (toast) => {
 }
 
 
-export function logoutfunction(navigate , toast , setIsOpenDrawer) {
+export function logoutfunction(navigate , toast , setIsOpenDrawer ,showToast) {
 
     return async (dispatch) => {
         dispatch({ type: LOGOUTLOADING })
@@ -112,28 +111,15 @@ export function logoutfunction(navigate , toast , setIsOpenDrawer) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 // localStorage.removeItem('user');
-                toast({
-                    title: `Logout successfully`,
-                    description: `तुमचे लॉगआउट यशस्वीपणे झाले आहे!`,
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                    position: 'top-right',
-                });
+
+                showToast(`Logout successfully` , "Logout successfully"  )
                 // alert("user logout successfully")
                 setIsOpenDrawer(false)
                 navigate("/login")
         
         } catch (error) {
             dispatch({ type: LOGOUTFAILURE, payload: error.message })
-            toast({
-                title: `${error.message}`,
-                description: `तुमचे लॉगिन अयशस्वी झाले आहे. कृपया पुन्हा प्रयत्न करा.`,
-                status: 'error',
-                duration: 5000,
-                isClosable: true,
-                position: 'top-right',
-            });
+            showToast(`${error.message}` ,`${error.message}` , "error" )
 
         }
     }

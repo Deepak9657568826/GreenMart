@@ -86,7 +86,7 @@ function SingleBuy() {
                 setTimeout(() => {
                     setSpinnerActive(false)
                     setConfirmModel(true)
-                }, 2000)
+                }, 500)
 
             }
 

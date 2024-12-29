@@ -18,6 +18,7 @@ import {
 import { useToast } from '@chakra-ui/react';
 import { loginReducer } from '../redux/reducer';
 import { logoutfunction } from '../redux/actionCreator';
+import Toastnotification from '../utils/Toastnotification';
 function Navbar() {
     // drawer
     const [isOpenDrawer, setIsOpenDrawer] = useState(false);
@@ -36,7 +37,7 @@ function Navbar() {
 
     const toast = useToast()
     const navigate = useNavigate()
-
+  const {showToast} = Toastnotification()
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -57,7 +58,7 @@ function Navbar() {
 
         const token = localStorage.getItem("token")
         if (token) {
-            dispatch(logoutfunction(navigate, toast, setIsOpenDrawer));
+            dispatch(logoutfunction(navigate, toast, setIsOpenDrawer , showToast));
         }
 
     }
