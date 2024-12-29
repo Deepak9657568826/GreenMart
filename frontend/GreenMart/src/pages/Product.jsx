@@ -34,8 +34,6 @@ function Product() {
   const [buttonone, seButton] = useState("");
 
   const location = useLocation();
-  console.log("current router ", location.pathname);
-
   const { showToast } = Toastnotification()
 
   const [updateUrl, setUpdateUrl] = useState(
@@ -215,8 +213,6 @@ function Product() {
   useEffect(() => {
     document.body.style.overflow = productDeleteModel || isModelOpne ? "hidden" : "auto";
   }, [productDeleteModel, isModelOpne]);
-
-
 
   return (
     <>

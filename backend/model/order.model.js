@@ -23,7 +23,7 @@ const orderSchema = mongoose.Schema({
     state : {
         type : String , 
         enum : ["solid" , "liquid"],
-        required: true
+        // required: true
     },
     username: {
         type: String

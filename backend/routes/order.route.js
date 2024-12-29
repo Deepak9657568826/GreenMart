@@ -5,7 +5,7 @@ const { authmiddleware } = require("../middleware/auth.middleware");
 const orderRouter = express.Router();
 
 
-orderRouter.post("/placeorder", authmiddleware ,  placeOrder)
+orderRouter.post("/placeorder" ,  placeOrder)
 orderRouter.get("/allorder" ,   getAllOrder)
 
 orderRouter.get("/particularOrder",  authmiddleware ,   orderByParticultUser)

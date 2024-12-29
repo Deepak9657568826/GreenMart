@@ -1,51 +1,50 @@
 import { Button, Stack, ToastProvider } from '@chakra-ui/react';
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { authorizationToken } from '../utils/Token';
 import { deleteProductUrl, fetchAllProductUrl, updateProductUrl } from '../utils/Url';
 import Toastnotification from '../utils/Toastnotification';
 import { Spinner } from "flowbite-react";
+import { orderContext } from '../hook/SocketServer';
+import sound from "../assets/sound.wav"
 
 
 function Order() {
   const [spinner, setSpinner] = useState({})
-  const [order, setOrder] = useState();
-  const [status, setStatus] = useState("pending");
   const { showToast } = Toastnotification()
+  const [audioAllowed, setAudioAllowed] = useState(false); // Track if audio is allowed
+console.log(audioAllowed);
 
 
-  const fetchAllOrders = async () => {
-    try {
-      const response = await axios.get(fetchAllProductUrl, authorizationToken)
-      setOrder(response.data.allorder);
+  
 
-    } catch (error) {
-      console.log(error.msg);
-
+  const {allOrder , socket} = useContext(orderContext)
+  // console.log(allOrder);
+  const enableAudio = () => {
+    setAudioAllowed(true); // Permission granted
+  };
+  useEffect(()=>{
+    if(audioAllowed){
+      socket.on("orderStatus" , (payload)=>{
+          if(payload.status){
+            console.log("audio play");
+            const audio = new  Audio(sound); 
+            audio.play().catch(err => console.error("Audio playback failed:", err)); 
+          }
+      })
     }
-  }
 
-  useEffect(() => {
-    fetchAllOrders();
-  }, [])
+  },[socket])
 
 
   const handleChange = async (order, payload) => {
-
     try {
       const response = await axios.patch(`${updateProductUrl}/${order._id}`, payload, authorizationToken)
-
-      fetchAllOrders();
     } catch (error) {
       console.log(error.message);
-
     }
-
   }
-
-
-
 
   const handleDelete = async (id) => {
     setSpinner(pre => ({...pre , [id]: true})  )
@@ -54,8 +53,7 @@ function Order() {
     try {
       const response = await axios.delete(`${deleteProductUrl}/${id}`, authorizationToken)
       showToast("Order delete successfully", "Order delete successfully")
-      fetchAllOrders();
-    
+      setSpinner(pre => ({...pre , [id]: false})  )
     } catch (error) {
       console.log(error.message);
       showToast(`${error.message}`, `${error.message}`)
@@ -64,8 +62,6 @@ function Order() {
     }
   }
 
-
-  //  enum:["pending" , "confirmed", "shipped" , "out for delivery" , "delivered"] , 
   function setBackgroundcolco(status) {
     switch (status) {
       case 'pending':
@@ -89,6 +85,8 @@ function Order() {
   return (
     <div className="p-6 mt-20 bg-gray-100 min-h-screen">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">This is the Order Page</h2>
+      <Button colorScheme='blue' onClick={enableAudio}>Enable Audio</Button>
+
       <div className="overflow-x-auto shadow-lg rounded-lg">
         <table className="min-w-full bg-white divide-y divide-gray-200">
           <thead className="bg-blue-600 text-white">
@@ -104,7 +102,7 @@ function Order() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {!order ? (
+            {!allOrder ? (
               <tr>
                 <td colSpan="8" className="px-6 py-4" >
                   <div className="space-y-4">
@@ -119,7 +117,7 @@ function Order() {
                   </div>
                 </td>
               </tr>
-            ) : (order.map((temp, index) => (
+            ) : (allOrder.map((temp, index) => (
               <tr key={index} className="hover:bg-gray-100">
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{index + 1}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{temp.name}</td>

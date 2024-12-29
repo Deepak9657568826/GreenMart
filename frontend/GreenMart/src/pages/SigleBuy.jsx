@@ -1,6 +1,6 @@
 import { Button, useToast } from '@chakra-ui/react'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import check from "../assets/check.png"
 import "../Styles/singleBuy.css"
@@ -9,9 +9,10 @@ import { authorizationToken } from '../utils/Token'
 import { orderPlaceUrl, singleProductUrl } from '../utils/Url'
 import ProductSkeleton from '../components/ProductSkeleton'
 import Toastnotification from '../utils/Toastnotification'
+import { orderContext } from '../hook/SocketServer'
 
 function SingleBuy() {
-    const [isSpinnerActive , setSpinnerActive] = useState(false) 
+    const [isSpinnerActive, setSpinnerActive] = useState(false)
     const [singleProducts, setSingleProducts] = useState("")
     const [price, setPrice] = useState()
     const [quantity, setQuantity] = useState(1)
@@ -22,10 +23,12 @@ function SingleBuy() {
     const isLogin = state.login
     const navigate = useNavigate()
 
-     const {showToast} = Toastnotification()
+    const { showToast } = Toastnotification()
     const toast = useToast();
 
     const { id } = useParams()
+
+    const { socket } = useContext(orderContext)
 
 
     const fetchSingleProducts = async () => {
@@ -64,12 +67,12 @@ function SingleBuy() {
     // place order
     const handleBuy = async () => {
         setSpinnerActive(true)
-         if(!isLogin){
-            showToast(  `Login first`,   `You have to login first for place order` , "error")
-            setTimeout(()=>{
+        if (!isLogin) {
+            showToast(`Login first`, `You have to login first for place order`, "error")
+            setTimeout(() => {
                 navigate('/login')
-            },2000)
-         }
+            }, 2000)
+        }
         const orderdata = {
             name: singleProducts.name,
             image: singleProducts.image,
@@ -77,21 +80,35 @@ function SingleBuy() {
             price: price,
             state: singleProducts.state
         }
-        try {
-            const response = await axios.post(orderPlaceUrl, orderdata, authorizationToken)
-            console.log(response.data);
-            if (response.data.msg == "new order placed successfully") {
-                setTimeout(() => {
-                    setSpinnerActive(false)
-                    setConfirmModel(true)
-                }, 500)
 
-            }
-
-        } catch (error) {
-            console.log(error.message);
-            setSpinnerActive(false)
+        if (socket) {
+            socket.emit("newOrder", orderdata)
+            socket.on("orderStatus", (payload) => {
+                if (payload.status) {
+                    setTimeout(() => {
+                        setSpinnerActive(false)
+                        setConfirmModel(true)
+                    }, 2000)
+                }
+            })
         }
+        // try {
+        //     const response = await axios.post(orderPlaceUrl, orderdata, authorizationToken)
+        //     console.log(response.data);
+        //     if (response.data.msg == "new order placed successfully") {
+        //         setTimeout(() => {
+        //             setSpinnerActive(false)
+        //             setConfirmModel(true)
+        //         }, 500)
+
+        //     }
+
+        // } catch (error) {
+        //     console.log(error.message);
+        //     setSpinnerActive(false)
+        // }
+
+
     }
 
     const isModelClose = () => {
@@ -102,7 +119,7 @@ function SingleBuy() {
     if (!singleProducts || singleProducts.length === 0) {
         return (
             <div className="flex justify-center">
-               <ProductSkeleton/>
+                <ProductSkeleton />
             </div>
         )
     }
@@ -114,7 +131,7 @@ function SingleBuy() {
             {singleProducts &&
                 <div className=" my-10">
                     <div
-                     
+
                         className=" lg:max-w-96 md:max-w-96 m-auto sm:min-w-full  bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"
                     >
                         <img
@@ -126,7 +143,7 @@ function SingleBuy() {
                             <h1 className="text-3xl font-bold text-gray-800 mb-2">{singleProducts.name}</h1>
                             <p className="text-xl font-semibold text-green-600 mb-4">{singleProducts.discription}</p>
                             <div className='flex gap-10'>
-                           
+
                                 <Button onClick={handleRemove} className='p-5 ' colorScheme='blue'>-</Button>
                                 <strong>{quantity}</strong>
                                 <Button onClick={handleAdd} className='p-3 ' colorScheme='blue'>+</Button>
@@ -138,7 +155,7 @@ function SingleBuy() {
 
 
             <div className=" sticky top-16 sm:w-full lg:w-96 mt-20   h-min  bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl">
-                <div  className=" space-y-6 bg-white sm:max-w-96  p-8 rounded-3xl shadow-lg">
+                <div className=" space-y-6 bg-white sm:max-w-96  p-8 rounded-3xl shadow-lg">
                     <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
                         Cart Summary
                     </h2>

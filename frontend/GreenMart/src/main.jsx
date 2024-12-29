@@ -6,8 +6,10 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import { store } from './store.js';
+import {  ContextProvider } from './hook/SocketServer.jsx';
 
 createRoot(document.getElementById('root')).render(
+  <ContextProvider>
   <Provider store = {store}> 
   <ChakraProvider>
     <BrowserRouter>
@@ -15,6 +17,7 @@ createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </ChakraProvider>
   </Provider>
+  </ContextProvider>
 
 )
 
