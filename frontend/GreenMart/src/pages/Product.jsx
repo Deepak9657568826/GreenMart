@@ -36,7 +36,7 @@ function Product() {
   const location = useLocation();
   console.log("current router ", location.pathname);
 
-const {showToast} = Toastnotification()
+  const { showToast } = Toastnotification()
 
   const [updateUrl, setUpdateUrl] = useState(
     "http://localhost:4500/updateproduct"
@@ -142,11 +142,11 @@ const {showToast} = Toastnotification()
 
       if (response.data.msg == "product update successfully") {
         fetchAllProduct();
-        showToast("product update successfully" , "product update successfully")
+        showToast("product update successfully", "product update successfully")
         closeModel();
       }
     } catch (error) {
-      showToast(`${error.message}` ,"Something went wrong" , "error")
+      showToast(`${error.message}`, "Something went wrong", "error")
       console.log(error.message);
     }
   };
@@ -158,12 +158,12 @@ const {showToast} = Toastnotification()
       const response = await axios.delete(deleteUrl, authorizationToken);
 
       if (response.data.msg == "product delete successfully") {
-        showToast("product delete successfully" , "product delete successfully")
+        showToast("product delete successfully", "product delete successfully")
         fetchAllProduct();
         setProductDeleteModel(false);
       }
     } catch (error) {
-      showToast(`${error.message}` ,"Something went wrong" , "error")
+      showToast(`${error.message}`, "Something went wrong", "error")
     }
   };
 
@@ -186,8 +186,8 @@ const {showToast} = Toastnotification()
     });
     setCheckCart(existProduct.length);
     if (existProduct.length > 0) {
-      showToast(`Product already added in cart` , `Product already added in cart` , "error")
-      
+      showToast(`Product already added in cart`, `Product already added in cart`, "error")
+
     } else {
       const cartData = {
         _id: product._id,
@@ -202,11 +202,11 @@ const {showToast} = Toastnotification()
 
 
         if (response.data.msg == "product added to cart successfully") {
-          showToast("Product added to cart" , `${response.data.msg}`)
+          showToast("Product added to cart", `${response.data.msg}`)
           dispatch(addToCartProduct(toast));
         }
       } catch (error) {
-        showToast(`${error.message}` ,"Something went wrong" , "error")
+        showToast(`${error.message}`, "Something went wrong", "error")
         console.log(error.message);
       }
     }
@@ -214,8 +214,8 @@ const {showToast} = Toastnotification()
 
   useEffect(() => {
     document.body.style.overflow = productDeleteModel || isModelOpne ? "hidden" : "auto";
-  }, [productDeleteModel , isModelOpne]);
-  
+  }, [productDeleteModel, isModelOpne]);
+
 
 
   return (
@@ -347,95 +347,95 @@ const {showToast} = Toastnotification()
 
       </div>
 
-       <div>
-        
-       </div>
-      <div className="flex flex-wrap gap-5  mt-10 justify-center bg-slate-200 ">
-        {!filterData?(
+      <div>
+
+      </div>
+      <div className="flex flex-wrap gap-5  mt-10 justify-center bg-gray-100 ">
+        {!filterData ? (
           <div className="flex justify-between">
-                 <ProductSkeleton/>
-           </div>
-        ):(
-          
-         filterData.map((temp, index) => {
-          return (
-            <div
-              key={index}
-              className="my-5 transform transition-transform duration-300 hover:scale-105 shadow-lg rounded-lg"
-            >
-              <div className=" bg-slate-200 w-72 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#" className="flex justify-center">
-                  <img
-                    className="pt-4 h-44 w-44 rounded-lg "
-                    src={temp.image}
-                    alt="product image"
-                  />
-                </a>
-                <div className="px-5 pb-5">
-                  <a href="#">
-                    <h5 className="text-lg pt-4 text-center font-semibold tracking-tight text-gray-900 dark:text-white">
-                      {temp.name}
-                    </h5>
+            <ProductSkeleton />
+          </div>
+        ) : (
+
+          filterData.map((temp, index) => {
+            return (
+              <div
+                key={index}
+                className="my-5 transform transition-transform duration-300 hover:scale-105 shadow-lg rounded-lg"
+              >
+                <div className=" bg-slate-200 w-72 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                  <a href="#" className="flex justify-center">
+                    <img
+                      className="pt-4 h-44 w-44 rounded-lg "
+                      src={temp.image}
+                      alt="product image"
+                    />
                   </a>
-                  <div>
-                    <div className="flex items-center mt-2.5 mb-5  justify-between ">
-                      <span className="text-lg  text-gray-900 dark:text-white">
-                        Rs: {temp.price}
-                      </span>
-                      <span className="text-lg  text-gray-900 dark:text-white">
-                        {" "}
-                        {temp.quantity >= 1000
-                          ? temp.quantity.toString()[0]
-                          : temp.quantity}{" "}
-                        {temp.state == "solid" ? `kg` : `ltr`}
-                      </span>
-                    </div>
-
-                  </div>
-                  <div className="flex  items-center justify-between">
-                    <Link to={`/singleProduct/${temp._id}`}>
-                      <button style={{ width: role == "user" ? ("120px") : ("") }} className="text-white min-w-full  bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Buy now
-                      </button>
-                    </Link>
-
-                    {role == "admin" &&
-                      <button
-                        onClick={() => {
-                          handleAddToCart(temp);
-                        }}
-                        className="text-white bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
-                        Add to cart
-                      </button>
-                    }
-                  </div>
-                  {role == "admin" &&
+                  <div className="px-5 pb-5">
+                    <a href="#">
+                      <h5 className="text-lg pt-4 text-center font-semibold tracking-tight text-gray-900 dark:text-white">
+                        {temp.name}
+                      </h5>
+                    </a>
                     <div>
-                      <button
-                        onClick={() => {
-                          openModel(temp);
-                        }}
-                        className="text-lime-900 border border-gray-500 w-full mt-4 bg-gradient-to-r from-lime-50 via-lime-100 to-lime-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
-                        Update
-                      </button>
-                      <button
-                        onClick={() => {
-                          openDeleteModel(temp._id);
-                        }}
-                        className="text-red-700 w-full border border-gray-500  mt-4 bg-gradient-to-r from-rose-50 via-rose-100 to-rose-200 hover:bg-red-7pratin00 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
-                        Delete Product
-                      </button>
-                    </div>
-                  }
+                      <div className="flex items-center mt-2.5 mb-5  justify-between ">
+                        <span className="text-lg  text-gray-900 dark:text-white">
+                          Rs: {temp.price}
+                        </span>
+                        <span className="text-lg  text-gray-900 dark:text-white">
+                          {" "}
+                          {temp.quantity >= 1000
+                            ? temp.quantity.toString()[0]
+                            : temp.quantity}{" "}
+                          {temp.state == "solid" ? `kg` : `ltr`}
+                        </span>
+                      </div>
 
+                    </div>
+                    <div className="flex  items-center justify-between">
+                      <Link to={`/singleProduct/${temp._id}`}>
+                        <button style={{ width: role == "user" ? ("120px") : ("") }} className="text-white min-w-full  bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                          Buy now
+                        </button>
+                      </Link>
+
+                      {role == "admin" &&
+                        <button
+                          onClick={() => {
+                            handleAddToCart(temp);
+                          }}
+                          className="text-white bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          Add to cart
+                        </button>
+                      }
+                    </div>
+                    {role == "admin" &&
+                      <div>
+                        <button
+                          onClick={() => {
+                            openModel(temp);
+                          }}
+                          className="text-lime-900 border border-gray-500 w-full mt-4 bg-gradient-to-r from-lime-50 via-lime-100 to-lime-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          Update
+                        </button>
+                        <button
+                          onClick={() => {
+                            openDeleteModel(temp._id);
+                          }}
+                          className="text-red-700 w-full border border-gray-500  mt-4 bg-gradient-to-r from-rose-50 via-rose-100 to-rose-200 hover:bg-red-7pratin00 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          Delete Product
+                        </button>
+                      </div>
+                    }
+
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        }))}
+            );
+          }))}
       </div>
 
       {/* modal htmlFor update the product */}

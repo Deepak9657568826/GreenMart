@@ -63,7 +63,7 @@ function AddProduct() {
 
     return (
     
-        <div style={{ backgroundColor:"lightBlue" }} className=" my-20  m-auto   min-w-80  w-2/4  p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div  className=" my-20 bg-white  m-auto   min-w-80  w-2/4  p-4  border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
             <form onSubmit={addProduct} className="space-y-6" action="#">
                 <h5 className="text-xl font-medium text-gray-900 dark:text-white">Manage Product</h5>
                 <div className="flex flex-col md:flex-row justify-between  gap-5">

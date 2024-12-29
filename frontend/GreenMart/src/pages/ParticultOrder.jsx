@@ -40,7 +40,7 @@ function ParticultOrder() {
   }
 
   return (
-    <div className="bg-gradient-to-r  from-green-50 to-blue-50 min-h-screen py-12">
+    <div className="bg-gradient-to-r mt-10  from-green-50 to-blue-50 min-h-screen py-12">
       <h1 className="text-center text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-orange-500 to-red-600 mb-12">
         Your Previous Orders
       </h1>

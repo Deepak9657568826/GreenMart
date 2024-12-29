@@ -66,7 +66,7 @@ else{
 
 
   return (
-    <div className='w-11/12 m-auto'>
+    <div  className='w-11/12 m-auto bg-gray-100'>
 
       <Navbar />
       <div className='mt-20'>

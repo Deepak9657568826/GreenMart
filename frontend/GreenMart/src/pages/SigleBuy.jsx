@@ -109,7 +109,7 @@ function SingleBuy() {
 
     return (
 
-        <div className=" flex sm:flex-wrap md:flex-row  lg:flex-row justify-around m-auto flex-col  md:bg-slate-400 lg:bg-slate-400">
+        <div className=" flex sm:flex-wrap md:flex-row   lg:flex-row justify-around m-auto flex-col  md:bg-slate-400 lg:bg-slate-400">
 
             {singleProducts &&
                 <div className=" my-10">
@@ -126,9 +126,10 @@ function SingleBuy() {
                             <h1 className="text-3xl font-bold text-gray-800 mb-2">{singleProducts.name}</h1>
                             <p className="text-xl font-semibold text-green-600 mb-4">{singleProducts.discription}</p>
                             <div className='flex gap-10'>
-                                <Button onClick={handleAdd} className='p-3 ' colorScheme='blue'>+</Button>
-                                <strong>{quantity}</strong>
+                           
                                 <Button onClick={handleRemove} className='p-5 ' colorScheme='blue'>-</Button>
+                                <strong>{quantity}</strong>
+                                <Button onClick={handleAdd} className='p-3 ' colorScheme='blue'>+</Button>
                             </div>
                         </div>
                     </div>
@@ -136,7 +137,7 @@ function SingleBuy() {
             }
 
 
-            <div className=" sticky top-16 sm:w-full lg:w-96 mt-10   h-min  bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl">
+            <div className=" sticky top-16 sm:w-full lg:w-96 mt-20   h-min  bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl">
                 <div  className=" space-y-6 bg-white sm:max-w-96  p-8 rounded-3xl shadow-lg">
                     <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
                         Cart Summary
