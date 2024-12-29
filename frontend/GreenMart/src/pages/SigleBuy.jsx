@@ -66,10 +66,8 @@ function SingleBuy() {
         setSpinnerActive(true)
          if(!isLogin){
             showToast(  `Login first`,   `You have to login first for place order` , "error")
-            
             setTimeout(()=>{
                 navigate('/login')
-
             },2000)
          }
         const orderdata = {
