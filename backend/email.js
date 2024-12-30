@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 require('dotenv').config()
 const sendEmail = async (to, subject, text, html) => {
-    console.log("in email function");
+    console.log("enter in email section");
     
   try {
     // Create a transporter
@@ -9,7 +9,7 @@ const sendEmail = async (to, subject, text, html) => {
       service: "gmail",
       auth: {
         user: process.env.email, // Your email
-        pass: process.env.password, // Replace with app-specific password
+        pass: process.env.pass, // Replace with app-specific password
       },
     });
 

@@ -9,7 +9,11 @@ const { verifyToken } = require("./middleware/tokenVerify.middleware");
 const { Server } = require("socket.io")
 const http = require("http");
 const { OrderModel } = require("./model/order.model");
-const { sendEmail } = require("./email/email");
+const { sendEmail } = require("./email");
+
+require('dotenv').config()
+const jwt = require("jsonwebtoken")
+
 
 require('dotenv').config()
 
@@ -25,6 +29,13 @@ app.use("/verifyToken", verifyToken)
 app.get("/", (req, res) => {
     res.status(200).json({ "msg": "This is home page" });
 })
+
+
+app.use((req, res, next) => {
+      console.log("this is gglobeal data");
+    next();
+});
+
 
 const httpServer = http.createServer(app)
 const socketServer = new Server(httpServer)
@@ -42,7 +53,30 @@ httpServer.listen(PORT, async () => {
 })
 
 
+
 socketServer.on("connection", async (socket) => {
+    const token = socket.handshake.query.token; // Retrieve token from query
+    if (!token) {
+        console.log("Token missing");
+        socket.disconnect(); // Disconnect the client if no token
+        return;
+    }
+    // console.log(token);
+    var email
+    jwt.verify(token, process.env.secret_key, async (err, decoded) => {
+        if (err) {
+            console.log("Invalid token:", err);
+            socket.disconnect(); // Disconnect if token is invalid
+            return;
+        }
+
+        // Extract email from decoded token
+         email = decoded.tokenUser.email;
+    })
+    console.log(email);
+    
+    
+
     socket.emit("start", "Web socket connection established")
     socket.on("first", (msg) => {
         console.log(msg);
@@ -51,29 +85,32 @@ socketServer.on("connection", async (socket) => {
     const allOrder = await OrderModel.find();
     socket.emit("allorder", allOrder)
 
+
     try {
-        socket.on("newOrder", async (payload) => {
+        socket.on("newOrderOne", async (payload) => {
+            console.log("New Order event received:", payload); // Add this log
             const neworder = new OrderModel(payload)
             await neworder.save()
                 
-        //     console.log("email send start");
-            
-        //     const htmlContent = `
-        //     <h2>Order Confirmation</h2>
-        //     <p>Thank you for your order! Here are the details:</p>
-        //     <ul>
-        //       <li>Product Name: ${neworder.name}</li>
-        //       <li>Price: $${neworder.price}</li>
-        //     </ul>
-        //   `;
-        
-        //         // Send email
-        //         await (
-        //             "dwayzode@gmail.com", // Receiver email address passed in payload
-        //             "Your Order Confirmation",
-        //             "Thank you for your order!",
-        //             htmlContent
-        //         );
+            console.log("email send start");
+             
+            const htmlContent = `
+            <h2>Order Confirmation</h2>
+            <p>Thank you for your order! Here are the details:</p>
+            <ul>
+              <li>Product Name: ${neworder.name}</li>
+              <li>Price: $${neworder.price}</li>
+            </ul>
+          `;
+
+            // Send email
+            await sendEmail(
+                email, // Receiver email address passed in payload
+                "Your Order Confirmation",
+                "Thank you for your order!",
+                htmlContent
+            );
+         
             
 
             socketServer.emit("order", neworder)

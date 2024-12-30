@@ -1,4 +1,4 @@
-const { sendEmail } = require("../email/email");
+
 const { OrderModel } = require("../model/order.model");
 
 
@@ -10,25 +10,6 @@ const placeOrder = async (req, res) => {
     try {
         const placeOrder = new OrderModel(paylaod)
         await placeOrder.save();
-        // Generate email content
-        const htmlContent = `
-    <h2>Order Confirmation</h2>
-    <p>Thank you for your order! Here are the details:</p>
-    <ul>
-      <li>Product Name: ${newOrder.name}</li>
-      <li>Quantity: ${newOrder.quantity}</li>
-      <li>Price: $${newOrder.price}</li>
-    </ul>
-    <p>Total Amount: $${newOrder.price * newOrder.quantity}</p>
-  `;
-
-        // Send email
-        await sendEmail(
-            "dwayzode@gmail.com", // Receiver email address passed in payload
-            "Your Order Confirmation",
-            "Thank you for your order!",
-            htmlContent
-        );
 
         res.status(200).json({ msg: "new order placed successfully" })
     } catch (error) {

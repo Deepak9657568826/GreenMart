@@ -31,6 +31,9 @@ const orderSchema = mongoose.Schema({
     userId :{
         type: String
     },
+    email : {
+        type : String
+    },
 
     status : {
         type : String,

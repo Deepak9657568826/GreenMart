@@ -82,13 +82,11 @@ function SingleBuy() {
         }
 
         if (socket) {
-            socket.emit("newOrder", orderdata)
+            socket.emit("newOrderOne", orderdata)
             socket.on("orderStatus", (payload) => {
                 if (payload.status) {
-                    setTimeout(() => {
                         setSpinnerActive(false)
                         setConfirmModel(true)
-                    }, 2000)
                 }
             })
         }
@@ -189,7 +187,7 @@ function SingleBuy() {
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             ) : (
-                                `Confirm Order`
+                                `Confirm Order please`
                             )}
                         </button>
                     </div>

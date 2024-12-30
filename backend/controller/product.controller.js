@@ -50,6 +50,7 @@ const individualProduct = async (req, res) => {
 const updateProduct= async (req, res) => {
     const paylaod = req.body;
     const {id} = req.params;
+    
     try {
         const updateProduct = await ProductModel.findByIdAndUpdate({_id : id} , paylaod)
         res.status(200).json({ msg: "product update successfully"  , updateProduct})
