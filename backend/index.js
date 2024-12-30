@@ -55,6 +55,7 @@ socketServer.on("connection", async (socket) => {
             const neworder = new OrderModel(payload)
             await neworder.save()
             socketServer.emit("order", neworder)
+            socketServer.emit("notificationToAdmin", {status : true})
             socketServer.emit("orderStatus", { status: true })
         })
     } catch (error) {

@@ -14,28 +14,46 @@ function Order() {
   const [spinner, setSpinner] = useState({})
   const { showToast } = Toastnotification()
   const [audioAllowed, setAudioAllowed] = useState(false); // Track if audio is allowed
-console.log(audioAllowed);
+  console.log(audioAllowed);
 
 
-  
 
-  const {allOrder , socket} = useContext(orderContext)
-  // console.log(allOrder);
-  const enableAudio = () => {
-    setAudioAllowed(true); // Permission granted
+
+  const { allOrder, socket } = useContext(orderContext)
+  const handleUserInteraction = () => {
+    setAudioAllowed(true); // User interacted with the page, so allow audio
   };
-  useEffect(()=>{
-    if(audioAllowed){
-      socket.on("orderStatus" , (payload)=>{
-          if(payload.status){
-            console.log("audio play");
-            const audio = new  Audio(sound); 
-            audio.play().catch(err => console.error("Audio playback failed:", err)); 
-          }
+
+  useEffect(() => {
+    // Add event listeners to detect user interaction
+    window.addEventListener('click', handleUserInteraction);
+    window.addEventListener('keydown', handleUserInteraction);
+
+    return () => {
+      // Clean up event listeners
+      window.removeEventListener('click', handleUserInteraction);
+      window.removeEventListener('keydown', handleUserInteraction);
+    };
+  }, []);
+
+  const enableAudio = () => {
+    setAudioAllowed(true);
+  };
+  useEffect(() => {
+    console.log(audioAllowed);
+    console.log(socket);
+    if (audioAllowed && socket) {
+      console.log('Come to notifucation');
+
+      socket.on("notificationToAdmin", (payload) => {
+        if (payload.status) {
+          console.log("audio play");
+          const audio = new Audio(sound);
+          audio.play().catch(err => console.error("Audio playback failed:", err));
+        }
       })
     }
-
-  },[socket])
+  }, [socket, audioAllowed])
 
 
   const handleChange = async (order, payload) => {
@@ -47,17 +65,15 @@ console.log(audioAllowed);
   }
 
   const handleDelete = async (id) => {
-    setSpinner(pre => ({...pre , [id]: true})  )
-    console.log(spinner);
-    
+    setSpinner(pre => ({ ...pre, [id]: true }))
     try {
       const response = await axios.delete(`${deleteProductUrl}/${id}`, authorizationToken)
       showToast("Order delete successfully", "Order delete successfully")
-      setSpinner(pre => ({...pre , [id]: false})  )
+      setSpinner(pre => ({ ...pre, [id]: false }))
     } catch (error) {
       console.log(error.message);
       showToast(`${error.message}`, `${error.message}`)
-      setSpinner(pre => ({...pre , [id] : false})  )
+      setSpinner(pre => ({ ...pre, [id]: false }))
 
     }
   }
@@ -85,7 +101,9 @@ console.log(audioAllowed);
   return (
     <div className="p-6 mt-20 bg-gray-100 min-h-screen">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">This is the Order Page</h2>
-      <Button colorScheme='blue' onClick={enableAudio}>Enable Audio</Button>
+      <Button colorScheme='blue' onClick={enableAudio}>
+        {audioAllowed ? "Audio Enabled" : "Enable Audio"}
+      </Button>
 
       <div className="overflow-x-auto shadow-lg rounded-lg">
         <table className="min-w-full bg-white divide-y divide-gray-200">
