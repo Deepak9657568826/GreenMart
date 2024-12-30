@@ -56,24 +56,24 @@ socketServer.on("connection", async (socket) => {
             const neworder = new OrderModel(payload)
             await neworder.save()
                 
-            console.log("email send start");
+        //     console.log("email send start");
             
-            const htmlContent = `
-            <h2>Order Confirmation</h2>
-            <p>Thank you for your order! Here are the details:</p>
-            <ul>
-              <li>Product Name: ${neworder.name}</li>
-              <li>Price: $${neworder.price}</li>
-            </ul>
-          `;
+        //     const htmlContent = `
+        //     <h2>Order Confirmation</h2>
+        //     <p>Thank you for your order! Here are the details:</p>
+        //     <ul>
+        //       <li>Product Name: ${neworder.name}</li>
+        //       <li>Price: $${neworder.price}</li>
+        //     </ul>
+        //   `;
         
-                // Send email
-                await sendEmail(
-                    "dwayzode@gmail.com", // Receiver email address passed in payload
-                    "Your Order Confirmation",
-                    "Thank you for your order!",
-                    htmlContent
-                );
+        //         // Send email
+        //         await (
+        //             "dwayzode@gmail.com", // Receiver email address passed in payload
+        //             "Your Order Confirmation",
+        //             "Thank you for your order!",
+        //             htmlContent
+        //         );
             
 
             socketServer.emit("order", neworder)
