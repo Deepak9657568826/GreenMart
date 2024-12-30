@@ -23,7 +23,7 @@ import Trial from './Trial'
 
 
 function App() {
-  const verifyTokenUrl = `http://localhost:4500/verifyToken`
+  const verifyTokenUrl = `https://greenmart-wyyp.onrender.com/verifyToken`
   const token  =  localStorage.getItem("token")  
 
   const dispatch = useDispatch()
