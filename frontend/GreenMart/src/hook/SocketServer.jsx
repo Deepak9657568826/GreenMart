@@ -8,7 +8,7 @@ export const ContextProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const newSocket = io("http://localhost:4500", {
+        const newSocket = io("https://greenmart-wyyp.onrender.com", {
             transports: ["websocket"]
         });
         setSocket(newSocket);
