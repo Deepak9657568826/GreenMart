@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Make sure to use this if you're using React Router for navigation
 import "../Styles/SignIn.css";
 import { useToast } from '@chakra-ui/react'
@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux'
 import { loginFunction } from '../redux/actionCreator';
 import Toastnotification from '../utils/Toastnotification';
+import { orderContext } from '../hook/SocketServer';
 
 
 function Login() {
@@ -19,6 +20,9 @@ function Login() {
 
   const {showToast}= Toastnotification()
 
+      const { socket , setSocket } = useContext(orderContext)
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -27,7 +31,7 @@ function Login() {
       password
     }
      
-    dispatch(loginFunction(fromData , toast , navigate , setIsSubmitting , setEmail , setPassword , showToast))
+    dispatch(loginFunction(fromData , toast , navigate , setIsSubmitting , setEmail , setPassword , showToast , socket , setSocket))
   }
 
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Drawer, Sidebar, TextInput } from "flowbite-react";
 // import logo from "../components/greenmartlogo.jpg"
@@ -19,6 +19,7 @@ import { useToast } from '@chakra-ui/react';
 import { loginReducer } from '../redux/reducer';
 import { logoutfunction } from '../redux/actionCreator';
 import Toastnotification from '../utils/Toastnotification';
+import { orderContext } from '../hook/SocketServer';
 function Navbar() {
     // drawer
     const [isOpenDrawer, setIsOpenDrawer] = useState(false);
@@ -34,6 +35,8 @@ function Navbar() {
     const email = state.email
 
     const cart = useSelector(state => state.cart.cart)
+    const { socket } = useContext(orderContext)
+
 
     const toast = useToast()
     const navigate = useNavigate()
@@ -58,7 +61,7 @@ function Navbar() {
 
         const token = localStorage.getItem("token")
         if (token) {
-            dispatch(logoutfunction(navigate, toast, setIsOpenDrawer , showToast));
+            dispatch(logoutfunction(navigate, toast, setIsOpenDrawer , showToast, socket));
         }
 
     }

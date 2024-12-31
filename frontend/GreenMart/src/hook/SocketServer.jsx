@@ -8,8 +8,9 @@ export const ContextProvider = ({ children }) => {
     const [allOrder, setAllOrder] = useState(null);
     const [socket, setSocket] = useState(null);
     // "https://greenmart-wyyp.onrender.com"
+    // http://localhost:4500/
     useEffect(() => {
-        
+
         const newSocket = io("https://greenmart-wyyp.onrender.com", {
             transports: ["websocket"] ,
                  query: { token }, // Pass token in query parameters
@@ -34,11 +35,12 @@ export const ContextProvider = ({ children }) => {
                 newSocket.disconnect();
             }
         };
-    }, []);
+    }, [token]);
 
     const value = {
         allOrder,
-        socket
+        socket , 
+        setSocket
     };
 
     return (

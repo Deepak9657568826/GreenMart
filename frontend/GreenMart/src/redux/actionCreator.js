@@ -3,10 +3,14 @@ import axios from "axios"
 import { ADDTOCARTFAILURE, ADDTOCARTLOADING, ADDTOCARTSUCCESS, LOGINFAILURE, LOGINLOADING, LOGINSUCCESS, LOGOUTFAILURE, LOGOUTLOADING, LOGOUTSUCCESS  } from "./actionType"
 import { authorizationToken } from "../utils/Token"
 import { cartProductUrl, loginUrl } from "../utils/Url"
+import { useContext } from "react"
+import { orderContext } from "../hook/SocketServer"
+import { io } from "socket.io-client"
 
 //login creator
 
-export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEmail, setPassword , showToast) => {
+
+export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEmail, setPassword , showToast , socket , setSocket) => {
     return async (dispatch) => {
         dispatch({ type: LOGINLOADING })
         try {
@@ -18,10 +22,21 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
             }
 
             else if (response.data.msg == 'user login successfully') {
-
+                console.log("Enter in success phase");
+                
+                 const token = response.data.token
                 localStorage.setItem("token", response.data.token)
                 localStorage.setItem("user", JSON.stringify(response.data.user))
                 setIsSubmitting(false);
+                socket = io("https://greenmart-wyyp.onrender.com", {
+                    transports: ["websocket"],
+                    query: { token }, // Pass the token as a query
+                });
+                setSocket(socket)
+                socket.on("connectOne", (msg) => {
+                    console.log(msg);
+                });
+                socket.emit("login" , "user login successfull")
                 showToast('Login successfull.', "User login successfull.")
                 setEmail("")
                 setPassword("")
@@ -102,7 +117,7 @@ export const addToCartProduct = (toast) => {
 }
 
 
-export function logoutfunction(navigate , toast , setIsOpenDrawer ,showToast) {
+export function logoutfunction(navigate , toast , setIsOpenDrawer ,showToast , socket) {
 
     return async (dispatch) => {
         dispatch({ type: LOGOUTLOADING })
@@ -111,8 +126,13 @@ export function logoutfunction(navigate , toast , setIsOpenDrawer ,showToast) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 // localStorage.removeItem('user');
+                 
 
                 showToast(`Logout successfully` , "Logout successfully"  )
+                if(socket){
+                    socket.disconnect(); // Properly disconnect the socket
+                }
+                socket.emit("logout" , "user logout successfull")
                 // alert("user logout successfully")
                 setIsOpenDrawer(false)
                 navigate("/login")
