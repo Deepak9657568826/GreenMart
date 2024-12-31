@@ -18,8 +18,17 @@ const jwt = require("jsonwebtoken")
 require('dotenv').config()
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(
+    cors({
+        origin: [
+            "http://localhost:5173", // Local frontend
+            "https://green-mart-cwt1.vercel.app" // Deployed frontend
+        ],
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Allow all HTTP methods
+        credentials: true, // Allow cookies and headers
+    })
+);
 
 app.use("/", userRouter)
 app.use("/", productRouter)
@@ -38,7 +47,17 @@ app.use((req, res, next) => {
 
 
 const httpServer = http.createServer(app)
-const socketServer = new Server(httpServer)
+const socketServer = new Server(httpServer, {
+    cors: {
+        origin: [
+            "http://localhost:5173", // Local frontend
+            "https://green-mart-cwt1.vercel.app" // Deployed frontend
+        ],
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        credentials: true,
+    },
+    transports: ["websocket"], // Force WebSocket to avoid polling
+});
 
 const PORT = process.env.PORT || 4500
 
