@@ -11,7 +11,7 @@ export const ContextProvider = ({ children }) => {
     // http://localhost:4500/
     useEffect(() => {
 
-        const newSocket = io("https://greenmart-wyyp.onrender.com", {
+        const newSocket = io("http://localhost:4500/", {
             transports: ["websocket"] ,
                  query: { token }, // Pass token in query parameters
         });

@@ -28,7 +28,7 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
                 localStorage.setItem("token", response.data.token)
                 localStorage.setItem("user", JSON.stringify(response.data.user))
                 setIsSubmitting(false);
-                socket = io("https://greenmart-wyyp.onrender.com", {
+                socket = io("http://localhost:4500/", {
                     transports: ["websocket"],
                     query: { token }, // Pass the token as a query
                 });

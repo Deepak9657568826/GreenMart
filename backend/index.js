@@ -21,10 +21,11 @@ const app = express();
 app.use(express.json());
 app.use(
     cors({
-        origin: [
-            "http://localhost:5173", // Local frontend
-            "https://green-mart-cwt1.vercel.app" // Deployed frontend
-        ],
+        origin: "*",
+        //  [
+        //     "http://localhost:5173", // Local frontend
+        //     "https://green-mart-cwt1.vercel.app" // Deployed frontend
+        // ],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Allow all HTTP methods
         credentials: true, // Allow cookies and headers
     })
@@ -49,10 +50,11 @@ app.use((req, res, next) => {
 const httpServer = http.createServer(app)
 const socketServer = new Server(httpServer, {
     cors: {
-        origin: [
-            "http://localhost:5173", // Local frontend
-            "https://green-mart-cwt1.vercel.app" // Deployed frontend
-        ],
+        origin: "*",
+        // [
+        //     "http://localhost:5173", // Local frontend
+        //     "https://green-mart-cwt1.vercel.app" // Deployed frontend
+        // ],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         credentials: true,
     },
@@ -91,6 +93,7 @@ socketServer.on("connection", async (socket) => {
         // Emit start event
         socket.emit("start", "Web socket connection established");
 
+        
         socket.on("first", (msg) => {
             console.log(msg);
         });
@@ -107,6 +110,8 @@ socketServer.on("connection", async (socket) => {
 
         // Handle new order
         socket.on("newOrderOne", async (payload) => {
+            console.log("Enter in new order event");
+            
             try {
                 console.log("New Order event received:", payload);
 
