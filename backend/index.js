@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 
 
 app.use((req, res, next) => {
-      console.log("this is gglobeal data");
+    console.log("this is gglobeal data");
     next();
 });
 
@@ -52,75 +52,105 @@ httpServer.listen(PORT, async () => {
     }
 })
 
-
-
 socketServer.on("connection", async (socket) => {
-    const token = socket.handshake.query.token; // Retrieve token from query
-    if (!token) {
-        console.log("Token missing");
-        socket.disconnect(); // Disconnect the client if no token
+    console.log("Trying to connect socket...");
+
+    // Retrieve and validate token
+    const token = socket.handshake.query.token;
+    if (!token || token === "null" || token === "undefined") {
+        console.log("Invalid or missing token");
+        socket.disconnect();
         return;
     }
-    // console.log(token);
-    var email
-    jwt.verify(token, process.env.secret_key, async (err, decoded) => {
-        if (err) {
-            console.log("Invalid token:", err);
-            socket.disconnect(); // Disconnect if token is invalid
-            return;
-        }
-
-        // Extract email from decoded token
-         email = decoded.tokenUser.email;
-    })
-    console.log(email);
-    
-    
-
-    socket.emit("start", "Web socket connection established")
-    socket.on("first", (msg) => {
-        console.log(msg);
-    })
-
-    const allOrder = await OrderModel.find();
-    socket.emit("allorder", allOrder)
-
 
     try {
-        socket.on("newOrderOne", async (payload) => {
-            console.log("New Order event received:", payload); // Add this log
-            const neworder = new OrderModel(payload)
-            await neworder.save()
-                
-            console.log("email send start");
-             
-            const htmlContent = `
-            <h2>Order Confirmation</h2>
-            <p>Thank you for your order! Here are the details:</p>
-            <ul>
-              <li>Product Name: ${neworder.name}</li>
-              <li>Price: $${neworder.price}</li>
-            </ul>
-          `;
+        // Verify token
+        const decoded = jwt.verify(token, process.env.secret_key); // Synchronous verification
+        const email = decoded.tokenUser.email; // Extract email
+        console.log("Email for user:", email);
 
-            // Send email
-            await sendEmail(
-                email, // Receiver email address passed in payload
-                "Your Order Confirmation",
-                "Thank you for your order!",
-                htmlContent
-            );
-         
-            
+        // Emit start event
+        socket.emit("start", "Web socket connection established");
 
-            socketServer.emit("order", neworder)
-            socketServer.emit("notificationToAdmin", {status : true})
-            socketServer.emit("orderStatus", { status: true })
+        socket.on("first", (msg) => {
+            console.log(msg);
+        });
+        socket.on("logout", (msg) => {
+            console.log(msg);
         })
-    } catch (error) {
-        socketServer.emit("orderStatus", { status: false })
-    }
-})
+        socket.on("login", (msg) => {
+            console.log(msg);
+        })
+        socket.emit("connectOne", "Socket connected")
 
+        const allOrder = await OrderModel.find();
+        socket.emit("allorder", allOrder);
+
+        // Handle new order
+        socket.on("newOrderOne", async (payload) => {
+            try {
+                console.log("New Order event received:", payload);
+
+                const neworder = new OrderModel(payload);
+                await neworder.save();
+
+                console.log("Email send start...");
+
+
+
+
+                const htmlContent = `
+<h2>Order Confirmation</h2>
+<p>Thank you for your order! Here are the details:</p>
+
+<table border="1" cellspacing="0" cellpadding="8">
+  <tr>
+    <th>Product Name</th>
+    <td>${neworder.name}</td>
+  </tr>
+  <tr>
+    <th>Image</th>
+    <td><img src="${neworder.image}" alt="${neworder.name}" width="100" /></td>
+  </tr>
+  <tr>
+    <th>Quantity</th>
+    <td>${neworder.quantity}</td>
+  </tr>
+  <tr>
+    <th>Price</th>
+    <td>Rs. ${neworder.price}</td>
+  </tr>
+  <tr>
+    <th>Order Date</th>
+    <td>${new Date(neworder.createdAt).toLocaleString()}</td>
+  </tr>
+</table>
+
+<p>We appreciate your business! If you have any questions, feel free to contact us.</p>
+<p>Thank you!</p>
+`;
+
+                // Send email
+                await sendEmail(
+                    email, // Receiver email address from token
+                    "Your Order Confirmation",
+                    "Thank you for your order!",
+                    htmlContent
+                );
+
+                // Notify all clients
+                socketServer.emit("order", neworder)
+                socketServer.emit("notificationToAdmin", { status: true })
+                socketServer.emit("orderStatus", { status: true })
+            } catch (error) {
+                console.log("Order creation error:", error.message);
+                socketServer.emit("orderStatus", { status: false });
+            }
+        });
+    } catch (err) {
+        console.log("Token verification failed:", err.message);
+        socket.disconnect(); // Disconnect on token verification failure
+    }
+});
 
 
