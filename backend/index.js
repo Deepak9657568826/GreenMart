@@ -21,8 +21,9 @@ const app = express();
 app.use(express.json());
 app.use(
     cors({
-        origin: ["https://green-mart-cwt1.vercel.app"], // Allow only your frontend URL
+        origin: ["http://localhost:5173", "https://green-mart-cwt1.vercel.app"],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        allowedHeaders: 'Content-Type,Authorization',
         credentials: true,
       })
 );
@@ -46,7 +47,7 @@ app.use((req, res, next) => {
 const httpServer = http.createServer(app)
 const socketServer = new Server(httpServer, {
     cors: {
-        origin: ["https://green-mart-cwt1.vercel.app"], // Allow frontend origin
+        origin: ["http://localhost:5173", "https://green-mart-cwt1.vercel.app"],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         credentials: true,
       },
