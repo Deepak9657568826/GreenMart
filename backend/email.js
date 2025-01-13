@@ -1,8 +1,9 @@
 const nodemailer = require("nodemailer");
 require('dotenv').config()
+
 const sendEmail = async (to, subject, text, html) => {
-    console.log("enter in email section");
-    
+  console.log("enter in email section");
+
   try {
     // Create a transporter
     const transporter = nodemailer.createTransport({

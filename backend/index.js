@@ -21,14 +21,10 @@ const app = express();
 app.use(express.json());
 app.use(
     cors({
-        origin: "*",
-        //  [
-        //     "http://localhost:5173", // Local frontend
-        //     "https://green-mart-cwt1.vercel.app" // Deployed frontend
-        // ],
-        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Allow all HTTP methods
-        credentials: true, // Allow cookies and headers
-    })
+        origin: ["https://green-mart-cwt1.vercel.app"], // Allow only your frontend URL
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        credentials: true,
+      })
 );
 
 app.use("/", userRouter)
@@ -50,14 +46,10 @@ app.use((req, res, next) => {
 const httpServer = http.createServer(app)
 const socketServer = new Server(httpServer, {
     cors: {
-        origin: "*",
-        // [
-        //     "http://localhost:5173", // Local frontend
-        //     "https://green-mart-cwt1.vercel.app" // Deployed frontend
-        // ],
+        origin: ["https://green-mart-cwt1.vercel.app"], // Allow frontend origin
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         credentials: true,
-    },
+      },
     transports: ["websocket"], // Force WebSocket to avoid polling
 });
 
@@ -75,6 +67,7 @@ httpServer.listen(PORT, async () => {
 
 socketServer.on("connection", async (socket) => {
     console.log("Trying to connect socket...");
+
 
     // Retrieve and validate token
     const token = socket.handshake.query.token;
@@ -119,10 +112,6 @@ socketServer.on("connection", async (socket) => {
                 await neworder.save();
 
                 console.log("Email send start...");
-
-
-
-
                 const htmlContent = `
 <h2>Order Confirmation</h2>
 <p>Thank you for your order! Here are the details:</p>
