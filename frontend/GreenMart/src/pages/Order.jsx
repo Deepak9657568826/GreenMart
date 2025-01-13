@@ -19,7 +19,8 @@ function Order() {
 
 
 
-  const { allOrder, socket } = useContext(orderContext)
+  const { allOrder, socket , setAllOrder } = useContext(orderContext)
+
   const handleUserInteraction = () => {
     setAudioAllowed(true); // User interacted with the page, so allow audio
   };
@@ -59,6 +60,11 @@ function Order() {
   const handleChange = async (order, payload) => {
     try {
       const response = await axios.patch(`${updateProductUrl}/${order._id}`, payload, authorizationToken)
+      setAllOrder(prevOrders =>
+        prevOrders.map(existingOrder =>
+            existingOrder._id === order._id ? { ...existingOrder, ...payload } : existingOrder
+        )
+    );
     } catch (error) {
       console.log(error.message);
     }
@@ -69,6 +75,9 @@ function Order() {
     try {
       const response = await axios.delete(`${deleteProductUrl}/${id}`, authorizationToken)
       showToast("Order delete successfully", "Order delete successfully")
+      const updatedOrders = allOrder.filter(order => order._id !== id);
+      setAllOrder(updatedOrders);  // Update state with remaining orders
+
       setSpinner(pre => ({ ...pre, [id]: false }))
     } catch (error) {
       console.log(error.message);

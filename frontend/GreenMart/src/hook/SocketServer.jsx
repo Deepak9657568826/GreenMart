@@ -11,10 +11,10 @@ export const ContextProvider = ({ children }) => {
     // http://localhost:4500/
     useEffect(() => {
 
-        const newSocket = io("http://localhost:4500/", {
-            transports: ["websocket"] ,
-                 query: { token }, // Pass token in query parameters
-        });
+        const newSocket = io("https://greenmart-wyyp.onrender.com", {
+            transports: ["websocket"],
+            query: { token }, // Pass token
+          });
         setSocket(newSocket);
         newSocket.on("start", (message) => {
             console.log(message);
@@ -40,7 +40,8 @@ export const ContextProvider = ({ children }) => {
     const value = {
         allOrder,
         socket , 
-        setSocket
+        setSocket, 
+        setAllOrder
     };
 
     return (

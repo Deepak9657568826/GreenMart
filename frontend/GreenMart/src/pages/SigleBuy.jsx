@@ -94,23 +94,6 @@ function SingleBuy() {
                 }
             })
         }
-        // try {
-        //     const response = await axios.post(orderPlaceUrl, orderdata, authorizationToken)
-        //     console.log(response.data);
-        //     if (response.data.msg == "new order placed successfully") {
-        //         setTimeout(() => {
-        //             setSpinnerActive(false)
-        //             setConfirmModel(true)
-        //         }, 500)
-
-        //     }
-
-        // } catch (error) {
-        //     console.log(error.message);
-        //     setSpinnerActive(false)
-        // }
-
-
     }
 
     const isModelClose = () => {
