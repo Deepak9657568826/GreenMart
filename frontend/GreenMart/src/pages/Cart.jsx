@@ -69,7 +69,6 @@ function Cart() {
     } catch (error) {
       showToast(`${error.message}`, `${error.message}`, "error")
       setSpinner(pre => ({...pre , [id] : false}))
-
     }
   };
 

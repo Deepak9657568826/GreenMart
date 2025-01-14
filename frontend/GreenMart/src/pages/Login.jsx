@@ -37,7 +37,7 @@ function Login() {
 
   return (
     <div className="login-background">
-      <form onSubmit={handleSubmit} className="logininform bg-violet-100 mx-auto p-6 bg-white shadow-lg rounded-md">
+      <form onSubmit={handleSubmit} className="logininform bg-violet-100 mx-auto p-6  shadow-lg rounded-md">
         <h3 className="text-xl font-extrabold p-6 text-center text-amber-950">Login</h3>
         <div className="space-y-4">
           <div className="flex flex-col items-start">

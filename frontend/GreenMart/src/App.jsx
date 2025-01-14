@@ -24,55 +24,56 @@ import Trial from './Trial'
 
 function App() {
   const verifyTokenUrl = `https://greenmart-wyyp.onrender.com/verifyToken`
-  const token  =  localStorage.getItem("token")  
+  const token = localStorage.getItem("token")
 
   const dispatch = useDispatch()
   const toast = useToast()
-  useEffect(()=>{
-    dispatch(addToCartProduct(toast))
-  },[])
-   
-  const verifyToken = async()=>{
-     const user = localStorage.getItem("user")
-     const parseUser = JSON.parse(user)
+  if (token) {
+    useEffect(() => {
+      dispatch(addToCartProduct(toast))
+    }, [])
+  }
 
-     try {
-       const tokenVerify = await axios.post(verifyTokenUrl , {token})
-         if(tokenVerify.data.isValid){
-           dispatch({ type: LOGINSUCCESS, payload: parseUser })
-         }
-         else{
-           localStorage.removeItem("token")  
-            localStorage.removeItem("user")
-            dispatch({ type: LOGINFAILURE, payload: 'Invalid token' });
-         }
-         
-     } catch (error) {
+  const verifyToken = async () => {
+    const user = localStorage.getItem("user")
+    const parseUser = JSON.parse(user)
+
+    try {
+      const tokenVerify = await axios.post(verifyTokenUrl, { token })
+      if (tokenVerify.data.isValid) {
+        dispatch({ type: LOGINSUCCESS, payload: parseUser })
+      }
+      else {
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        dispatch({ type: LOGINFAILURE, payload: 'Invalid token' });
+      }
+
+    } catch (error) {
       console.log(error.message);
       dispatch({ type: LOGINFAILURE, payload: error.message });
-     }
+    }
 
   }
-if(token){
-  useEffect(()=>{
-    verifyToken()
-  },[token, dispatch])
-  
-}
-else{
-  dispatch({ type: LOGINFAILURE, payload: "Login failed" });
-}
-  
+  if (token) {
+    useEffect(() => {
+      verifyToken()
+    }, [token, dispatch])
+  }
+  else {
+    dispatch({ type: LOGINFAILURE, payload: "Login failed" });
+  }
+
 
 
   return (
-    <div  className='w-11/12 m-auto bg-gray-100'>
+    <div className='w-11/12 m-auto bg-gray-100'>
 
       <Navbar />
       <div className='mt-20'>
-      <Allroutes />
+        <Allroutes />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   )
 }
