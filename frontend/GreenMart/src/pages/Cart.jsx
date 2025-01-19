@@ -27,7 +27,7 @@ function Cart() {
   const toast = useToast();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
-  console.log("cartdata", cart);
+  // console.log("cartdata", cart);
 
   const { showToast } = Toastnotification()
 

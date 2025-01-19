@@ -41,14 +41,12 @@ const orderByParticultUser = async (req, res) => {
 
 const updateOrder = async (req, res) => {
     const paylaod = req.body;
-    console.log("data from fe..." , paylaod.status);
     const status = `${paylaod.status}`
  
     const { id } = req.params;
     try {
         const updateorder = await OrderModel.findByIdAndUpdate({ _id: id },{status})
 
-         console.log("email send start for order update");
          const deliveryMessage = 
   status === "delivered"
     ? ""

@@ -31,7 +31,6 @@ function Navbar() {
     const role = state.role
     const isLogin = state.login
     const user = state.userDetails
-    console.log(state.userDetails);
 
     const dispatch = useDispatch()
     const email = state.email

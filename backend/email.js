@@ -9,38 +9,27 @@ const sendEmail = async (to, subject, text, html) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "dwayzode@gmail.com", // Your email
-        pass: "sgkp liyi jyuu imtz", // Replace with app-specific password
+        user: "dwayzode@gmail.com", 
+        pass: "sgkp liyi jyuu imtz", 
       },
     });
 
-    // const datafromOrder = {
-    //   to , 
-    //   subject , 
-    //   text, 
-    //   html
-    // }
-    // console.log(datafromOrder);
-    
 
     // Email options
     const mailOptions = {
       from: "dwayzode@gmail.com",
-      to, // Receiver email
-      subject, // Email subject
-      text, // Plain text body
+      to, 
+      subject, 
+      text, 
       html 
     };
-
-    // console.log("emailOption" , mailOptions);
-    
 
     // Send the email
     await transporter.sendMail(mailOptions)
     console.log("Email sent successfully!");
   } catch (error) {
     console.error("Email sending failed:", error);
-    throw error; // Rethrow error to catch it in the calling function
+    throw error; 
   }
 };
 

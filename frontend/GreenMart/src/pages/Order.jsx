@@ -14,15 +14,13 @@ import { useSelector } from 'react-redux';
 function Order() {
   const [spinner, setSpinner] = useState({})
   const { showToast } = Toastnotification()
-  const [audioAllowed, setAudioAllowed] = useState(false); // Track if audio is allowed
-  console.log(audioAllowed);
+  const [audioAllowed, setAudioAllowed] = useState(false);
 
   const state = useSelector(state => state.auth)
 const email = state.email;
 
 
   const { allOrder, socket, setAllOrder } = useContext(orderContext)
-  console.log(allOrder);
   
 
   const handleUserInteraction = () => {
@@ -45,14 +43,11 @@ const email = state.email;
     setAudioAllowed(true);
   };
   useEffect(() => {
-    console.log(audioAllowed);
-    console.log(socket);
     if (audioAllowed && socket) {
-      console.log('Come to notifucation');
+
 
       socket.on("notificationToAdmin", (payload) => {
         if (payload.status) {
-          console.log("audio play");
           const audio = new Audio(sound);
           audio.play().catch(err => console.error("Audio playback failed:", err));
         }
@@ -62,14 +57,11 @@ const email = state.email;
 
 
   const handleChange = async (order, status) => {
-    console.log("Order for update email" , order.email);
-    console.log("Status" , status);
-    
+
     const payload = {
       status, 
       order 
     }
-    // const url = `http://localhost:4500/updateorder`
     try {
       const response = await axios.patch(`${updateProductUrl}/${order._id}`, payload, authorizationToken)
 
@@ -78,7 +70,7 @@ const email = state.email;
           existingOrder._id === order._id ? { ...existingOrder, ...payload } : existingOrder
         )
       );
-      console.log(response.data.msg);
+      // console.log(response.data.msg);
       
     } catch (error) {
       console.log(error.message);
@@ -91,7 +83,7 @@ const email = state.email;
       const response = await axios.delete(`${deleteProductUrl}/${id}`, authorizationToken)
       showToast("Order delete successfully", "Order delete successfully")
       const updatedOrders = allOrder.filter(order => order._id !== id);
-      setAllOrder(updatedOrders);  // Update state with remaining orders
+      setAllOrder(updatedOrders);
 
       setSpinner(pre => ({ ...pre, [id]: false }))
     } catch (error) {
