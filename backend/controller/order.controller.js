@@ -46,7 +46,7 @@ const updateOrder = async (req, res) => {
  
     const { id } = req.params;
     try {
-        const updateorder = await OrderModel.findByIdAndUpdate({ _id: id }, paylaod.status)
+        const updateorder = await OrderModel.findByIdAndUpdate({ _id: id },{status})
 
          console.log("email send start for order update");
          const deliveryMessage = 
