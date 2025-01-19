@@ -9,9 +9,13 @@ const register = async (req, res) => {
 
     try {
         const user = await UserModel.findOne({ email })
+        const mobile = await UserModel.findOne({ mobileNumber })
 
         if (user) {
             res.status(200).json({ mes: `user already register with email ${email}` })
+        }
+        else if(mobile){
+            res.status(200).json({ mes: `user already register with mobile number ${mobileNumber}` })
         }
         else {
             bcrypt.hash(password, 5, async function (err, hash) {
