@@ -6,6 +6,7 @@ import { useToast } from '@chakra-ui/react'
 import { regitserUrl } from '../utils/Url';
 import Toastnotification from '../utils/Toastnotification';
 
+
 function SignUp() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -29,11 +30,18 @@ function SignUp() {
             password,
             mobileNumber,
         }
+        const url = `https://greenmart-wyyp.onrender.com/register`
 
-        const response = await axios.post(regitserUrl, fromData)
-        if (response.data.mes == 'user already register with email dwayzode@gmail.com') {
+        const response = await axios.post(url, fromData)
+        if (response.data.mes == `user already register with email ${email}`) {
             setIsSubmitting(false);
             showToast('Use another email' , `${response.data.mes}` , "error" )
+
+        }
+        // { mes: `user already register with mobile number ${mobileNumber}` }
+       else if (response.data.mes == `user already register with mobile number ${mobileNumber}`) {
+            setIsSubmitting(false);
+            showToast('Use another mobile number' , `${response.data.mes}` , "error" )
 
         }
 
