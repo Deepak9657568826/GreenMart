@@ -15,7 +15,7 @@ import {
     HiShoppingBag,
     HiUsers,
 } from "react-icons/hi";
-import { useToast } from '@chakra-ui/react';
+import { DrawerFooter, useToast } from '@chakra-ui/react';
 import { loginReducer } from '../redux/reducer';
 import { logoutfunction } from '../redux/actionCreator';
 import Toastnotification from '../utils/Toastnotification';
@@ -30,6 +30,8 @@ function Navbar() {
     const state = useSelector(state => state.auth)
     const role = state.role
     const isLogin = state.login
+    const user = state.userDetails
+    console.log(state.userDetails);
 
     const dispatch = useDispatch()
     const email = state.email
@@ -40,7 +42,7 @@ function Navbar() {
 
     const toast = useToast()
     const navigate = useNavigate()
-  const {showToast} = Toastnotification()
+    const { showToast } = Toastnotification()
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -61,7 +63,7 @@ function Navbar() {
 
         const token = localStorage.getItem("token")
         if (token) {
-            dispatch(logoutfunction(navigate, toast, setIsOpenDrawer , showToast, socket));
+            dispatch(logoutfunction(navigate, toast, setIsOpenDrawer, showToast, socket));
         }
 
     }
@@ -114,30 +116,61 @@ function Navbar() {
                 </div>
 
                 {/* drawer for navbar */}
-                <Drawer open={isOpenDrawer} onClose={handleClose} position="right">
-                    <Drawer.Header title="MENU" titleIcon={() => <></>} />
+                <Drawer
+
+                    style={{  height: "400px" , marginTop : "60px"  }}
+                    open={isOpenDrawer} onClose={handleClose} position="right">
+                    <Drawer.Header title="USER DETAILS" titleIcon={() => <></>} />
                     <Drawer.Items>
                         <Sidebar
                             aria-label="Sidebar with multi-level dropdown example"
-                            className="[&>div]:bg-transparent [&>div]:p-0"
+                            className="[&>div]:bg-transparent [&>div]:p-0 h-96"
+
                         >
-                            <div className="flex h-full flex-col justify-between py-2">
+                            <div className="flex  flex-col justify-between py-2">
                                 <div>
 
-                                    <Sidebar.Items>
-                                        <Sidebar.ItemGroup>
-                                            {email &&
-                                                <Sidebar.Item href="/" icon={HiChartPie}>
-                                                    login as  : {email}
-                                                </Sidebar.Item>
-                                            }
+                                    <Sidebar.Items className="flex flex-col  h-full justify-between ">
+                                        <Sidebar.ItemGroup >
+                                            <div className="flex flex-col  h-72 justify-between ">
+                                                {isLogin &&
+                                                    <div>
+                                                        <Sidebar.Item href="/" icon={HiChartPie}>
+                                                            Name : {user.name}
+                                                        </Sidebar.Item>
+                                                        <Sidebar.Item href="/" icon={HiChartPie}>
+                                                            Email : {user.email}
+                                                        </Sidebar.Item>
+                                                        <Sidebar.Item href="/" icon={HiChartPie}>
+                                                            Mobile   : {user.mobileNumber}
+                                                        </Sidebar.Item>
 
-                                            {isLogin &&
-                                                <Sidebar.Item onClick={handleLogOut} icon={HiLogin}>
-                                                    Log out
-                                                </Sidebar.Item>
-                                            }
-                                    
+                                                    </div>
+                                                }
+
+                                                <div className="grid grid-cols-2 gap-4 ">
+                                                    {isLogin &&
+                                                        <>
+                                                            <button
+                                                                onClick={handleClose}
+                                                                className="rounded-lg border border-gray-200 bg-green-500 px-4 py-2 text-center text-white text-sm font-medium  hover:bg-gray-800 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                                                            >
+                                                                Close
+                                                            </button>
+
+
+                                                            <button onClick={handleLogOut}
+                                                                className=" items-center rounded-lg bg-red-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
+                                                            >
+                                                                Log Out
+                                                            </button>
+                                                        </>
+
+                                                    }
+
+                                                </div>
+                                            </div>
+
                                         </Sidebar.ItemGroup>
                                     </Sidebar.Items>
                                 </div>
@@ -149,7 +182,7 @@ function Navbar() {
 
                 {/* Navbar Links (Responsive) */}
                 <div
-                 
+
                     className={`items-center z-10  justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? 'block' : 'hidden'}`}
                     id="navbar-user"
                 >

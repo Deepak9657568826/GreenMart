@@ -6,7 +6,8 @@ const initialLoginState = {
     login: false,
     data: "",
     role: "", 
-    email : ""
+    email : "" ,
+     userDetails : ""
 }
 
 export const loginReducer = (state = initialLoginState, action) => {
@@ -17,7 +18,7 @@ export const loginReducer = (state = initialLoginState, action) => {
             }
         case LOGINSUCCESS:
             return {
-                ...state, loading: false, login: true,  role: action.payload.role , email : action.payload.email
+                ...state, loading: false, login: true,  role: action.payload.role , email : action.payload.email , userDetails : action.payload
             }
         case LOGINFAILURE:
             return {

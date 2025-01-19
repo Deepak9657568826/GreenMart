@@ -23,6 +23,7 @@ export const loginFunction = (fromData, toast, navigate, setIsSubmitting, setEma
 
             else if (response.data.msg == 'user login successfully') {
                 console.log("Enter in success phase");
+                console.log("user details : " , response.data.user);
                 
                  const token = response.data.token
                 localStorage.setItem("token", response.data.token)

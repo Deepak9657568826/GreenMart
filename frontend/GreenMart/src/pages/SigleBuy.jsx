@@ -18,7 +18,10 @@ function SingleBuy() {
     const [quantity, setQuantity] = useState(1)
     const [initalPrice, setInitialPrice] = useState()
     const [orderComfirmModel, setConfirmModel] = useState(false)
-    const state = useSelector(state => state.auth)
+
+    const state = useSelector(state => state.auth);
+      
+     const email = state.email;
 
     const isLogin = state.login
     const navigate = useNavigate()
@@ -54,7 +57,6 @@ function SingleBuy() {
             setQuantity(pre => pre + 1) // 1 
             setPrice(initalPrice * (quantity + 1))
         }
-
     }
 
     const handleRemove = () => {
@@ -63,6 +65,8 @@ function SingleBuy() {
             setPrice(initalPrice * (quantity - 1))
         }
     }
+
+
 
     // place order
     const handleBuy = async () => {
@@ -80,7 +84,8 @@ function SingleBuy() {
             image: singleProducts.image,
             quantity: quantity,
             price: price,
-            state: singleProducts.state
+            state: singleProducts.state,
+            email
         }
 
         if (socket) {
@@ -174,7 +179,7 @@ function SingleBuy() {
                                     <span className="sr-only">Loading...</span>
                                 </div>
                             ) : (
-                                `Confirm Order please`
+                                `Confirm Order`
                             )}
                         </button>
                     </div>

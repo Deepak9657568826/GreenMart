@@ -8,6 +8,7 @@ import Toastnotification from '../utils/Toastnotification';
 import { Spinner } from "flowbite-react";
 import { orderContext } from '../hook/SocketServer';
 import sound from "../assets/sound.wav"
+import { useSelector } from 'react-redux';
 
 
 function Order() {
@@ -16,10 +17,13 @@ function Order() {
   const [audioAllowed, setAudioAllowed] = useState(false); // Track if audio is allowed
   console.log(audioAllowed);
 
+  const state = useSelector(state => state.auth)
+const email = state.email;
 
 
-
-  const { allOrder, socket , setAllOrder } = useContext(orderContext)
+  const { allOrder, socket, setAllOrder } = useContext(orderContext)
+  console.log(allOrder);
+  
 
   const handleUserInteraction = () => {
     setAudioAllowed(true); // User interacted with the page, so allow audio
@@ -57,14 +61,25 @@ function Order() {
   }, [socket, audioAllowed])
 
 
-  const handleChange = async (order, payload) => {
+  const handleChange = async (order, status) => {
+    console.log("Order for update email" , order.email);
+    console.log("Status" , status);
+    
+    const payload = {
+      status, 
+      order 
+    }
+    // const url = `http://localhost:4500/updateorder`
     try {
       const response = await axios.patch(`${updateProductUrl}/${order._id}`, payload, authorizationToken)
+
       setAllOrder(prevOrders =>
         prevOrders.map(existingOrder =>
-            existingOrder._id === order._id ? { ...existingOrder, ...payload } : existingOrder
+          existingOrder._id === order._id ? { ...existingOrder, ...payload } : existingOrder
         )
-    );
+      );
+      console.log(response.data.msg);
+      
     } catch (error) {
       console.log(error.message);
     }
@@ -156,7 +171,7 @@ function Order() {
 
                   <select
                     className={`p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 `}
-                    onChange={(e) => handleChange(temp, { status: e.target.value })}
+                    onChange={(e) => handleChange(temp,  e.target.value )}
                     value={temp.status}
                     style={{ background: setBackgroundcolco(temp.status), color: "white", fontWeight: "bold" }}
                   >

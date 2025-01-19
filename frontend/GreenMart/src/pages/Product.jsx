@@ -300,12 +300,12 @@ function Product() {
       </h1>
       <div className="flex justify-start gap-10 ">
 
-        <div className="flex flex-col sm:flex-row justify-start gap-4 w-full">
+        <div className="flex flex-col mx-6 sm:flex-row justify-start gap-4 w-full">
           {/* Search Box */}
           <div className="w-full sm:w-1/2 md:w-1/3">
             <label
-              htmlFor="countries"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              htmlFor="search-products"
+              className="block mb-2 text-sm font-medium text-gray-800 dark:text-gray-200"
             >
               Search Products
             </label>
@@ -313,9 +313,10 @@ function Product() {
               type="text"
               placeholder="Enter product name..."
               onChange={(e) => setQuery(e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-white border border-gray-300 text-gray-800 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2 shadow-sm dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-500 dark:text-gray-200 dark:focus:ring-blue-400 dark:focus:border-blue-400 hover:border-gray-400 transition-all duration-200"
             />
           </div>
+
 
           {/* Button Group */}
           <div className="flex flex-wrap sm:flex-row gap-4 justify-center md:items-end lg:items-end mt-4 sm:mt-0">
@@ -647,18 +648,18 @@ function Product() {
                 </div>
 
                 <div className="flex gap-8">
-                <button
-                  type="submit"
-                  className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Update
-                </button>
-                <button
-                   onClick={closeModel}
-                  className="text-white inline-flex items-center bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Cancel
-                </button>
+                  <button
+                    type="submit"
+                    className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Update
+                  </button>
+                  <button
+                    onClick={closeModel}
+                    className="text-white inline-flex items-center bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Cancel
+                  </button>
 
                 </div>
 
