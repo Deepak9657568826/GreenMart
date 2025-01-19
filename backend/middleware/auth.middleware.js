@@ -16,7 +16,7 @@ const authmiddleware = async (req, res, next) => {
                 else {
                      console.log(decoded.tokenUser);
 
-                    if(req.method == "POST" ||  req.method == "GET" ){
+                    if(req.method == "POST" ||  req.method == "GET"  ){
                         req.body.username =  decoded.tokenUser.name
                         req.body.userId =  decoded.tokenUser._id
                         req.body.mobileNumber = decoded.tokenUser.mobileNumber

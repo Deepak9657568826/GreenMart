@@ -25,7 +25,7 @@ app.use(
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         allowedHeaders: 'Content-Type,Authorization',
         credentials: true,
-      })
+    })
 );
 
 app.use("/", userRouter)
@@ -50,7 +50,7 @@ const socketServer = new Server(httpServer, {
         origin: ["http://localhost:5173", "https://green-mart-cwt1.vercel.app"],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         credentials: true,
-      },
+    },
     transports: ["websocket"], // Force WebSocket to avoid polling
 });
 
@@ -87,7 +87,7 @@ socketServer.on("connection", async (socket) => {
         // Emit start event
         socket.emit("start", "Web socket connection established");
 
-        
+
         socket.on("first", (msg) => {
             console.log(msg);
         });
@@ -105,7 +105,7 @@ socketServer.on("connection", async (socket) => {
         // Handle new order
         socket.on("newOrderOne", async (payload) => {
             console.log("Enter in new order event");
-            
+
             try {
                 console.log("New Order event received:", payload);
 

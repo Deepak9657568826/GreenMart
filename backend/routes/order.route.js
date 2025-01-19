@@ -10,9 +10,9 @@ orderRouter.get("/allorder" ,   getAllOrder)
 
 orderRouter.get("/particularOrder",  authmiddleware ,   orderByParticultUser)
 
-orderRouter.put("/updateorder/:id" , updateOrder)
-orderRouter.patch("/updateorder/:id" , updateOrder)
-orderRouter.delete("/deleteorder/:id" , deleteOrder)
+orderRouter.put("/updateorder/:id" , authmiddleware ,  updateOrder)
+orderRouter.patch("/updateorder/:id", authmiddleware ,  updateOrder)
+orderRouter.delete("/deleteorder/:id" ,  deleteOrder)
 
 module.exports = {
     orderRouter

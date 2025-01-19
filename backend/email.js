@@ -14,17 +14,29 @@ const sendEmail = async (to, subject, text, html) => {
       },
     });
 
+    // const datafromOrder = {
+    //   to , 
+    //   subject , 
+    //   text, 
+    //   html
+    // }
+    // console.log(datafromOrder);
+    
+
     // Email options
     const mailOptions = {
       from: "dwayzode@gmail.com",
       to, // Receiver email
       subject, // Email subject
       text, // Plain text body
-      html, // HTML body
+      html 
     };
 
+    // console.log("emailOption" , mailOptions);
+    
+
     // Send the email
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions)
     console.log("Email sent successfully!");
   } catch (error) {
     console.error("Email sending failed:", error);
