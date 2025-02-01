@@ -45,11 +45,11 @@ function Product() {
   const { showToast } = Toastnotification()
 
   const [updateUrl, setUpdateUrl] = useState(
-    "http://localhost:4500/updateproduct"
+    "https://greenmart-wyyp.onrender.com/updateproduct"
   );
   const [productDeleteModel, setProductDeleteModel] = useState(false);
   const [deleteUrl, setDeleteUrl] = useState(
-    "http://localhost:4500/deleteproduct"
+    "https://greenmart-wyyp.onrender.com/deleteproduct"
   );
 
   const [checkCart, setCheckCart] = useState("");
