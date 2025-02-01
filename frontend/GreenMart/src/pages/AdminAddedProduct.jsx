@@ -10,6 +10,8 @@ function AdminAddedProduct() {
     try {
       const response = await axios.get(adminProductUrl, authorizationToken);
       const product = response.data.allProduct;
+      console.log(response.data);
+      
       setProduct(product);
     } catch (error) {
       console.log(error.message);
@@ -20,6 +22,7 @@ function AdminAddedProduct() {
     fetchAllProduct();
   }, []);
  
+console.log(product);
 
 
   return (

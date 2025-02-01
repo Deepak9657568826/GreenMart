@@ -39,6 +39,9 @@ function ParticultOrder() {
     }
   }
 
+  console.log(order);
+  
+
   return (
     <div className="bg-gradient-to-r mt-10  from-green-50 to-blue-50 min-h-screen py-12">
       <h1 className="text-center text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-orange-500 to-red-600 mb-12">
@@ -81,16 +84,14 @@ function ParticultOrder() {
                 </p>
 
 
-                <p className="text-gray-700 mb-4 flex items-center gap-2">
+                {/* <p className="text-gray-700 mb-4 flex items-center gap-2">
                   <span className="font-semibold text-pink-500">Ordered On:</span>
                   <span className="text-lg font-medium">{new Date(item.createdAt).toLocaleDateString('en-GB')}</span>
-                </p>
+                </p> */}
 
               </div>
 
-              <div className="absolute top-4 right-4 bg-gradient-to-br from-yellow-400 to-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold animate-pulse">
-                NEW
-              </div>
+        
             </div>
           ))
         ) : (

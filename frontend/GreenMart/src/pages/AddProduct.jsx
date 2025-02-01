@@ -20,7 +20,7 @@ function AddProduct() {
     const toast = useToast()
     const navigate = useNavigate()
 
-    const {showToast} = Toastnotification
+    const {showToast} = Toastnotification()
 
     const addProduct = async (e) => {
         setSpinnerActive(true)
