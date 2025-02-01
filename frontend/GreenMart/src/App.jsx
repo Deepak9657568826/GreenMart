@@ -67,10 +67,10 @@ function App() {
 
 
   return (
-    <div className='w-11/12 m-auto bg-gray-100'>
+    <div className='w-11/12 m-auto bg-gray-300'>
 
       <Navbar />
-      <div className='mt-20'>
+      <div className='bg-gray-300 mt-12'>
         <Allroutes />
       </div>
       <Footer />

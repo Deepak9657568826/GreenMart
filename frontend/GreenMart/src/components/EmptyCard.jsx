@@ -5,7 +5,7 @@ function EmptyCard() {
   return (
     <div
 
-      className="flex items-center justify-center min-h-96 bg-gray-100 p-6"
+      className="flex items-center justify-center min-h-96  p-6 m-20"
     >
       <div style={{
         //  backgroundImage: `url("https://img.freepik.com/free-vector/supermarket-shopping-cart-concept-illustration_114360-22408.jpg")`,

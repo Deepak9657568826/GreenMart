@@ -16,9 +16,10 @@ import "../Styles/product.css"
 
 
 function Product() {
+
   // for filter
   const [filterData, setFilterData] = useState("");
-  const [spinner , setSpinner] = useState({})
+  const [spinner, setSpinner] = useState({})
 
   const [query, setQuery] = useState("");
 
@@ -34,6 +35,11 @@ function Product() {
   const [category, setCategory] = useState("vegetable");
 
   const [buttonone, seButton] = useState("");
+
+  // count of product base on 
+  const [fruit, setFruits] = useState("")
+  const [gorcery, setGrocery] = useState("")
+  const [vegitable, setVegitable] = useState("")
 
   const location = useLocation();
   const { showToast } = Toastnotification()
@@ -101,10 +107,18 @@ function Product() {
   };
 
   async function fetchAllProduct() {
+    console.log("After click on the browse all");
+   console.log(buttonone);
+   
     try {
       const response = await axios.get(allOverProductUrl);
       const product = response.data.allProduct;
       setAllProduct(product);
+      console.log(product);
+      setFruits(product.filter(temp => temp.category == "fruit"))
+      setVegitable(product.filter(temp => temp.category == "vegetable"))
+      setGrocery(product.filter(temp => temp.category == "grocery"))
+
       let filterAndSearchData = buttonone.toLowerCase()
         ? product.filter((temp) => temp.category == buttonone.toLowerCase())
         : product;
@@ -122,6 +136,12 @@ function Product() {
   useEffect(() => {
     fetchAllProduct();
   }, [query, buttonone]);
+
+  function browerAll() {
+    console.log("Enter in all browser");
+    seButton("")
+    fetchAllProduct();
+  }
 
   const handleProductUPdate = async (e) => {
     e.preventDefault();
@@ -179,7 +199,7 @@ function Product() {
 
 
   const handleAddToCart = async (product) => {
-    setSpinner(pre=>({...pre , [product._id] : true}))
+    setSpinner(pre => ({ ...pre, [product._id]: true }))
     console.log("cart product info", product);
 
     const existProduct = cart.filter((temp) => {
@@ -188,7 +208,7 @@ function Product() {
     setCheckCart(existProduct.length);
     if (existProduct.length > 0) {
       showToast(`Product already added in cart`, `Product already added in cart`, "error")
-      setSpinner(pre=>({...pre , [product._id] : false}))
+      setSpinner(pre => ({ ...pre, [product._id]: false }))
     } else {
       const cartData = {
         _id: product._id,
@@ -204,13 +224,13 @@ function Product() {
 
         if (response.data.msg == "product added to cart successfully") {
           showToast("Product added to cart", `${response.data.msg}`)
-          setSpinner(pre=>({...pre , [product._id] : false}))
+          setSpinner(pre => ({ ...pre, [product._id]: false }))
           dispatch(addToCartProduct(toast));
 
         }
       } catch (error) {
         showToast(`${error.message}`, "Something went wrong", "error")
-        setSpinner(pre=>({...pre , [product._id] : false}))
+        setSpinner(pre => ({ ...pre, [product._id]: false }))
         console.log(error.message);
       }
     }
@@ -219,6 +239,8 @@ function Product() {
   useEffect(() => {
     document.body.style.overflow = productDeleteModel || isModelOpne ? "hidden" : "auto";
   }, [productDeleteModel, isModelOpne]);
+
+
 
   return (
     <>
@@ -321,34 +343,48 @@ function Product() {
               className="bg-white border border-gray-300 text-gray-800 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2 shadow-sm dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-500 dark:text-gray-200 dark:focus:ring-blue-400 dark:focus:border-blue-400 hover:border-gray-400 transition-all duration-200"
             />
           </div>
-
-
-          {/* Button Group */}
-          <div className="flex flex-wrap sm:flex-row gap-4 justify-center md:items-end lg:items-end mt-4 sm:mt-0">
-            <button
-              className="w-full lg:w-32 h-12 sm:w-auto px-1 py-1 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
-              onClick={(e) => seButton(e.target.innerText)}
-            >
-              Vegetable
-            </button>
-
-            <button
-              className="w-full lg:w-32 h-12 sm:w-auto px-3 py-3 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
-              onClick={(e) => seButton(e.target.innerText)}
-            >
-              Fruit
-            </button>
-
-            <button
-              className="w-full lg:w-32 h-12  sm:w-auto px-3 py-3 bg-lime-600 text-white font-semibold text-sm md:text-base rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
-              onClick={(e) => seButton(e.target.innerText)}
-            >
-              Grocery
-            </button>
-          </div>
         </div>
 
       </div>
+
+
+
+
+      <div className="flex flex-col items-center mt-8">
+        <h1 className="text-2xl font-bold mb-6">Top Categories</h1>
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div onClick={browerAll} className="flex cursor-pointer flex-col items-center p-6 bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
+            <div className="text-4xl mb-4">🍎</div>
+            <h2 className="text-lg font-semibold">Browse All</h2>
+            <p className="text-gray-500">({allProduct.length} item)</p>
+          </div>
+          <div
+            onClick={(e) => seButton('Vegetable')}
+            className="flex cursor-pointer flex-col items-center p-6 bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
+            <div className="text-4xl mb-4">🥦</div>
+            <h2 className="text-lg font-semibold">Vegetables</h2>
+            <p className="text-gray-500">({vegitable.length} item)</p>
+          </div>
+          <div
+            onClick={(e) => seButton('Fruit')}
+            className="flex cursor-pointer flex-col items-center p-6 bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
+            <div className="text-4xl mb-4">🛒</div>
+            <h2 className="text-lg font-semibold">Fruits</h2>
+            <p className="text-gray-500">({fruit.length} item)</p>
+          </div>
+          <div
+            onClick={(e) => seButton(`Grocery`)}
+            className="flex cursor-pointer flex-col items-center p-6 bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
+            <div className="text-4xl mb-4">🍇</div>
+            <h2 className="text-lg font-semibold">Grocery</h2>
+            <p className="text-gray-500">({gorcery.length} item)</p>
+
+          </div>
+        </div>
+      </div>
+
+
+
 
       <div>
 
@@ -366,7 +402,7 @@ function Product() {
                 key={index}
                 className="my-5 transform transition-transform duration-300 hover:scale-105 shadow-lg rounded-lg"
               >
-                <div className=" bg-slate-200 w-72 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div className=" bg-slate-400 w-72 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                   <a href="#" className="flex justify-center">
                     <img
                       className="pt-4 h-44 w-44 rounded-lg "
@@ -409,17 +445,17 @@ function Product() {
                           }}
                           className="text-white bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
-                          {spinner[temp._id]?(
-                             <div role="status" className="flex justify-center">
-                             <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                               <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
-                               <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
-                             </svg>
-                             <span class="sr-only">Loading...</span>
-                           </div>
-                          ):(
+                          {spinner[temp._id] ? (
+                            <div role="status" className="flex justify-center">
+                              <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+                              </svg>
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                          ) : (
 
-                         ` Add to cart`
+                            ` Add to cart`
                           )}
                         </button>
                       }

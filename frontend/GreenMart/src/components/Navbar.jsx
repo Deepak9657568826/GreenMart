@@ -71,13 +71,11 @@ function Navbar() {
         setIsOpen(false);
     }
 
-    // style={{backgroundColor : "#606470"}}
     return (
-        <nav className="fixed top-0 left-0  right-0 w-11/12 z-10 border-gray-200 bg-lime-50 m-auto dark:bg-gray-900">
+        <nav  className="fixed top-0 left-0 bg-sky-600  right-0 w-11/12 z-10 border-gray-200  m-auto dark:bg-gray-900">
             <div className="flex flex-wrap h-20  items-center justify-between px-0">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img style={{ height: "45px", width: "65px" }} src={logo} className="h-40 w-20 rounded-md" alt="Greenmart Logo" />
-                    {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> */}
                 </Link>
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
@@ -88,12 +86,11 @@ function Navbar() {
                             id="user-menu-button"
                             aria-expanded="false"
                             onClick={toggleUserMenu} // Open/close user menu
+
                         >
                             <span className="sr-only">Open user menu</span>
                             <img className="w-8 h-8 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt="user photo" />
                         </button>
-
-
 
                         <button
                             data-collapse-toggle="navbar-user"
@@ -108,16 +105,13 @@ function Navbar() {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
                             </svg>
                         </button>
-
                     </div>
-
-
                 </div>
 
                 {/* drawer for navbar */}
                 <Drawer
 
-                    style={{  height: "400px" , marginTop : "60px"  }}
+                    style={{ height: "400px", marginTop: "60px" , borderRadius : "10px" }}
                     open={isOpenDrawer} onClose={handleClose} position="right">
                     <Drawer.Header title="USER DETAILS" titleIcon={() => <></>} />
                     <Drawer.Items>
@@ -182,45 +176,45 @@ function Navbar() {
                 {/* Navbar Links (Responsive) */}
                 <div
 
-                    className={`items-center z-10  justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? 'block' : 'hidden'}`}
+                    className={`items-center z-10 ${isOpen ? 'bg-sky-600 ' : 'bg-sky-600'}  justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? 'block' : 'hidden'}`}
                     id="navbar-user"
                 >
 
 
                     <ul className="flex flex-col z-10  font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li onClick={handleClick}>
-                            <Link to="/" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</Link>
+                            <Link to="/" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Home</Link>
                         </li>
                         {role == "admin" &&
                             <>
                                 <li onClick={handleClick}>
-                                    <Link to="/addproduct" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Add Product</Link>
+                                    <Link to="/addproduct" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Add Product</Link>
                                 </li>
                                 <li onClick={handleClick}>
-                                    <Link to="/order" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Received Order</Link>
+                                    <Link to="/order" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Received Order</Link>
                                 </li>
                             </>
                         }
 
                         <li onClick={handleClick}>
-                            <Link to="/product" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Product</Link>
+                            <Link to="/product" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Product</Link>
                         </li >
 
                         {isLogin &&
                             <li onClick={handleClick}>
-                                <Link to="/particularOrder" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">My Order</Link>
+                                <Link to="/particularOrder" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">My Order</Link>
                             </li>
                         }
 
 
                         {role == "admin" &&
-                            <li className='flex flex-col lg:flex-row' onClick={handleClick}>
-                                <Link to="/adminProduct" style={{ fontSize: "18px" }} className="block py-2 px-3 mr-10 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Admin Product  </Link>
+                            <li className='flex flex-col lg:flex-row gap-5' onClick={handleClick}>
+                                <Link to="/adminProduct" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Admin Product  </Link>
                                 <div className='flex flex-row'>
 
-                                    <Link to="/cart" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Cart  </Link>
+                                    <Link to="/cart" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Cart  </Link>
                                     <Link to="/cart" className='flex flex-row'>
-                                        <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1" alt="" />
+                                        <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1 hover:text-white" alt="" />
                                         <p>{cart.length}</p>
                                     </Link>
                                 </div>

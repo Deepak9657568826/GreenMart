@@ -145,7 +145,7 @@ const [forgotModel , setForgotModel] = useState(true)
   const passwordSet = async () => {
     try {
       if (newPassword != confirmedNewPassword) {
-        showToast(`Both password should be match`, `Both password should be match` , `error`)
+        showToast(`Both fields should be match`, `Both  fields should be match` , `error`)
 
         // alert("both password should same")
         return

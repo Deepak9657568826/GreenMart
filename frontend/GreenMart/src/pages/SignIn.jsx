@@ -28,7 +28,7 @@ function SignUp() {
             name,
             email,
             password,
-            mobileNumber,
+            mobileNumber
         }
         const url = `https://greenmart-wyyp.onrender.com/register`
 

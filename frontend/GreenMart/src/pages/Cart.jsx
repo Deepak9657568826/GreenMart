@@ -85,126 +85,113 @@ function Cart() {
   }
 
   return (
-    <div className="flex justify-between flex-col  lg:flex-row ">
-      <div
-        div
-        className="flex justify-between  flex-col lg:w-1/2 sm:w-auto gap-2 mt-10 ml-5 mr-5"
-      >
+    <div className="container mx-auto px-4 py-10 m-20">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 ">
+      {/* Products Section */}
+      <div className="lg:col-span-2 space-y-4">
         {cartProduct &&
           cartProduct.map((product) => (
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
+            <div
+              key={product._id}
+              className="flex flex-col sm:flex-row items-center sm:items-start border-2  rounded-lg p-4 shadow-md w-full max-w-md mx-auto sm:max-w-none"
             >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
+              {/* Product Image */}
+              <img
+                className="w-full sm:w-40 h-auto object-cover rounded-md"
                 src={product.image}
-                alt="Caffe Latte"
+                alt={product.name}
               />
-
-              <Stack>
-                <CardBody>
-                  <Heading size="md">{product.name}</Heading>
-
-                  <Text py="2">
-                    {product.discription}
-                  </Text>
-                </CardBody>
-
-                <Flex px="4" justifyContent="space-between">
-                  <Text > <strong>Price: </strong>{product.price}</Text>
-                  <Text ><strong>Quantity: </strong> {product.quantity} {product.state == "solid" ? "kg" : "ml"}</Text>
-                </Flex>
-
-
-                <CardFooter className="flex justify-between ">
+  
+              {/* Product Details */}
+              <div className="flex-1 sm:ml-4 mt-4 sm:mt-0">
+                <h3 className="text-lg font-bold">{product.name}</h3>
+                <p className="text-gray-600 text-sm">{product.discription}</p>
+  
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-gray-800 font-semibold">
+                    Price: ₹{product.price}
+                  </span>
+                  <span className="text-gray-800 font-semibold">
+                    Quantity: {product.quantity} {product.state === "solid" ? "kg" : "ml"}
+                  </span>
+                </div>
+  
+                {/* Buttons */}
+                <div className="flex justify-between items-center mt-4">
                   <Link to={`/singleProduct/${product._id}`}>
-                    {" "}
-                    <Button variant="solid" colorScheme="blue">
+                    <button className="bg-blue-600 w-24 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                       Buy
-                    </Button>
+                    </button>
                   </Link>
-
-
-                  <Button
-                    onClick={() => {
-                      handleRemove(product._id);
-                    }}
-                    variant="solid"
-                    colorScheme="red"
+  
+                  <button
+                    onClick={() => handleRemove(product._id)}
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
                   >
                     {spinner[product._id] ? (
-                      <div role="status" className="flex justify-center">
-                        <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
-                          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+                      <div className="flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          className="w-5 h-5 text-white animate-spin"
+                          viewBox="0 0 100 101"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908Z"
+                            fill="currentColor"
+                          />
+                          <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentFill"
+                          />
                         </svg>
-                        <span class="sr-only">Loading...</span>
+                        <span className="ml-2">Removing...</span>
                       </div>
                     ) : (
-                      `Remove`
+                      "Remove"
                     )}
-                  </Button>
-                </CardFooter>
-              </Stack>
-            </Card>
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
       </div>
-
-      <div
-        style={{ position: "sticky", top: "80px" }}
-        className=" mt-10 sm:max-w-md lg:w-full  h-min mx-auto bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-2 rounded-3xl shadow-xl"
-      >
-        <div
-          className="space-y-6 bg-white p-8 rounded-3xl shadow-lg">
-          <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
-            Cart Summary
-          </h2>
-
-          <div className="flex justify-between items-center py-4 border-b border-gray-300">
-            <span className="font-medium text-gray-600 text-lg">
-              Total Items:
-            </span>
-            <span className="text-xl font-semibold text-gray-800">
-              {cart.length}
-            </span>
-          </div>
-
-          <div className="flex justify-between items-center py-4 border-b border-gray-300">
-            <span className="font-medium text-gray-600 text-lg">
-              Total Price:
-            </span>
-            <span className="text-xl font-semibold text-gray-800">
-              Rs. {totalPrice.toFixed(2)}
-            </span>
-          </div>
-
-          <div className="flex justify-between items-center py-4 border-b border-gray-300">
-            <span className="font-medium text-gray-600 text-lg">Discount:</span>
-            <span className="text-xl font-semibold text-green-500">
-              Rs. 0.00
-            </span>
-          </div>
-
-          <div className="flex justify-between items-center py-4">
-            <span className="font-medium text-gray-600 text-lg">
-              Grand Total:
-            </span>
-            <span className="text-2xl font-bold text-indigo-600">
-              Rs. {totalPrice.toFixed(2)}
-            </span>
-          </div>
-
-          <div className="flex justify-center mt-6">
-            <button className="w-full py-3 px-6 bg-blue-600 text-white font-bold rounded-2xl transform transition-transform hover:scale-105 hover:bg-blue-700 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300">
+  
+      {/* Cart Summary */}
+      <div className="lg:col-span-1">
+        <div className="sticky top-20 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 p-6 rounded-xl shadow-lg text-white">
+          <h2 className="text-2xl font-bold text-center">Cart Summary</h2>
+  
+          <div className="space-y-4 bg-white p-6 rounded-lg shadow-md text-gray-800">
+            <div className="flex justify-between border-b pb-2">
+              <span className="font-medium text-lg">Total Items:</span>
+              <span className="text-xl font-semibold">{cart.length}</span>
+            </div>
+  
+            <div className="flex justify-between border-b pb-2">
+              <span className="font-medium text-lg">Total Price:</span>
+              <span className="text-xl font-semibold">₹{totalPrice.toFixed(2)}</span>
+            </div>
+  
+            <div className="flex justify-between border-b pb-2">
+              <span className="font-medium text-lg">Discount:</span>
+              <span className="text-xl font-semibold text-green-500">₹0.00</span>
+            </div>
+  
+            <div className="flex justify-between">
+              <span className="font-medium text-lg">Grand Total:</span>
+              <span className="text-2xl font-bold text-indigo-600">₹{totalPrice.toFixed(2)}</span>
+            </div>
+  
+            <button className="w-full mt-4 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition">
               Confirm Order
             </button>
           </div>
         </div>
       </div>
     </div>
+  </div>
   );
 }
 

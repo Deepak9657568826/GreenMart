@@ -21,19 +21,21 @@ const email = state.email;
 
 
   const { allOrder, socket, setAllOrder } = useContext(orderContext)
+  console.log(allOrder);
+  
   
 
   const handleUserInteraction = () => {
-    setAudioAllowed(true); // User interacted with the page, so allow audio
+    setAudioAllowed(true);
   };
 
   useEffect(() => {
-    // Add event listeners to detect user interaction
+   
     window.addEventListener('click', handleUserInteraction);
     window.addEventListener('keydown', handleUserInteraction);
 
     return () => {
-      // Clean up event listeners
+      
       window.removeEventListener('click', handleUserInteraction);
       window.removeEventListener('keydown', handleUserInteraction);
     };
@@ -136,7 +138,7 @@ const email = state.email;
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {!allOrder ? (
+            {!allOrder || allOrder.length == 0 ? (
               <tr>
                 <td colSpan="8" className="px-6 py-4" >
                   <div className="space-y-4">

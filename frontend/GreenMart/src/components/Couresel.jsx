@@ -57,7 +57,7 @@ function Couresel() {
       {/* Navigation buttons */}
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-4 z-30 transform -translate-y-1/2 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white/30 hover:bg-white/50 dark:bg-gray-800/30 dark:hover:bg-gray-800/60 rounded-full focus:outline-none"
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white/30 hover:bg-white/50 dark:bg-gray-800/30 dark:hover:bg-gray-800/60 rounded-full focus:outline-none"
       >
         <svg
           className="w-4 h-4 sm:w-5 sm:h-5 text-white dark:text-gray-800"
@@ -76,7 +76,7 @@ function Couresel() {
       </button>
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-4 z-30 transform -translate-y-1/2 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white/30 hover:bg-white/50 dark:bg-gray-800/30 dark:hover:bg-gray-800/60 rounded-full focus:outline-none"
+        className="absolute top-1/2 right-4  transform -translate-y-1/2 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white/30 hover:bg-white/50 dark:bg-gray-800/30 dark:hover:bg-gray-800/60 rounded-full focus:outline-none"
       >
         <svg
           className="w-4 h-4 sm:w-5 sm:h-5 text-white dark:text-gray-800"
