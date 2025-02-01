@@ -38,6 +38,8 @@ const getSingleProduct = async (req, res) => {
 
 const individualProduct = async (req, res) => {
     const id = req.body.userId;  
+    console.log(id);
+    
     try {
         const allProduct = await ProductModel.find({userId : id })
         res.status(200).json({ msg: "All product list" ,  allProduct })
