@@ -108,7 +108,9 @@ socketServer.on("connection", async (socket) => {
 
             try {
                 console.log("New Order event received:", payload);
-
+                payload.username =  decoded.tokenUser.name
+                payload.userId =  decoded.tokenUser._id
+                payload.mobileNumber = decoded.tokenUser.mobileNumber
                 const neworder = new OrderModel(payload);
                 await neworder.save();
 
