@@ -188,7 +188,7 @@ function Product() {
   };
 
   const openDeleteModel = (id) => {
-    setDeleteUrl(`http://localhost:4500/deleteproduct/${id}`);
+    setDeleteUrl(`${deleteUrl}/deleteproduct/${id}`);
     setProductDeleteModel(true);
   };
 

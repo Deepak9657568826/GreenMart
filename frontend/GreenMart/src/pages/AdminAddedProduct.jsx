@@ -9,10 +9,9 @@ function AdminAddedProduct() {
   async function fetchAllProduct() {
     try {
       const response = await axios.get(adminProductUrl, authorizationToken);
-      const product = response.data.allProduct;
+      const product = await response.data.allProduct;
       console.log(response.data);
-      
-      setProduct(product);
+       setProduct(product);
     } catch (error) {
       console.log(error.message);
     }
@@ -22,7 +21,7 @@ function AdminAddedProduct() {
     fetchAllProduct();
   }, []);
  
-console.log(product);
+console.log("admin added product" , product);
 
 
   return (

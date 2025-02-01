@@ -62,9 +62,7 @@ function AddProduct() {
 
 
     return (
-    <div className=" bg-gray-300 max-h-full"    >
-
-  
+    <div className=" bg-gray-300 max-h-full" >
         <div
         
         className=" bg-white relative mt-20  min-w-80 m-auto  w-2/4  p-4  border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
