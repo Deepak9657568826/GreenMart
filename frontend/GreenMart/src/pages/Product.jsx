@@ -45,11 +45,11 @@ function Product() {
   const { showToast } = Toastnotification()
 
   const [updateUrl, setUpdateUrl] = useState(
-    "https://greenmart-wyyp.onrender.com/updateproduct"
+   ""
   );
   const [productDeleteModel, setProductDeleteModel] = useState(false);
   const [deleteUrl, setDeleteUrl] = useState(
-    "https://greenmart-wyyp.onrender.com/deleteproduct"
+    ""
   );
 
   const [checkCart, setCheckCart] = useState("");
@@ -98,7 +98,7 @@ function Product() {
     setDiscription(product.discription);
     setCategory(product.category || "vegetable");
     setAvailableQuantity(product.availableQuantity);
-    setUpdateUrl(`http://localhost:4500/updateproduct/${product._id}`);
+    setUpdateUrl(`https://greenmart-wyyp.onrender.com/updateproduct/${product._id}`);
     setModelOpen(true);
   };
 
@@ -188,7 +188,7 @@ function Product() {
   };
 
   const openDeleteModel = (id) => {
-    setDeleteUrl(`${deleteUrl}/deleteproduct/${id}`);
+    setDeleteUrl(`https://greenmart-wyyp.onrender.com/deleteproduct/${id}`);
     setProductDeleteModel(true);
   };
 
@@ -701,6 +701,7 @@ function Product() {
 
                 <div className="flex gap-8">
                   <button
+                  
                     type="submit"
                     className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
