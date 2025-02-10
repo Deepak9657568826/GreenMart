@@ -17,6 +17,7 @@ import { addToCartProduct } from './redux/actionCreator'
 import axios from 'axios'
 import { LOGINFAILURE, LOGINSUCCESS } from './redux/actionType'
 import Trial from './Trial'
+import Flow from './components/Flow'
 
 
 
@@ -75,6 +76,9 @@ function App() {
       </div>
       <Footer />
     </div>
+    // <div>
+    //   <Flow/>
+    // </div>
   )
 }
 

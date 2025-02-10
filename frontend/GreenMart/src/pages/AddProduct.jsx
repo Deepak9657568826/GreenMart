@@ -58,9 +58,7 @@ function AddProduct() {
             setSpinnerActive(false)
         }
     }
-
-
-
+    
     return (
     <div className=" bg-gray-300 max-h-full" >
         <div

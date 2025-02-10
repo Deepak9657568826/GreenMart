@@ -205,6 +205,10 @@ function Product() {
     const existProduct = cart.filter((temp) => {
       return temp.name == product.name;
     });
+
+    console.log("product which is availbe in the cart already", existProduct);
+    
+
     setCheckCart(existProduct.length);
     if (existProduct.length > 0) {
       showToast(`Product already added in cart`, `Product already added in cart`, "error")
@@ -219,6 +223,8 @@ function Product() {
         discription: product.discription
       };
       try {
+        console.log("addtocart url" , addProductToCartUrl);
+        
         const response = await axios.post(addProductToCartUrl, cartData, authorizationToken);
 
 
@@ -226,12 +232,11 @@ function Product() {
           showToast("Product added to cart", `${response.data.msg}`)
           setSpinner(pre => ({ ...pre, [product._id]: false }))
           dispatch(addToCartProduct(toast));
-
         }
       } catch (error) {
         showToast(`${error.message}`, "Something went wrong", "error")
         setSpinner(pre => ({ ...pre, [product._id]: false }))
-        console.log(error.message);
+        console.log(error);
       }
     }
   };
@@ -701,7 +706,7 @@ function Product() {
 
                 <div className="flex gap-8">
                   <button
-                  
+
                     type="submit"
                     className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
