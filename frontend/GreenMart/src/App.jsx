@@ -68,7 +68,7 @@ function App() {
 
 
   return (
-    <div className='w-11/12 m-auto bg-gray-300'>
+    <div className='w-10/12 m-auto bg-gray-300'>
 
       <Navbar />
       <div className='bg-gray-300 mt-12'>

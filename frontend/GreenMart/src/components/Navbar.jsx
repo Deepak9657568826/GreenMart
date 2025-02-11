@@ -72,7 +72,7 @@ function Navbar() {
     }
 
     return (
-        <nav  className="fixed top-0 left-0 bg-sky-600  right-0 w-11/12 z-10 border-gray-200  m-auto dark:bg-gray-900">
+        <nav  className="fixed top-0 left-0 mb-1 bg-gray-100  right-0 w-10/12 z-10 border-gray-200  m-auto dark:bg-gray-900">
             <div className="flex flex-wrap h-20  items-center justify-between px-0">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img style={{ height: "45px", width: "65px" }} src={logo} className="h-40 w-20 rounded-md" alt="Greenmart Logo" />
@@ -176,45 +176,45 @@ function Navbar() {
                 {/* Navbar Links (Responsive) */}
                 <div
 
-                    className={`items-center z-10 ${isOpen ? 'bg-sky-600 ' : 'bg-sky-600'}  justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? 'block' : 'hidden'}`}
+                    className={`items-center z-10 ${isOpen ? 'bg-gray-100 ' : 'bg-gray-100'}  justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? 'block' : 'hidden'}`}
                     id="navbar-user"
                 >
 
 
                     <ul className="flex flex-col z-10  font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li onClick={handleClick}>
-                            <Link to="/" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Home</Link>
+                            <Link to="/" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Home</Link>
                         </li>
                         {role == "admin" &&
                             <>
                                 <li onClick={handleClick}>
-                                    <Link to="/addproduct" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Add Product</Link>
+                                    <Link to="/addproduct" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Add Product</Link>
                                 </li>
                                 <li onClick={handleClick}>
-                                    <Link to="/order" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Received Order</Link>
+                                    <Link to="/order" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Received Order</Link>
                                 </li>
                             </>
                         }
 
                         <li onClick={handleClick}>
-                            <Link to="/product" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Product</Link>
+                            <Link to="/product" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Product</Link>
                         </li >
 
                         {isLogin &&
                             <li onClick={handleClick}>
-                                <Link to="/particularOrder" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">My Order</Link>
+                                <Link to="/particularOrder" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">My Order</Link>
                             </li>
                         }
 
 
                         {role == "admin" &&
                             <li className='flex flex-col lg:flex-row gap-5' onClick={handleClick}>
-                                <Link to="/adminProduct" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Admin Product  </Link>
+                                <Link to="/adminProduct" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Admin Product  </Link>
                                 <div className='flex flex-row'>
 
-                                    <Link to="/cart" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-white md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Cart  </Link>
+                                    <Link to="/cart" style={{ fontSize: "18px" }} className="block py-2 px-3 text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent  md:p-0 dark:text-white dark:border-gray-700">Cart  </Link>
                                     <Link to="/cart" className='flex flex-row'>
-                                        <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1 hover:text-white" alt="" />
+                                        <img src="https://cdn-icons-png.flaticon.com/128/9219/9219671.png" className="w-6 , h-6 , mt-1 hover:text-slate-500" alt="" />
                                         <p>{cart.length}</p>
                                     </Link>
                                 </div>

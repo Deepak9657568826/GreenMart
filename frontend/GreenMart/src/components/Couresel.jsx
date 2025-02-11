@@ -34,9 +34,9 @@ function Couresel() {
 
 
   return (
-    <div className="relative w-full mx-auto mt-3" style={{ width: "100%" }}>
+    <div className="relative w-full h-[700px] mx-auto mt-1" style={{ width: "100%" }}>
       {/* Carousel wrapper */}
-      <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-lg">
+      <div className="relative h-[500px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-lg">
         {/* Slides */}
         {slides.map((slide, index) => (
           <div
@@ -48,7 +48,7 @@ function Couresel() {
             <img
               src={slide}
               alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover rounded"
+              className="w-full h-[700px] object-cover rounded"
             />
           </div>
         ))}

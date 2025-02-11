@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Couresel from '../components/Couresel';
 import Product from './Product';
 import { useSelector } from 'react-redux';
+import VideoBanner from '../components/VideoBanner';
 
 function HomePage() {
   const state = useSelector((state) => state.auth);
@@ -34,7 +35,8 @@ function HomePage() {
       {/* <h1 className="text-xl md:text-2xl m-0 p-0 font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-red-500 drop-shadow-lg">
         {greet}
       </h1> */}
-      <Couresel />
+      {/* <Couresel /> */}
+      <VideoBanner/>
       <Product />
     </div>
   );
