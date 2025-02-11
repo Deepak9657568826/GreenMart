@@ -1,7 +1,15 @@
 import one from "../assets/videophoto1.png";
 import two from "../assets/videobannerVideo.mp4";
+import { useNavigate } from "react-router-dom";
+
 
 export default function VideoBanner() {
+
+const nevigate = useNavigate();
+
+const handleShopNow = () => {
+    nevigate("/product")
+}
     return (
       <div className="relative h-screen w-full overflow-hidden">
         {/* Background Video */}
@@ -19,18 +27,14 @@ export default function VideoBanner() {
   
         {/* Content */}
         <div className="relative flex flex-col items-center justify-center h-full text-center text-white p-6">
-          <img
-            src={one}
-            alt="Grocery Items"
-            className="w-40 h-40 mb-4 animate-bounce"
-          />
+          
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
             Fresh & Healthy Groceries!
           </h1>
           <p className="text-lg md:text-xl mb-6">
             "Stock your kitchen with love and freshness. Shop now!"
           </p>
-          <button className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-all duration-300">
+          <button onClick={handleShopNow} className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-all duration-300">
             Shop Now
           </button>
         </div>

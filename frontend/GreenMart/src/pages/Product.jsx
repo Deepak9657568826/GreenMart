@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import SuccessToast from "../utils/SuccessToast";
 import { addToCartProduct } from "../redux/actionCreator";
 import { Link, useLocation } from "react-router-dom";
-import three from "../assets/rich proties sorces greenmart.gif";
-import four from "../assets/flavour jar greenmart.gif";
+import three from "../assets/productphoto1.jpeg";
+import four from "../assets/productphoto2.png";
+import five from "../assets/productphoto3.png";
 import { authorizationToken } from "../utils/Token";
 import { addProductToCartUrl, allOverProductUrl } from "../utils/Url";
 import ProductSkeleton from "../components/ProductSkeleton";
@@ -59,7 +60,7 @@ function Product() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Array of image sources for the slides
-  const slides = [three, four];
+  const slides = [three, four, five];
 
   // Function to handle next button click
 
@@ -405,9 +406,9 @@ function Product() {
             return (
               <div
                 key={index}
-                className="my-5 transform transition-transform duration-300 hover:scale-105 shadow-lg rounded-lg"
+                className="my-4 transform transition-transform duration-300 hover:scale-105 shadow-lg rounded-lg"
               >
-                <div className=" bg-slate-400 w-72 border border-teal-50 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div className=" bg-gray-100 w-60 border border-teal-50 rounded-md shadow dark:bg-gray-800 dark:border-gray-100">
                   <a href="#" className="flex justify-center">
                     <img
                       className="pt-4 h-44 w-44 rounded-lg "
