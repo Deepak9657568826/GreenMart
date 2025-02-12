@@ -106,6 +106,7 @@ className="w-full h-full object-contain rounded-lg "
                 <option value="liquid">Liquid</option>
               </select>
               <hr className="mb-4 border-gray-500 p-2" />
+              
   
               {/* Category */}
               <select className="w-full bg-transparent p-2 border-none text-gray-900 focus:outline-none">
