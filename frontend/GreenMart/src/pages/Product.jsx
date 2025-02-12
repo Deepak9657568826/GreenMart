@@ -249,81 +249,82 @@ function Product() {
 
 
   return (
-    <>
+    <div className="bg-gray-100">
       {/*carousel  */}
-      {location.pathname == "/product" &&
-        <div className="relative w-full mx-auto mt-3" style={{ width: "100%" }}>
-          {/* Carousel wrapper */}
-          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-lg">
-            {/* Slides */}
-            {slides.map((slide, index) => (
-              <div
-                key={index}
-                className={`absolute mt-8 inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${index === activeIndex ? "opacity-100" : "opacity-0"
-                  }`}
-              >
-                <img
-                  src={slide}
-                  alt={`Slide ${index + 1}`}
-                  className="w-full h-full object-cover rounded"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Navigation buttons */}
-          <button
-            onClick={prevSlide}
-            className="absolute top-1/2 left-4 z-30 transform -translate-y-1/2 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white/30 hover:bg-white/50 dark:bg-gray-800/30 dark:hover:bg-gray-800/60 rounded-full focus:outline-none"
-          >
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 text-white dark:text-gray-800"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            <span className="sr-only">Previous</span>
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute top-1/2 right-4 z-30 transform -translate-y-1/2 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white/30 hover:bg-white/50 dark:bg-gray-800/30 dark:hover:bg-gray-800/60 rounded-full focus:outline-none"
-          >
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 text-white dark:text-gray-800"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-            <span className="sr-only">Next</span>
-          </button>
-
-          {/* Indicators */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveIndex(index)}
-                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${index === activeIndex ? "bg-white" : "bg-white/30"
-                  }`}
-              />
-            ))}
-          </div>
+      {location.pathname == "/product" && (
+  <div className=" relative w-full mx-auto overflow-hidden h-[80vh] max-h-[700px] min-h-[400px]">
+    {/* Carousel wrapper */}
+    <div className="relative w-full h-full overflow-hidden">
+      {/* Slides */}
+      {slides.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
+            index === activeIndex ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <img
+            src={slide}
+            alt={`Slide ${index + 1}`}
+            className="w-full h-full object-cover"
+          />
         </div>
-      }
+      ))}
+    </div>
+
+    {/* Navigation buttons */}
+    <button
+      onClick={prevSlide}
+      className="absolute top-1/2 left-4 z-30 transform -translate-y-1/2 flex items-center justify-center w-10 h-10 bg-white/50 hover:bg-white/40 rounded-full focus:outline-none"
+    >
+      <svg
+        className="w-5 h-5 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M15 19l-7-7 7-7"
+        />
+      </svg>
+    </button>
+
+    <button
+      onClick={nextSlide}
+      className="absolute top-1/2 right-4 z-30 transform -translate-y-1/2 flex items-center justify-center w-10 h-10 bg-white/50 hover:bg-white/40 rounded-full focus:outline-none"
+    >
+      <svg
+        className="w-5 h-5 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M9 5l7 7-7 7"
+        />
+      </svg>
+    </button>
+
+    {/* Indicators */}
+    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      {slides.map((_, index) => (
+        <button
+          key={index}
+          onClick={() => setActiveIndex(index)}
+          className={`w-3 h-3 rounded-full ${
+            index === activeIndex ? "bg-white" : "bg-white/30"
+          }`}
+        />
+      ))}
+    </div>
+  </div>
+)}
       {/* carousel */}
 
       <h1
@@ -354,48 +355,46 @@ function Product() {
       </div>
 
 
+{/* categories */}
 
-
-      <div className="flex flex-col items-center mt-8">
-        <h1 className="text-2xl font-bold mb-6">Top Categories</h1>
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div onClick={browerAll} className="flex cursor-pointer flex-col items-center p-6 bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
-            <div className="text-4xl mb-4">🍎</div>
-            <h2 className="text-lg font-semibold">Browse All</h2>
-            <p className="text-gray-500">({allProduct.length} item)</p>
+      <div className="flex flex-col items-center mt-8 bg-gray-100">
+        <h1 className="text-xl font-bold mb-8">Top Categories</h1>
+        <div className="grid grid-cols-2 sm:grid-cols-2  lg:grid-cols-5 gap-10">
+          <div onClick={browerAll} className="h-28 w-28 p-2 flex cursor-pointer flex-col items-center  bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
+            <div className="text-xl mb-2">🍎</div>
+            <h2 className="text-base font-medium">Browse All</h2>
+            <p className="text-gray-500 text-sm">({allProduct.length} item)</p>
           </div>
           <div
             onClick={(e) => seButton('Vegetable')}
-            className="flex cursor-pointer flex-col items-center p-6 bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
-            <div className="text-4xl mb-4">🥦</div>
-            <h2 className="text-lg font-semibold">Vegetables</h2>
+            className="h-28 w-28 p-2 flex cursor-pointer flex-col items-center  bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
+            <div className="text-xl mb-2">🥦</div>
+            <h2 className="text-base font-medium">Vegetables</h2>
             <p className="text-gray-500">({vegitable.length} item)</p>
           </div>
           <div
             onClick={(e) => seButton('Fruit')}
-            className="flex cursor-pointer flex-col items-center p-6 bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
-            <div className="text-4xl mb-4">🛒</div>
-            <h2 className="text-lg font-semibold">Fruits</h2>
+            className="h-28 w-28 p-2 flex cursor-pointer flex-col items-center  bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
+            <div className="text-xl mb-2">🛒</div>
+            <h2 className="text-base font-medium">Fruits</h2>
             <p className="text-gray-500">({fruit.length} item)</p>
           </div>
           <div
             onClick={(e) => seButton(`Grocery`)}
-            className="flex cursor-pointer flex-col items-center p-6 bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
-            <div className="text-4xl mb-4">🍇</div>
-            <h2 className="text-lg font-semibold">Grocery</h2>
+            className="h-28 w-28 p-2 flex cursor-pointer flex-col items-center  bg-white shadow-md rounded-lg transition-transform duration-300 hover:scale-105">
+            <div className="text-xl mb-2">🍇</div>
+            <h2 className="text-base font-medium">Grocery</h2>
             <p className="text-gray-500">({gorcery.length} item)</p>
 
           </div>
         </div>
       </div>
 
-
-
-
       <div>
-
       </div>
-      <div className="flex flex-wrap gap-5  mt-10 justify-center bg-gray-100 ">
+
+
+      <div className="flex flex-wrap gap-14  mt-10 justify-center bg-gray-100 ">
         {!filterData ? (
           <div className="flex justify-between">
             <ProductSkeleton />
@@ -406,28 +405,34 @@ function Product() {
             return (
               <div
                 key={index}
-                className="my-4 transform transition-transform duration-300 hover:scale-105 shadow-lg rounded-lg"
+                className="my-4  transform transition-transform duration-300 hover:scale-105 shadow-lg rounded-lg"
               >
-                <div className=" bg-gray-100 w-60 border border-teal-50 rounded-md shadow dark:bg-gray-800 dark:border-gray-100">
+                <div className=" bg-gray-100 w-50  border border-teal-50 rounded-md shadow dark:bg-gray-800 dark:border-gray-100">
                   <a href="#" className="flex justify-center">
                     <img
-                      className="pt-4 h-44 w-44 rounded-lg "
+                      className=" h-32 w-40"
                       src={temp.image}
                       alt="product image"
                     />
+                    
                   </a>
-                  <div className="px-5 pb-5">
+                  <Link to={`/singleProduct/${temp._id}`}>
+                        <button style={{ width: role == "user" ? ("120px") : ("") }} className="text-lime-950 min-w-full bg-gradient-to-b from-lime-50 via-lime-100 to-lime-300 hover:from-lime-100 hover:via-lime-200 hover:to-lime-400 focus:ring-2 focus:outline-none focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:from-lime-700 dark:via-lime-800 dark:to-lime-900 dark:hover:from-lime-600 dark:hover:to-lime-800">
+                          Buy now
+                        </button>
+                      </Link>
+                  <div className="px-5 pb-4">
                     <a href="#">
-                      <h5 className="text-lg pt-4 text-center font-semibold tracking-tight text-gray-900 dark:text-white">
+                      <h4 className="text-base pt-2 text-left font-semibold tracking-tight text-gray-900 dark:text-white">
                         {temp.name}
-                      </h5>
+                      </h4>
                     </a>
                     <div>
-                      <div className="flex items-center mt-2.5 mb-5  justify-between ">
-                        <span className="text-lg  text-gray-900 dark:text-white">
+                      <div className="flex items-center mt mb-2  justify-between ">
+                        <span className="text-sm  text-gray-900 dark:text-white">
                           Rs: {temp.price}
                         </span>
-                        <span className="text-lg  text-gray-900 dark:text-white">
+                        <span className="text-sm  text-gray-900 dark:text-white">
                           {" "}
                           {temp.quantity >= 1000
                             ? temp.quantity.toString()[0]
@@ -438,11 +443,7 @@ function Product() {
 
                     </div>
                     <div className="flex  items-center justify-between">
-                      <Link to={`/singleProduct/${temp._id}`}>
-                        <button style={{ width: role == "user" ? ("120px") : ("") }} className="text-white min-w-full  bg-lime-600 hover:bg-lime-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                          Buy now
-                        </button>
-                      </Link>
+                     
 
                       {role == "admin" &&
                         <button
@@ -796,7 +797,7 @@ function Product() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
