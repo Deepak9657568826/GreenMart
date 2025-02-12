@@ -1,55 +1,99 @@
 import React from 'react';
-import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import {FaQrcode , FaFacebookF, FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { IoMdAppstore } from "react-icons/io";
 import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <footer className="bg-gray-800  text-white py-10 shadow-md">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start px-4 md:px-10">
-        
-        {/* About Section */}
-        <div className="mb-8 md:mb-0 md:w-1/3">
-          <h2 className="text-2xl font-bold border-b-4 border-orange-600 pb-2 mb-4">About Us</h2>
-          <p className="text-sm leading-relaxed">
-            Our aim is to bring customers closer to nature and ensure the availability of the best fruits, vegetables, and grocery products for their health. Stay connected with us on our social media for the latest offers and product updates! On our website, you will easily find fresh fruits, vegetables, and quality grocery items to meet your daily needs.
-          </p>
+    <footer className="bg-black text-white py-10">
+    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-8 px-6 md:px-10">
+      
+      {/* Exclusive Section */}
+      <div className="col-span-1">
+        <h2 className="text-lg font-semibold">GreenMart</h2>
+        <p className="text-gray-400 text-sm mt-2">Subscribe</p>
+        <p className="text-gray-400 text-xs">Get 10% off your first order</p>
+        <div className="mt-3 flex items-center border border-gray-600 rounded-lg overflow-hidden">
+          <input type="email" placeholder="Enter your email" className="bg-transparent text-sm text-white px-3 py-2 outline-none w-full" />
+          <button className="bg-gray-600 px-4 py-2 hover:bg-gray-400 transition">&gt;</button>
         </div>
+      </div>
+  
+      {/* Support Section */}
+      <div>
+        <h2 className="text-lg font-semibold">Support</h2>
+        <p className="text-gray-400 text-sm mt-2">India</p>
+        <p className="text-gray-400 text-sm mt-2">greenmart@gmail.com</p>
+        <p className="text-gray-400 text-sm mt-2">+80010-88888-9999</p>
+      </div>
+  
+      {/* Account Section */}
+      <div>
+        <h2 className="text-lg font-semibold">Account</h2>
+        <ul className="text-gray-400 text-sm mt-2 space-y-2">
+          <li><a href="#" className="hover:text-white transition">My Account</a></li>
+          <li><a href="#" className="hover:text-white transition">Login / Register</a></li>
+          <li><a href="#" className="hover:text-white transition">Cart</a></li>
+          <li><a href="#" className="hover:text-white transition">Wishlist</a></li>
+          <li><a href="#" className="hover:text-white transition">Shop</a></li>
+        </ul>
+      </div>
+  
+      {/* Quick Links Section */}
+      <div>
+        <h2 className="text-lg font-semibold">Quick Link</h2>
+        <ul className="text-gray-400 text-sm mt-2 space-y-2">
+          <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
+          <li><a href="#" className="hover:text-white transition">Terms of Use</a></li>
+          <li><a href="#" className="hover:text-white transition">FAQ</a></li>
+          <li><a href="#" className="hover:text-white transition">Contact</a></li>
+        </ul>
+      </div>
+  
+      {/* Download App Section */}
+      <div>
+        <h2 className="text-lg font-semibold">Download App</h2>
+        <p className="text-gray-400 text-xs mt-2">Save $3 With App New User Only</p>
+        <div className="mt-3 flex items-center space-x-2">
+        <a href="#" className="text-gray-400 hover:text-white transition">
+        <FaQrcode size={22} />play store
+      </a>
+          <div className="space-y-2">
+          <a href="#" className="text-gray-400 hover:text-white transition">
+        <IoMdAppstore size={22} />play store
+      </a>
+      <a href="#" className="text-gray-400 hover:text-white transition">
+        <IoMdAppstore size={22} />play store
 
-        {/* Links Section */}
-        <div className="mb-8 md:mb-0 md:w-1/3">
-          <h2 className="text-2xl font-bold border-b-4 border-orange-600 pb-2 mb-4">Quick Links</h2>
-          <ul className="space-y-2">
-            <li><Link to="/" className="hover:text-orange-500 transition-colors">Home</Link></li>
-            <li><Link to="/particularOrder" className="hover:text-orange-500 transition-colors">Your Order</Link></li>
-            <li><Link to="/Profile" className="hover:text-orange-500 transition-colors">User Profile</Link></li>
-            <li><Link to="/signup" className="hover:text-orange-500 transition-colors">Sign Up</Link></li>
-            <li><Link to="/login" className="hover:text-orange-500 transition-colors">Login</Link></li>
-          </ul>
-        </div>
-
-        {/* Contact Section */}
-        <div className="md:w-1/3">
-          <h2 className="text-2xl font-bold border-b-4 border-orange-600 pb-2 mb-4">Contact Us</h2>
-          <p className="mb-2">Email: <a href="mailto:greenMart@gmail.com" className="hover:text-orange-500">greenMart@gmail.com</a></p>
-          <p className="mb-6">Mobile Number: +91 9657XXXX26</p>
-
-          <h3 className="text-xl font-bold mb-4">Connect With Us</h3>
-          <div className="flex space-x-4">
-            <a href="https://www.linkedin.com//" target="_blank" rel="noopener noreferrer" className="bg-black text-white rounded-full p-3 hover:bg-gray-300 hover:text-blue-800">
-              <FaLinkedin size={28} />
-            </a>
-            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="bg-black text-white rounded-full p-3 hover:bg-gray-300 hover:text-blue-800">
-              <FaFacebookF size={28} />
-            </a>
+      </a>
           </div>
         </div>
       </div>
+  
+    </div>
+  
+    {/* Social Media Section */}
+    <div className="flex justify-center space-x-6 mt-6">
+      <a href="#" className="text-gray-400 hover:text-white transition">
+        <FaFacebookF size={22} />
+      </a>
+      <a href="#" className="text-gray-400 hover:text-white transition">
+        <FaTwitter size={22} />
+      </a>
+      <a href="#" className="text-gray-400 hover:text-white transition">
+        <FaInstagram size={22} />
+      </a>
+      <a href="#" className="text-gray-400 hover:text-white transition">
+        <FaLinkedin size={22} />
+      </a>
+    </div>
+  
+    {/* Footer Bottom */}
+    <div className="border-t border-gray-700 mt-8 pt-4 text-center text-gray-400 text-sm">
+      <p>&copy; Copyright Rimel 2022. All rights reserved</p>
+    </div>
+  </footer>
 
-      {/* Footer Bottom */}
-      <div className="border-t border-gray-700 mt-8 pt-4 text-center text-sm">
-        <p>&copy; 2024 GreenMart PVT.LTD. All Rights Reserved.</p>
-      </div>
-    </footer>
   );
 }
 
