@@ -47,6 +47,7 @@ console.log("admin added product" , product);
                   {item.name}
                 </h2>
 
+
                 <p className="text-gray-700 mb-2 flex items-center gap-2">
                   <span className="font-semibold text-green-500">Price:</span>
                   <span className="text-lg font-bold">₹{item.price}</span>
