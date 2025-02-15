@@ -37,11 +37,13 @@ console.log("admin added product" , product);
               key={index}
               className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl relative"
             >
+
               <img
                 src={item.image}
                 alt={item.name}
                 className="w-full h-48 object-cover"
               />
+              
               <div className="p-6">
                 <h2 className="text-2xl font-extrabold text-gray-900 mb-4">
                   {item.name}
